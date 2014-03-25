@@ -15,10 +15,23 @@ teifighterApp.config(['$routeProvider',
       });
   }]);
 
-teifighterApp.controller("TeifighterController", teifighterController);
+teifighterApp.controller("TeifighterController", teifighterController)
+.directive('imageonload', function() {
+    return {
+       restrict: 'A',
+       link: function(scope, element, attrs) {
+           element.bind('load', function() {
+              scope.initializeCanvas();
+        });
+     }
+ };
+});
+;
 
 teifighterApp.controller("settingsController", function($scope)
 {
   $scope.testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/1/007v.jpg";
 }
 );
+
+
