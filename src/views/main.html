@@ -2,10 +2,20 @@
 <h1> This the main overview of the application</h1>
 
 <div class="row">
-	<div class="col-md-6" style="background-color:red">
-	<img src = {{testUrl}} />
+	<div id="canvas-container" class="col-md-6" style="background-color:red;">
+		<canvas id="canvas" style="background-color: blue" width="555" height="555"> </canvas>
 	</div>
 	<div class="col-md-6" style="background-color:green">
+		Hi right
 	</div>
 </div>
+
+
+<img id="image" src="{{testUrl}}" style="visibility: hidden;" width="10px" height="10px"/>
+
+{{
+		initializeCanvas();
+}}
+
+
 </div>
