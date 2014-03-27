@@ -2,9 +2,17 @@ teifighterController = function ($scope) {
 	$scope.hello = 'It works';
 	$scope.more = "yes it is";
 	
+	// This is the view controller. It can be used for scrolling,
+	// zooming and transforming coordinates. I think it should be
+	// visible to the whole project, but in a cleaner way than using
+	// global variables.
 	var view;
+	
+	// This object manages the inputs of the user. It is changed when
+	// the context changes (moving the view, drawing rectangles).
 	var inputManager;
 	
+	// Initialization of the canvas, mainly creates different observers
 	$scope.initializeCanvas = function($scope) {
 		
 		// Getting the canva, setting paper
@@ -15,50 +23,62 @@ teifighterController = function ($scope) {
 		// loading the image
 		raster = new paper.Raster('image');
 		
-		// Setting correct position
-		R = raster;
+		// By default, the center of the image is on the left-top corner
+		// of the canvas, it has to be offseted.
 		paper.project.activeLayer.position = [raster.width/2, raster.height/2];
 		
-		// Get the view of the canva
-		view = createViewController(paper.project.view, paper.project.activeLayer);
+		// Create a view controller for the canvas.
+		view = createViewController(
+			paper.project.view,
+			paper.project.activeLayer
+		);
 		
-		// creating the default input manager
+		// creating the default input manager (moving the image)
 		inputManager = viewOffsetController(this, view, canvas);
 		
-		// Ugly code, it will have to be cleaned !
+		// Ugly code, it will have to be cleaned ! These variables store
+		// the state of the mouse at some moments.
+		// This indicates if the mouse button is being hold down ; it is
+		// used to discriminate mouse move from mouse drag
 		var isMouseDown = false;
+		// Position at the moment isMouseDown becomes true
 		var mouseDownPos = new paper.Point(0,0);
+		// Position at the moment isMouseUp becomes false
 		var mouseUpPos   = new paper.Point(0,0);
+		// Position of the mouse during drag - updated at the end of the
+		// function call.
 		var prevDragPos  = new paper.Point(0,0);
 		
 		// Mouseup, there has been a click
 		canvas.onmouseup = function(event) {
+			// Getting the coordinates of the mouse
 			mouseUpPos.x = event.clientX - canvas.getBoundingClientRect().left;
 			mouseUpPos.y = event.clientY - canvas.getBoundingClientRect().top;
 			
-			// Not dragged ? let's zoom
+			// if the coordinates have not changed while the mouse button was
+			// down, it is a click
 			if (mouseUpPos.x==mouseDownPos.x && mouseUpPos.y==mouseDownPos.y) {
+				// Dispatch the info to the input manager
 				inputManager.click(mouseUpPos.x, mouseUpPos.y);
-				var q = view.getRealPoint(mouseDownPos);
-				var p = view.getViewPoint(q);
-				console.log('Clicked on '+mouseDownPos.x+','+mouseDownPos.y);
-				console.log('Real point '+q.x+','+q.y);
-				console.log('View point '+p.x+','+p.y);
-				
-				setCenter(q);
 			} else {
+				// Else the button has been released after a mouse drag
 				inputManager.dragStopped();
 			}
 			
+			// Not down anymore.
 			isMouseDown = false;
 		}
 		
+		// If the mouse leaves the canvas, we considere it a bit like an
+		// eventless mouse click.
 		canvas.onmouseleave = function(event) {
 			mouseUpPos.x = event.clientX - canvas.getBoundingClientRect().left;
 			mouseUpPos.y = event.clientY - canvas.getBoundingClientRect().top;
 			isMouseDown = false;
 		}
 		
+		// The mouse was pressed on the canvas - reset mouseDownPos
+		// and also prevDragPos.
 		canvas.onmousedown = function(event) {
 			prevDragPos.x = mouseDownPos.x = event.clientX - canvas.getBoundingClientRect().left;
 			prevDragPos.y = mouseDownPos.y = event.clientY - canvas.getBoundingClientRect().top;
@@ -66,19 +86,24 @@ teifighterController = function ($scope) {
 			
 		}
 
+		// The mouse was moved... was it dragged ?
 		canvas.onmousemove = function(event)  {
+			// If not dragged...
 			if (!isMouseDown) return;
 			
+			// Get coordinates of the click
 			x = event.clientX - canvas.getBoundingClientRect().left;
 			y = event.clientY - canvas.getBoundingClientRect().top;
 			pos = new paper.Point(x,y);
 			
-			// Should dx,dy be divided by the zoom here, or later ?
+			// Compute by how much it moved since last such event
 			dx = x - prevDragPos.x;
 			dy = y - prevDragPos.y;
 			
+			// Tell the input manager that there was a drag
 			inputManager.drag(mouseDownPos, pos, dx, dy);
 			
+			// Update data
 			prevDragPos.x = x;
 			prevDragPos.y = y;
 		}
@@ -86,16 +111,19 @@ teifighterController = function ($scope) {
 		// Zoom-scroll - due to Firefox & Chrome incompatibilities,
 		// it has to be coded twice. Crap.
 		canvas.addEventListener("mousewheel", function (e) {
+			// It's supposed to prevent from scrolling the page - does
+			// not really work. Maybe in a next browser version ?
 			e.preventDefault();
 			var direction = e.deltaY;
 			var viewP = new paper.Point(e.offsetX, e.offsetY);
 			var realP   = getRealPoint(viewP);
-			
+			// Zoom or unzoom
 			if (direction<0) {
 				view.zoomIn();
 			} else {
 				view.zoomOut();
 			}
+			// Then replace the correct point under the mouse 
 			view.placePointAt(realP, viewP);
 		});
 		canvas.addEventListener("DOMMouseScroll", function (e) {
@@ -116,49 +144,60 @@ teifighterController = function ($scope) {
 
 	};
 	
-	$scope.test = function($scope) {
-		alert("Don't");
-	};
-	
-	$scope.buttonZoomIn = function($scope) {
+	// Zooms in toward the center of the view
+	$scope.centerZoomIn = function($scope) {
 		var p = view.getCenter();
 		view.zoomIn();
 		view.setCenter(p);
 	};
 	
-	$scope.buttonZoomOut = function($scope) {
+	// Zooms out from the center of the view
+	$scope.centerZoomOut = function($scope) {
 		var p = view.getCenter();
 		view.zoomOut();
 		view.setCenter(p);
 	};
 	
+	// Indicates to teifighterController that we want now to
+	// move the document around
 	$scope.selectOffsetController = function($scope) {
 		inputManager = viewOffsetController(this, view, canvas);
 	};
 	
+	// Indicates to teifighterController that we want now to
+	// draw rectangles on the document
 	$scope.selectRectanglesController = function($scope) {
 		inputManager = createRectanglesController(this, view, canvas);
 	};
 	
 	
-	// View manager
+	// View manager - manages zoom, offset and coordinates
+	// transformations. Maybe having it inside of
+	// teifighterController.js is not the best option...
 	createViewController = function(pView, pLayer) {
+		// Ref to the view and the layer
 		this.view   = pView;
 		this.layer  = pLayer;
+		
+		// The layer does not know its zoom, it has to be
+		// stored somewhere.
 		var zoom    = 1;
 		
+		// The center of the layer seems to have the coordinates (0,0),
+		// we can solve it by knowing the dimensions of the raster and
+		// subtracting or adding them when coordinates are being
+		// transformed
 		var baseOffsetX = Math.floor(raster.width/2);
 		var baseOffsetY = Math.floor(raster.height/2);
 		
-		// Zooms in
+		// Zooms in, reaches funny new coordinates
 		zoomIn = function() {
 			this.layer.scale(1.5);
 			zoom *= 1.5;
 			this.view.update();
 		}
 		
-		// Zooms out without changing the position of the pixel (cx,cy)
-		// of the view
+		// Zooms out, reaches unusual new coordinates
 		zoomOut = function() {
 			this.layer.scale(1/1.5);
 			zoom /= 1.5;
