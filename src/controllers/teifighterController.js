@@ -13,13 +13,14 @@ teifighterController = function ($scope) {
 		paper.view.draw();
 		
 		// loading the image
-		var raster = new paper.Raster('image');
+		raster = new paper.Raster('image');
 		
 		// Setting correct position
-		raster.position = [raster.width/2, raster.height/2];
+		R = raster;
+		paper.project.activeLayer.position = [raster.width/2, raster.height/2];
 		
 		// Get the view of the canva
-		view = createViewController(paper.view);
+		view = createViewController(paper.project.view, paper.project.activeLayer);
 		
 		// creating the default input manager
 		inputManager = viewOffsetController(this, view, canvas);
@@ -39,6 +40,8 @@ teifighterController = function ($scope) {
 			// Not dragged ? let's zoom
 			if (mouseUpPos.x==mouseDownPos.x && mouseUpPos.y==mouseDownPos.y) {
 				inputManager.click(mouseUpPos.x, mouseUpPos.y);
+				var q = view.getRealPoint(mouseDownPos);
+				alert(q.x+' '+q.y);
 			} else {
 				inputManager.dragStopped();
 			}
@@ -102,21 +105,47 @@ teifighterController = function ($scope) {
 	
 	
 	// View manager
-	createViewController = function(pView) {
+	createViewController = function(pView, pLayer) {
 		this.view   = pView;
+		this.layer  = pLayer;
+		var zoom    = 1;
+		
+		var baseOffsetX = Math.floor(raster.width/2);
+		var baseOffsetY = Math.floor(raster.height/2);
 		
 		zoomIn = function(cx, cy) {
-			this.view.zoom *= 1.5;
+			//this.view.zoom *= 1.5;
+			this.layer.scale(1.5);
+			zoom *= 1.5;
+			this.view.update();
 		}
 		
 		zoomOut = function() {
-			this.view.zoom /= 1.5;
+			//this.view.zoom /= 1.5;
+			this.layer.scale(1/1.5);
+			zoom /= 1.5;
+			this.view.update();
 		}
+		
+		getRealPoint = function(p) {
+			q = new paper.Point(
+				(p.x + baseOffsetX*zoom - this.layer.position.x) / zoom,
+				(p.y + baseOffsetY*zoom - this.layer.position.y) / zoom
+			);
+			return q;
+		};
+		
+		getLayerPoint = function(p) {
+			
+		};
 		
 		offsetView = function(dx, dy) {
 			var z = this.view.zoom;
-			var p = new paper.Point(-dx/z, -dy/z);
-			this.view.scrollBy(p);
+			var p = new paper.Point(dx/z, dy/z);
+			//this.view.scrollBy(p);
+			this.layer.position.x += p.x;
+			this.layer.position.y += p.y;
+			this.view.update();
 		}
 
 		return this;
