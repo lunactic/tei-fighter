@@ -21,8 +21,8 @@ teifighterController = function ($scope) {
 		// Get the view of the canva
 		view = createViewController(paper.view);
 		
-		// creating the input manager
-		inputManager = viewOffsetController(view, canvas);
+		// creating the default input manager
+		inputManager = viewOffsetController(this, view, canvas);
 		
 		// Ugly code, it will have to be cleaned !
 		var isMouseDown = false;
@@ -39,6 +39,8 @@ teifighterController = function ($scope) {
 			// Not dragged ? let's zoom
 			if (mouseUpPos.x==mouseDownPos.x && mouseUpPos.y==mouseDownPos.y) {
 				inputManager.click(mouseUpPos.x, mouseUpPos.y);
+			} else {
+				inputManager.dragStopped();
 			}
 			
 			isMouseDown = false;
@@ -62,12 +64,14 @@ teifighterController = function ($scope) {
 			
 			x = event.clientX - canvas.getBoundingClientRect().left;
 			y = event.clientY - canvas.getBoundingClientRect().top;
+			pos = new paper.Point(x,y);
+			console.log(pos);
 			
 			// Should dx,dy be divided by the zoom here, or later ?
 			dx = x - prevDragPos.x;
 			dy = y - prevDragPos.y;
 			
-			inputManager.drag(x,y,dx,dy);
+			inputManager.drag(mouseDownPos, pos, dx, dy);
 			
 			prevDragPos.x = x;
 			prevDragPos.y = y;
@@ -89,7 +93,11 @@ teifighterController = function ($scope) {
 	};
 	
 	$scope.selectOffsetController = function($scope) {
-		alert('todo: create new offset controller & change mouse pointer');
+		inputManager = viewOffsetController(this, view, canvas);
+	};
+	
+	$scope.selectRectanglesController = function($scope) {
+		inputManager = createRectanglesController(this, view, canvas);
 	};
 	
 	
