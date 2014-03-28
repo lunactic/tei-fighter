@@ -44,7 +44,7 @@ createRectanglesController = function(pTeifighterController,
 		var leftPos = currentRect.bounds.x;
 		var bottomPos = currentRect.bounds.y + currentRect.bounds.height;
 		var rightPos = currentRect.bounds.x + currentRect.bounds.width;
-		pTeifighterController.createArea(topPos, leftPos, bottomPos, rightPos);
+		teiFighterController.createArea(topPos, leftPos, bottomPos, rightPos);
 		currentRect.remove();
 		currentRect = null;
 

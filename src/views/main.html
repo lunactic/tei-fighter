@@ -15,7 +15,29 @@
 		<canvas id="canvas" style="background-color: blue" width="555" height="555"> </canvas>
 	</div>
 	<div class="col-md-6" style="background-color:green">
-		Hi right
+		Hi right: we have {{listAreas.length}} areas.
+		
+		<div class="btn btn-default" ng-click='createArea(20,20,40,40)'>
+
+		</div>
+		<div class="transcriptions">
+
+			<div class="row" ng-repeat='area in listAreas'>
+
+				<div class = 'container transcription'
+				 ng-class='{areaSelected: isAreaSelected(area)}'
+				 ng-click='selectArea(area)'>
+				 <div ng-show=isAreaSelected(area)>
+				<input text="type" ng-model="area.transcription"></input>
+				</div>
+				<div ng-show=!isAreaSelected(area)>
+				<label>{{area.transcription}}</label>
+				</div>
+				</div>
+				
+			</div>
+		</div> 
+		
 	</div>
 </div>
 

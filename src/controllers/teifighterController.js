@@ -174,6 +174,29 @@ teifighterController = function ($scope) {
 
 	$scope.listAreas = [];
 
+	$scope.areaSelected = null;
+
+	// Selecting areas
+	$scope.isAreaSelected = function(area)  {
+		
+		return area === $scope.areaSelected;
+	};
+	
+	$scope.selectArea = function(area) {
+		// FIXME the colors should be global variables
+		// or use a method on the rectangle like activate/deactivate
+
+		console.log('Selecting Area area');
+		if ($scope.areaSelected)
+			$scope.areaSelected.rect.fillColor = 'blue';
+
+
+		$scope.areaSelected = area;
+		$scope.areaSelected.rect.fillColor = 'red';
+
+		paper.view.update();
+	};
+
 	$scope.createArea = function (top,left, bottom, right) {
 		//First create the area
 		// Transform coordinates
@@ -182,12 +205,11 @@ teifighterController = function ($scope) {
 
 		var realTopLeft = view.getRealPoint(topLeft);
 		var realBottomright = view.getRealPoint(bottomRight);
-		var area = Area(topLeft, bottomRight);
+		var area = new Area(topLeft, bottomRight);
 
-		$scope.listAreas.push(area);
+		
 
 		// Create the new rectangle
-		
 		var rect = new paper.Path.Rectangle({
 			from: new paper.Point(topLeft),
 			to: new paper.Point(bottomRight),
@@ -195,7 +217,23 @@ teifighterController = function ($scope) {
 			strokeColor: 'black',
 			opacity: '0.5'
 		});
+
+		//bidireccional status
+		rect.TranscriptionArea = area;
+		//addHandler for the click
+		rect.onClick = function(event) {
+			$scope.selectArea(this.TranscriptionArea);
+			$scope.$apply();
+		};
+
 		console.log("Added new item "+$scope.listAreas.length);
+		area.addRect(rect);
+		
+
+		// With this the list it's updated. Seems a bug of angular
+		// More info: http://jimhoskins.com/2012/12/17/angularjs-and-apply.html
+		$scope.listAreas.push(area);
+		$scope.$apply();
 	}
 
 	
