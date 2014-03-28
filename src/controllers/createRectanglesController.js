@@ -39,7 +39,15 @@ createRectanglesController = function(pTeifighterController,
 	// When the drag stops, then the area corresponding to the rectangle
 	// should be created.
 	this.dragStopped = function() {
+	    // extract areas indexes
+		var topPos = currentRect.bounds.y;
+		var leftPos = currentRect.bounds.x;
+		var bottomPos = currentRect.bounds.y + currentRect.bounds.height;
+		var rightPos = currentRect.bounds.x + currentRect.bounds.width;
+		pTeifighterController.createArea(topPos, leftPos, bottomPos, rightPos);
+		currentRect.remove();
 		currentRect = null;
+
 	};
 	
 	return this;
