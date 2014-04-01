@@ -194,6 +194,10 @@ teifighterController = function ($scope) {
 		$scope.areaSelected = area;
 		$scope.areaSelected.rect.fillColor = 'red';
 
+		// Fixme create an id to focus.
+		// the id must be unique and work well with
+		$("#"+area.id).focus();
+		
 		paper.view.update();
 	};
 
@@ -227,6 +231,7 @@ teifighterController = function ($scope) {
 		};
 
 		console.log("Added new item "+$scope.listAreas.length);
+		area.id = $scope.listAreas.length;
 		area.addRect(rect);
 		
 
@@ -235,6 +240,9 @@ teifighterController = function ($scope) {
 		$scope.listAreas.push(area);
 		$scope.$apply();
 	}
+
+
+
 
 	
 

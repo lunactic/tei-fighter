@@ -28,11 +28,13 @@
 				 ng-class='{areaSelected: isAreaSelected(area)}'
 				 ng-click='selectArea(area)'>
 				 <div ng-show=isAreaSelected(area)>
-				<input text="type" ng-model="area.transcription"></input>
+					<input text="type" id={{area.id}} ng-model="area.transcription"></input>					
 				</div>
 				<div ng-show=!isAreaSelected(area)>
 				<label>{{area.transcription}}</label>
+
 				</div>
+
 				</div>
 				
 			</div>
