@@ -139,7 +139,7 @@ teifighterController = function ($scope) {
 			}
 			view.placePointAt(realP, viewP);
 			console.log(e);
-		}) ;
+		});
 		
 
 	};
@@ -258,7 +258,6 @@ teifighterController = function ($scope) {
 			var q  = getViewPoint(realP);
 			var dx = viewP.x - q.x;
 			var dy = viewP.y - q.y;
-			console.log(dx+" "+dy);
 			offsetView(dx, dy);
 		}
 
