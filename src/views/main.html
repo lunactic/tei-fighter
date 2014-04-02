@@ -17,8 +17,8 @@
 	<div class="col-md-6" style="background-color:green">
 		Hi right: we have {{listAreas.length}} areas.
 		
-		<div class="btn btn-default" ng-click='createArea(20,20,40,40)'>
-
+		<div class="btn btn-default" ng-click="createTestSample()">
+            Test!
 		</div>
 		<div class="transcriptions">
 
@@ -28,7 +28,7 @@
 				 ng-class='{areaSelected: isAreaSelected(area)}'
 				 ng-click='selectArea(area)'>
 				 <div ng-show=isAreaSelected(area)>
-					<input text="type" id={{area.id}} ng-model="area.transcription"></input>					
+					<input text="type" id={{area.id}} ng-model="area.transcription"/>
 				</div>
 				<div ng-show=!isAreaSelected(area)>
 				<label>{{area.transcription}}</label>

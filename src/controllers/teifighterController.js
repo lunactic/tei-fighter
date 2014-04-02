@@ -6,17 +6,16 @@ teifighterController = function ($scope) {
 	// zooming and transforming coordinates. I think it should be
 	// visible to the whole project, but in a cleaner way than using
 	// global variables.
-	var view;
-	
+
 	// This object manages the inputs of the user. It is changed when
 	// the context changes (moving the view, drawing rectangles).
 	var inputManager;
-	
+
 	// Initialization of the canvas, mainly creates different observers
-	$scope.initializeCanvas = function($scope) {
+	$scope.initializeCanvas = function() {
 		
 		// Getting the canva, setting paper
-		var canvas = document.getElementById('canvas');
+        this.canvas = document.getElementById('canvas');
 		paper.setup(canvas);
 		paper.view.draw();
 		
@@ -28,13 +27,14 @@ teifighterController = function ($scope) {
 		paper.project.activeLayer.position = [raster.width/2, raster.height/2];
 		
 		// Create a view controller for the canvas.
-		view = createViewController(
+		$scope.view = createViewController(
 			paper.project.view,
 			paper.project.activeLayer
 		);
-		
+
+
 		// creating the default input manager (moving the image)
-		inputManager = viewOffsetController(this, view, canvas);
+		inputManager = viewOffsetController(this, canvas);
 		
 		// Ugly code, it will have to be cleaned ! These variables store
 		// the state of the mouse at some moments.
@@ -119,9 +119,9 @@ teifighterController = function ($scope) {
 			var realP   = getRealPoint(viewP);
 			// Zoom or unzoom
 			if (direction<0) {
-				view.zoomIn();
+                $scope.view.zoomIn();
 			} else {
-				view.zoomOut();
+				$scope.view.zoomOut();
 			}
 			// Then replace the correct point under the mouse 
 			view.placePointAt(realP, viewP);
@@ -196,27 +196,25 @@ teifighterController = function ($scope) {
 
 		// Fixme create an id to focus.
 		// the id must be unique and work well with
-		$("#"+area.id).focus();
+		//$("#"+area.id).focus();
 		
 		paper.view.update();
 	};
+       // Update the angular variables on hardcode
+    $scope.update = function() {
+        $scope.$apply();
+    };
 
-	$scope.createArea = function (top,left, bottom, right) {
+	$scope.createArea = function (topLeft, bottomRight) {
 		//First create the area
-		// Transform coordinates
-		var topLeft = {'x': left, 'y':top};
-		var bottomRight = {'x': right, 'y':bottom};
 
-		var realTopLeft = view.getRealPoint(topLeft);
-		var realBottomright = view.getRealPoint(bottomRight);
 		var area = new Area(topLeft, bottomRight);
 
-		
+	// Create the new rectangle
 
-		// Create the new rectangle
 		var rect = new paper.Path.Rectangle({
-			from: new paper.Point(topLeft),
-			to: new paper.Point(bottomRight),
+			from: $scope.view.getViewPoint(new paper.Point(topLeft)),
+			to: $scope.view.getViewPoint(new paper.Point(bottomRight)),
 			fillColor: 'blue',
 			strokeColor: 'black',
 			opacity: '0.5'
@@ -238,10 +236,21 @@ teifighterController = function ($scope) {
 		// With this the list it's updated. Seems a bug of angular
 		// More info: http://jimhoskins.com/2012/12/17/angularjs-and-apply.html
 		$scope.listAreas.push(area);
-		$scope.$apply();
-	}
 
+	};
 
+    $scope.createTestSample = function() {
+        var areas = [[45, 134, 330, 1138],
+                     [57,1131, 713, 1737],
+                    ];
+        areas.forEach(function(elem) {
+                    topLeft = {'x':elem[0], 'y':elem[1]};
+                    bottomRight = {'x':elem[2], 'y':elem[3]};
+                    console.log(topLeft, bottomRight);
+                    $scope.createArea(topLeft, bottomRight);
+                    });
+
+    };
 
 
 	

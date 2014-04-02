@@ -44,11 +44,19 @@ createRectanglesController = function(pTeifighterController,
 		var leftPos = currentRect.bounds.x;
 		var bottomPos = currentRect.bounds.y + currentRect.bounds.height;
 		var rightPos = currentRect.bounds.x + currentRect.bounds.width;
-		teiFighterController.createArea(topPos, leftPos, bottomPos, rightPos);
+
+        var topLeft = {'x': leftPos, 'y':topPos};
+		var bottomRight = {'x': rightPos, 'y':bottomPos};
+
+		var realTopLeft = teiFighterController.view.getRealPoint(topLeft);
+		var realBottomright = teiFighterController.view.getRealPoint(bottomRight);
+
+		teiFighterController.createArea(realTopLeft, realBottomright);
+        teiFighterController.update();
 		currentRect.remove();
 		currentRect = null;
 
 	};
 	
 	return this;
-}
+};
