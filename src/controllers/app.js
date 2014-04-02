@@ -26,7 +26,7 @@ teifighterApp.controller("TeifighterController", teifighterController)
      }
  };
 });
-;
+
 
 teifighterApp.controller("settingsController", function($scope)
 {

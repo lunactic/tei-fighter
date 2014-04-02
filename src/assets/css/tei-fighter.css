@@ -1,3 +1,13 @@
 body {
 	padding-top:60px;
 }
+
+.transcription {
+
+	background-color: #EEE;
+	border: 1px;
+}
+
+.areaSelected {
+	background-color: #DDD;
+}
