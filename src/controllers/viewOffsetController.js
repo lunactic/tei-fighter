@@ -1,8 +1,8 @@
 // This controller receives events from teifighterController and
 // offsets the view accordingly to them.
-viewOffsetController = function(pTeifighterController, pView, pCanvas) {
+viewOffsetController = function(pTeifighterController, pCanvas) {
 	var teiFighterController = pTeifighterController;
-	var view                 = pView;
+	var view                 = pTeifighterController.view;
 	var canvas               = pCanvas;
 	
 	// Select mouse pointer
