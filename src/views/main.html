@@ -15,6 +15,13 @@
 		<canvas id="canvas" style="background-color: blue" width="555" height="555"> </canvas>
 	</div>
 	<div class="col-md-6" style="background-color:green">
+        <div class= "page-info">
+            <label for = "title">Title</label>
+            <input type="text" ng-model="pageInfo.title"><br>
+            <label for = "idSurfaces">Id Surface:</label>
+            <input type="text" ng-model="pageInfo.idSurface"><br>
+            <span>Width: {{pageInfo.width}}</span><span>Height: {{pageInfo.height}}</span>
+        </div>
 		Hi right: we have {{listAreas.length}} areas.
 		
 		<div class="btn btn-default" ng-click="createTestSample()">
@@ -25,14 +32,18 @@
 			<div class="row" ng-repeat='area in listAreas'>
 
 				<div class = 'container transcription'
-				 ng-class='{areaSelected: isAreaSelected(area)}'
-				 ng-click='selectArea(area)'>
+				 ng-class = '{areaSelected: isAreaSelected(area)}'
+				 ng-click = 'selectArea(area)'>
+                <div class = "area-info">
+
+                    <label>Id:</label><input type="text" ng-model="area.id"><br>
+                    ulx: {{area.left}} uly: {{area.top}} lrx: {{area.right}} lry: {{area.bottom}}
+                </div>
 				 <div ng-show=isAreaSelected(area)>
-					<input text="type" id={{area.id}} ng-model="area.transcription"/>
+					<input text="type" id={{area.id}} ng-model="area.transcription">
 				</div>
 				<div ng-show=!isAreaSelected(area)>
 				<label>{{area.transcription}}</label>
-
 				</div>
 
 				</div>

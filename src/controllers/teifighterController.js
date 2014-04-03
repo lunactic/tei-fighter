@@ -26,6 +26,8 @@ teifighterController = function ($scope) {
 		// of the canvas, it has to be offseted.
 		paper.project.activeLayer.position = [raster.width/2, raster.height/2];
 		
+        // FIXME: This code must be refactored when new pages will be created
+        $scope.pageInfo = new PageInfo(raster.width, raster.height);
 		// Create a view controller for the canvas.
 		$scope.view = createViewController(
 			paper.project.view,
@@ -171,7 +173,7 @@ teifighterController = function ($scope) {
 	};
 	
 	// Areas and model part
-
+    $scope.pageInfo  = null;
 	$scope.listAreas = [];
 
 	$scope.areaSelected = null;
@@ -229,9 +231,8 @@ teifighterController = function ($scope) {
 		};
 
 		console.log("Added new item "+$scope.listAreas.length);
-		area.id = $scope.listAreas.length;
+		area.id = "Text"+$scope.listAreas.length;
 		area.addRect(rect);
-		
 
 		// With this the list it's updated. Seems a bug of angular
 		// More info: http://jimhoskins.com/2012/12/17/angularjs-and-apply.html
