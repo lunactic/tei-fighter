@@ -6,6 +6,8 @@ teifighterController = function ($scope) {
 	// zooming and transforming coordinates. I think it should be
 	// visible to the whole project, but in a cleaner way than using
 	// global variables.
+	var view = null;
+
 
 	// This object manages the inputs of the user. It is changed when
 	// the context changes (moving the view, drawing rectangles).
@@ -27,16 +29,17 @@ teifighterController = function ($scope) {
 		paper.project.activeLayer.position = [raster.width/2, raster.height/2];
 		
         // FIXME: This code must be refactored when new pages will be created
-        $scope.pageInfo = new PageInfo(raster.width, raster.height);
+        //$scope.pageInfo = new PageInfo(raster.width, raster.height);
+        
 		// Create a view controller for the canvas.
-		$scope.view = createViewController(
+		view = createViewController(
 			paper.project.view,
 			paper.project.activeLayer
 		);
 
 
 		// creating the default input manager (moving the image)
-		inputManager = viewOffsetController(this, canvas);
+		inputManager = viewOffsetController(this, view, canvas);
 		
 		// Ugly code, it will have to be cleaned ! These variables store
 		// the state of the mouse at some moments.
@@ -121,9 +124,9 @@ teifighterController = function ($scope) {
 			var realP   = getRealPoint(viewP);
 			// Zoom or unzoom
 			if (direction<0) {
-                $scope.view.zoomIn();
+                view.zoomIn();
 			} else {
-				$scope.view.zoomOut();
+				view.zoomOut();
 			}
 			// Then replace the correct point under the mouse 
 			view.placePointAt(realP, viewP);
@@ -140,7 +143,6 @@ teifighterController = function ($scope) {
 				view.zoomOut();
 			}
 			view.placePointAt(realP, viewP);
-			console.log(e);
 		});
 		
 
@@ -215,8 +217,8 @@ teifighterController = function ($scope) {
 	// Create the new rectangle
 
 		var rect = new paper.Path.Rectangle({
-			from: $scope.view.getViewPoint(new paper.Point(topLeft)),
-			to: $scope.view.getViewPoint(new paper.Point(bottomRight)),
+			from: view.getViewPoint(new paper.Point(topLeft)),
+			to: view.getViewPoint(new paper.Point(bottomRight)),
 			fillColor: 'blue',
 			strokeColor: 'black',
 			opacity: '0.5'
