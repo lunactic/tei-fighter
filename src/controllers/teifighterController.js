@@ -7,7 +7,7 @@ teifighterController = function ($scope) {
 	// visible to the whole project, but in a cleaner way than using
 	// global variables.
 	var view = null;
-
+    var self = this;
 
 	// This object manages the inputs of the user. It is changed when
 	// the context changes (moving the view, drawing rectangles).
@@ -16,6 +16,8 @@ teifighterController = function ($scope) {
 	// Initialization of the canvas, mainly creates different observers
 	$scope.initializeCanvas = function() {
 		
+        // For the closure
+
 		// Getting the canva, setting paper
         this.canvas = document.getElementById('canvas');
 		paper.setup(canvas);
@@ -29,17 +31,17 @@ teifighterController = function ($scope) {
 		paper.project.activeLayer.position = [raster.width/2, raster.height/2];
 		
         // FIXME: This code must be refactored when new pages will be created
-        //$scope.pageInfo = new PageInfo(raster.width, raster.height);
+        this.pageInfo = new PageInfo(raster.width, raster.height);
         
 		// Create a view controller for the canvas.
-		view = createViewController(
+		self.view = createViewController(
 			paper.project.view,
 			paper.project.activeLayer
 		);
 
 
 		// creating the default input manager (moving the image)
-		inputManager = viewOffsetController(this, view, canvas);
+		inputManager = viewOffsetController(this, self.view, canvas);
 		
 		// Ugly code, it will have to be cleaned ! These variables store
 		// the state of the mouse at some moments.
@@ -72,6 +74,7 @@ teifighterController = function ($scope) {
 			
 			// Not down anymore.
 			isMouseDown = false;
+
 		}
 		
 		// If the mouse leaves the canvas, we considere it a bit like an
@@ -124,12 +127,12 @@ teifighterController = function ($scope) {
 			var realP   = getRealPoint(viewP);
 			// Zoom or unzoom
 			if (direction<0) {
-                view.zoomIn();
+                self.view.zoomIn();
 			} else {
-				view.zoomOut();
+				self.view.zoomOut();
 			}
 			// Then replace the correct point under the mouse 
-			view.placePointAt(realP, viewP);
+			self.view.placePointAt(realP, viewP);
 		});
 		canvas.addEventListener("DOMMouseScroll", function (e) {
 			e.preventDefault();
@@ -138,40 +141,40 @@ teifighterController = function ($scope) {
 			var realP   = getRealPoint(viewP);
 			
 			if (direction<0) {
-				view.zoomIn();
+				self.view.zoomIn();
 			} else {
-				view.zoomOut();
+				self.view.zoomOut();
 			}
-			view.placePointAt(realP, viewP);
+			self.view.placePointAt(realP, viewP);
 		});
-		
+		 this.update();
 
 	};
 	
 	// Zooms in toward the center of the view
 	$scope.centerZoomIn = function($scope) {
-		var p = view.getCenter();
-		view.zoomIn();
-		view.setCenter(p);
+		var p = self.view.getCenter();
+		self.view.zoomIn();
+		self.view.setCenter(p);
 	};
 	
 	// Zooms out from the center of the view
 	$scope.centerZoomOut = function($scope) {
-		var p = view.getCenter();
-		view.zoomOut();
-		view.setCenter(p);
+		var p = self.view.getCenter();
+		self.view.zoomOut();
+		self.view.setCenter(p);
 	};
 	
 	// Indicates to teifighterController that we want now to
 	// move the document around
 	$scope.selectOffsetController = function($scope) {
-		inputManager = viewOffsetController(this, view, canvas);
+		inputManager = viewOffsetController(this, self.view, canvas);
 	};
 	
 	// Indicates to teifighterController that we want now to
 	// draw rectangles on the document
 	$scope.selectRectanglesController = function($scope) {
-		inputManager = createRectanglesController(this, view, canvas);
+		inputManager = createRectanglesController(this, self.view, canvas);
 	};
 	
 	// Areas and model part
@@ -217,8 +220,8 @@ teifighterController = function ($scope) {
 	// Create the new rectangle
 
 		var rect = new paper.Path.Rectangle({
-			from: view.getViewPoint(new paper.Point(topLeft)),
-			to: view.getViewPoint(new paper.Point(bottomRight)),
+			from: self.view.getViewPoint(new paper.Point(topLeft)),
+			to: self.view.getViewPoint(new paper.Point(bottomRight)),
 			fillColor: 'blue',
 			strokeColor: 'black',
 			opacity: '0.5'

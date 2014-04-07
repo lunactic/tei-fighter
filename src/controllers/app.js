@@ -30,7 +30,7 @@ teifighterApp.controller("TeifighterController", teifighterController)
 
 teifighterApp.controller("settingsController", function($scope)
 {
-  $scope.testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/1/007v.jpg";
+  $scope.testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg";
 }
 );
 
