@@ -82,18 +82,20 @@ ResizeCircles = function(pTeifighterController, pPaper, pView) {
         return c;
     };
     
-    this.placeCircleOnArea = function(circle, area) {
+    this.placeCircleOnArea = function(circle, area, tolog) {
+        var position = new paper.Point(0,0);
         if (circle.isForTop) {
-            circle.position.y = area.top;
+            position.y = area.top;
         } else {
-            circle.position.y = area.bottom;
+            position.y = area.bottom;
         }
         if (circle.isForLeft) {
-            circle.position.x = area.left;
+            position.x = area.left;
         } else {
-            circle.position.x = area.right;
+            position.x = area.right;
         }
-        circle.position = this.view.getViewPoint(circle.position);
+        circle.position = this.view.getViewPoint(position);
+        
         circle.bringToFront();
     };
     
@@ -102,6 +104,11 @@ ResizeCircles = function(pTeifighterController, pPaper, pView) {
     this.topRight    = this.createCircle(true,  false);
     this.bottomLeft  = this.createCircle(false, true);
     this.bottomRight = this.createCircle(false, false);
+    
+    this.topLeft.fillColor = 'red';
+    this.topRight.fillColor = 'green';
+    this.bottomLeft.fillColor = 'blue';
+    this.bottomRight.fillColor = 'black';
     
     this.circles = new Array();
     this.circles[0] = this.topLeft;
@@ -125,7 +132,7 @@ ResizeCircles = function(pTeifighterController, pPaper, pView) {
         area = pArea;
         
         for (var i=0; i<4; i++) {
-            this.placeCircleOnArea(this.circles[i], area);
+            this.placeCircleOnArea(this.circles[i], area, i==0);
             this.circles[i].visible = true;
         }
     };
@@ -172,13 +179,13 @@ createResizeController = function(pTeifighterController,
 	};
 	
 	this.drag  = function(downPoint, curPoint, dx, dy) {
-		console.log("Drag "+moveTop+", "+moveLeft);
+        var pt = view.getRealPoint(curPoint);
         if (moveTop) {
             // Updating the area
-            area.top     += dy * view.getZoomRatio();
+            area.top = pt.y;
             
             // Updating the graphics
-            var newHeight = area.rect.bounds.height - dy;
+            var newHeight = (area.bottom-area.top) * view.getZoomRatio();
             var ratio     = newHeight / area.rect.bounds.height;
             area.rect.scale(1, ratio);
             area.rect.position.y += dy / 2.0;
@@ -186,10 +193,10 @@ createResizeController = function(pTeifighterController,
             circles.topRight.position.y += dy;
         } else {
             // Updating the area
-            area.bottom  += dy * view.getZoomRatio();
+            area.bottom  = pt.y;
             
             // Updating the graphics
-            var newHeight = area.rect.bounds.height + dy;
+            var newHeight = (area.bottom-area.top) * view.getZoomRatio();
             var ratio     = newHeight / area.rect.bounds.height;
             area.rect.scale(1, ratio);
             area.rect.position.y += dy / 2.0;
@@ -198,16 +205,16 @@ createResizeController = function(pTeifighterController,
         }
         
         if (moveLeft) {
-            area.left   += dx * view.getZoomRatio();
-            var newWidth = area.rect.bounds.width - dx;
+            area.left = pt.x;
+            var newWidth = (area.right - area.left) * view.getZoomRatio();
             var ratio    = newWidth / area.rect.bounds.width;
             area.rect.scale(ratio, 1);
             area.rect.position.x          += dx / 2.0;
             circles.topLeft.position.x    += dx;
             circles.bottomLeft.position.x += dx;
         } else {
-            area.right  += dx * view.getZoomRatio();
-            var newWidth = area.rect.bounds.width + dx;
+            area.right = pt.x;
+            var newWidth = (area.right - area.left) * view.getZoomRatio();
             var ratio    = newWidth / area.rect.bounds.width;
             area.rect.scale(ratio, 1);
             area.rect.position.x           += dx / 2.0;

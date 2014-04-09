@@ -28,6 +28,11 @@ teifighterController = function ($scope) {
 		paper.setup(canvas);
 		paper.view.draw();
 		
+		paper.view.onFrame = function(event) {
+			//Log funny sutff in there :)
+			//console.log(paper.project.activeLayer.position.x+" "+paper.project.activeLayer.position.y);
+		};
+		
 		// loading the image
 		raster = new paper.Raster('image');
 		
@@ -233,22 +238,21 @@ teifighterController = function ($scope) {
 		// FIXME the colors should be global variables
 		// or use a method on the rectangle like activate/deactivate
 
-		console.log('Selecting Area area');
 		if ($scope.areaSelected)
 			$scope.areaSelected.rect.fillColor = 'blue';
 
 
 		$scope.areaSelected = area;
 		$scope.areaSelected.rect.fillColor = 'red';
-		
-		// Put resize circles there
-		self.resizeCircles.assignToArea(area);
 
 		// Fixme create an id to focus.
 		// the id must be unique and work well with
 		//$("#"+area.id).focus();
 		
 		paper.view.update();
+		
+		// Put resize circles there
+		self.resizeCircles.assignToArea(area);
 	};
        // Update the angular variables on hardcode
     $scope.update = function() {
