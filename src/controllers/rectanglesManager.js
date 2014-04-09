@@ -111,11 +111,11 @@ ResizeCircles = function(pTeifighterController, pPaper, pView) {
     
     for (var i=0; i<4; i++) {
         this.circles[i].onMouseDown = function() {
-            prevInManager = teifighter.getInputManager();
+            this.prevInManager = teifighter.getInputManager();
             teifighter.selectResizeController(area, this, this.isForTop, this.isForLeft);
         };
         this.circles[i].onMouseUp = function() {
-            teifighter.setInputManager(prevInManager);
+            teifighter.setInputManager(this.prevInManager);
         };
     }
     
@@ -159,7 +159,7 @@ createResizeController = function(pTeifighterController,
                                       pMoveTop,
                                       pMoveLeft) {
 	// Refs to the controller, view and canvas.
-	var teiFighterController = pTeifighterController;
+	var teifighterController = pTeifighterController;
 	var view                 = pView;
 	var canvas               = pCanvas;
     var area                 = pArea;
@@ -214,6 +214,7 @@ createResizeController = function(pTeifighterController,
             circles.topRight.position.x    += dx;
             circles.bottomRight.position.x += dx;
         }
+        teifighterController.update();
 	}
 	
 	this.dragStopped = function() {
