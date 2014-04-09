@@ -7,8 +7,7 @@ Area = function(topLeft, bottomRight)	{
 		this.transcription = '';
 
 		this.addRect = function(rect) {
-		this.rect = rect;
-
+		  this.rect = rect;
 		};
 
 		return this;

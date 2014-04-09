@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+<!DOCTYPE html UBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html ng-app="teifighterApp"> <!--<![endif]-->
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="teifighterApp"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,12 +12,15 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        
         <script src="vendor/jquery/dist/jquery.js"></script>
         <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="vendor/angular/angular.min.js"></script>
         <script src="vendor/paper/dist/paper.js"></script>
         <script src="models/area.js"></script>
+        <script src="models/teiInfo.js"></script>
         <script src="models/pageInfo.js"></script>
+        <script src="common/xmlUtils.js"></script>
         <script src="controllers/teifighterController.js"></script>
         <script src="controllers/createViewController.js"></script>
         <script src="controllers/viewOffsetController.js"></script>
@@ -47,12 +51,7 @@
               </ul>
             </div><!--/.nav-collapse -->
         </div>
-
-        
-        <div class="container">
-            <!--<h1>Hello world! TEI-Fighter</h1>-->
-            <p>Nothing here {{'yet' + '!'}}</p>
-        </div>
-        <div ng-view></div>  
+    
+         <div ng-view></div>  
     </body>
 </html>

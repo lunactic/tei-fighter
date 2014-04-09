@@ -10,12 +10,21 @@ teifighterApp.config(['$routeProvider',
       when('/info', {
       	templateUrl:'views/info.html',
       }).
+        when('/header', {
+      	templateUrl:'views/infoTei.html',
+        controller : 'TeifighterController'
+      }).
       otherwise({
         redirectTo: '/'
       });
   }]);
 
-teifighterApp.controller("TeifighterController", teifighterController)
+teifighterApp.service('teiService', function() {
+    return {
+        teiInfo : {title: 't'}
+    }
+});
+teifighterApp.controller("TeifighterController", ['$scope', 'teiService', teifighterController])
 .directive('imageonload', function() {
     return {
        restrict: 'A',
@@ -26,6 +35,8 @@ teifighterApp.controller("TeifighterController", teifighterController)
      }
  };
 });
+
+// Creates a service that stores the data
 
 
 teifighterApp.controller("settingsController", function($scope)
