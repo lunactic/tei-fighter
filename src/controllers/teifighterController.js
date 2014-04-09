@@ -7,21 +7,31 @@ teifighterController = function ($scope) {
 	// visible to the whole project, but in a cleaner way than using
 	// global variables.
 	var view = null;
+	
+	// This is a reference to the teifighterController itself.
     var self = this;
 
 	// This object manages the inputs of the user. It is changed when
 	// the context changes (moving the view, drawing rectangles).
 	var inputManager;
+	
+	// This object stores the circles used for resizing the currently
+	// selected area.
+	self.resizeCircles = null;
 
 	// Initialization of the canvas, mainly creates different observers
 	$scope.initializeCanvas = function() {
-		
         // For the closure
 
 		// Getting the canva, setting paper
         this.canvas = document.getElementById('canvas');
 		paper.setup(canvas);
 		paper.view.draw();
+		
+		paper.view.onFrame = function(event) {
+			//Log funny sutff in there :)
+			//console.log(paper.project.activeLayer.position.x+" "+paper.project.activeLayer.position.y);
+		};
 		
 		// loading the image
 		raster = new paper.Raster('image');
@@ -38,6 +48,9 @@ teifighterController = function ($scope) {
 			paper.project.view,
 			paper.project.activeLayer
 		);
+		
+		// Creating the resize circles
+		self.resizeCircles = new ResizeCircles(this, paper, self.view);
 
 
 		// creating the default input manager (moving the image)
@@ -133,6 +146,9 @@ teifighterController = function ($scope) {
 			}
 			// Then replace the correct point under the mouse 
 			self.view.placePointAt(realP, viewP);
+			// Updates the scaling circles
+			self.resizeCircles.updateCircleSize();
+			paper.view.update();
 		});
 		canvas.addEventListener("DOMMouseScroll", function (e) {
 			e.preventDefault();
@@ -146,8 +162,11 @@ teifighterController = function ($scope) {
 				self.view.zoomOut();
 			}
 			self.view.placePointAt(realP, viewP);
+			// Updates the scaling circles
+			self.resizeCircles.updateCircleSize();
+			paper.view.update();
 		});
-		 this.update();
+		this.update();
 
 	};
 	
@@ -156,6 +175,9 @@ teifighterController = function ($scope) {
 		var p = self.view.getCenter();
 		self.view.zoomIn();
 		self.view.setCenter(p);
+		// Updates the scaling circles
+		self.resizeCircles.updateCircleSize();
+		paper.view.update();
 	};
 	
 	// Zooms out from the center of the view
@@ -163,6 +185,9 @@ teifighterController = function ($scope) {
 		var p = self.view.getCenter();
 		self.view.zoomOut();
 		self.view.setCenter(p);
+		// Updates the scaling circles
+		self.resizeCircles.updateCircleSize();
+		paper.view.update();
 	};
 	
 	// Indicates to teifighterController that we want now to
@@ -175,6 +200,26 @@ teifighterController = function ($scope) {
 	// draw rectangles on the document
 	$scope.selectRectanglesController = function($scope) {
 		inputManager = createRectanglesController(this, self.view, canvas);
+	};
+	
+	// Indicates to teifighterController that we want now to
+	// scale areas of the document
+	$scope.selectResizeController = function(area, circle, pMoveTop, pMoveLeft) {
+		inputManager = new createResizeController(this,
+												  self.view,
+												  canvas,
+												  area,
+												  self.resizeCircles,
+												  pMoveTop,
+												  pMoveLeft);
+	};
+	
+	$scope.getInputManager = function() {
+		return inputManager;
+	};
+	
+	$scope.setInputManager = function(inManager) {
+		inputManager = inManager;
 	};
 	
 	// Areas and model part
@@ -193,7 +238,6 @@ teifighterController = function ($scope) {
 		// FIXME the colors should be global variables
 		// or use a method on the rectangle like activate/deactivate
 
-		console.log('Selecting Area area');
 		if ($scope.areaSelected)
 			$scope.areaSelected.rect.fillColor = 'blue';
 
@@ -206,6 +250,9 @@ teifighterController = function ($scope) {
 		//$("#"+area.id).focus();
 		
 		paper.view.update();
+		
+		// Put resize circles there
+		self.resizeCircles.assignToArea(area);
 	};
        // Update the angular variables on hardcode
     $scope.update = function() {
@@ -243,6 +290,13 @@ teifighterController = function ($scope) {
 		// More info: http://jimhoskins.com/2012/12/17/angularjs-and-apply.html
 		$scope.listAreas.push(area);
 
+	};
+	
+	$scope.unselectCurrentArea = function() {
+		// If no current area is selected...
+		if ($scope.areaSelected==null) {
+			return;
+		}
 	};
 
     $scope.createTestSample = function() {
