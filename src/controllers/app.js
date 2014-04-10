@@ -12,7 +12,7 @@ teifighterApp.config(['$routeProvider',
       }).
         when('/header', {
       	templateUrl:'views/infoTei.html',
-        controller : 'TeifighterController'
+        controller : 'TeiInfoController'
       }).
       otherwise({
         redirectTo: '/'
@@ -20,8 +20,12 @@ teifighterApp.config(['$routeProvider',
   }]);
 
 teifighterApp.service('teiService', function() {
+    // Stores the teiModel
     return {
-        teiInfo : {title: 't'}
+        teiModel: {
+            listOfPages: [],
+            teiInfo: null,
+            }
     }
 });
 teifighterApp.controller("TeifighterController", ['$scope', 'teiService', teifighterController])
@@ -36,8 +40,7 @@ teifighterApp.controller("TeifighterController", ['$scope', 'teiService', teifig
  };
 });
 
-// Creates a service that stores the data
-
+teifighterApp.controller("TeiInfoController", ['$scope', 'teiService', teiInfoController])
 
 teifighterApp.controller("settingsController", function($scope)
 {

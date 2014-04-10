@@ -1,7 +1,9 @@
-teifighterController = function ($scope) {
+teifighterController = function ($scope, teiService) {
 	$scope.hello = 'It works';
 	$scope.more = "yes it is";
 	
+    teiModel = teiService.teiModel;
+    console.log("Service",  teiService);
 
 	// This is the view controller. It can be used for scrolling,
 	// zooming and transforming coordinates. I think it should be
@@ -22,7 +24,7 @@ teifighterController = function ($scope) {
 
     // scope variables empty initialization
     $scope.currentUrl = ""; // Current url of the page (for canvas)
-    $scope.teiModel   = null; // reference to teiModel (service)
+    //teiModel   = null; // reference to teiModel (service)
     $scope.listAreas  = []; //list of areas of current Page
     $scope.pageInfo   = null; // Current page
     $scope.pageNumber = 0; // Number of the curren page
@@ -33,20 +35,25 @@ teifighterController = function ($scope) {
 
         console.log("Initialization")
 
-        //create teiModel
-        $scope.teiModel = {
-            teiInfo : new TeiInfo("Title","Publication", "Source Description"),
-            listOfPages : [],
+        if (teiModel && teiModel.teiInfo) {
+            //TODO: Check that exists at least one page
+            $scope.setPage(0);
 
         }
-        $scope.currentUrl = "";
+        else {
+            //create teiModel
+            teiModel.teiInfo = new TeiInfo("Title","Publication", "Source Description");
+            teiModel.listOfPages = [];
 
-        $scope.listOfPages = $scope.teiModel.listOfPages;
-        //Add a new page
-        //Add the url
-        var testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg";
-        $scope.newPage(testUrl);
+            $scope.currentUrl = "";
 
+
+            //Add a new page
+            //Add the url
+            var testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg";
+            $scope.newPage(testUrl);
+        }
+        $scope.listOfPages = teiModel.listOfPages;
     }
 
 
@@ -58,18 +65,18 @@ teifighterController = function ($scope) {
       $scope.addPage(ppage);
       $scope.pageInfo = ppage;
       $scope.listAreas = ppage.areas;
-      $scope.pageNumber = $scope.teiModel.listOfPages.length;
+      $scope.pageNumber = teiModel.listOfPages.length;
 
     };
     $scope.addPage = function(page) {
-        $scope.listOfPages.push(page);
+        teiModel.listOfPages.push(page);
 
     }
 
     // Change the model to the current page
 //    $scope.setPage = function(page) {
 //
-//        $scope.teiModel.listOfpages.forEach(function(lPage) {
+//        teiModel.listOfpages.forEach(function(lPage) {
 //         var i = 1;
 //         if (page === lPage) {
 //           $scope.pageInfo = lPage;
@@ -89,7 +96,7 @@ teifighterController = function ($scope) {
         if ($scope.isActivePage(indexPage))
             return;
 
-        var cPage = $scope.listOfPages[indexPage];
+        var cPage = teiModel.listOfPages[indexPage];
         //Remove the old rectangles
         $scope.removeRectangles();
 
@@ -112,7 +119,7 @@ teifighterController = function ($scope) {
         return $scope.listOfPages.length;
     }
 
-    $scope.init();
+
 	// Initialization of the canvas, mainly creates different observers
 	$scope.initializeCanvas = function() {
         // For the closure
@@ -447,6 +454,8 @@ teifighterController = function ($scope) {
     };
 
 
+    // Initialize the controller
+    $scope.init();
 
 
 	
