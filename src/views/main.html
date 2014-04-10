@@ -30,6 +30,10 @@
         <div class="btn btn-default" ng-click="testXML()">
             Test!
 		</div>
+        <!-- Button trigger modal -->
+        <button class="btn btn-primary" data-toggle="modal" data-target="#newPageModal">
+        Add new page.
+        </button>
 		<div class="transcriptions">
 
 			<div class="row" ng-repeat='area in listAreas'>
@@ -56,10 +60,39 @@
 		
 	</div>
 </div>
-
+<div id="tei_pagination">
+    We have {{pageNumber}}/{{numPages()}}.
+    <ul class = "pagination">
+        <li ng-repeat='page in listOfPages' ng-class = '{active: isActivePage($index)}'>
+        <a href ng-click="setPage($index)" >{{$index + 1}}</a>
+        </li>
+    </ul>
+</div>
 
 <!-- <img id="image" ng-src="{{testUrl}}" style="visibility: hidden;" width="10px" height="10px"/> -->
 <img id="image" ng-src="{{currentUrl}}" width="10px" height="10px" imageonload />
 
+<!-- New Page menu -->
+<div class="modal fade" id="newPageModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Add new page</h4>
+      </div>
+      <div class="modal-body">
+          <div class="input-group">
+            <span class="input-group-addon">URL:</span>
+
+            <input type="text" ng-model="value" class="form-control" placeholder="pageUrl">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-binding>Close</button>
+        <button type="button" class="btn btn-primary" ng-click =newPage(value)>Add</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 </div>

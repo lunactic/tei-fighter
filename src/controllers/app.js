@@ -42,6 +42,11 @@ teifighterApp.controller("TeifighterController", ['$scope', 'teiService', teifig
 teifighterApp.controller("settingsController", function($scope)
 {
   $scope.testUrl = "";
+
+    // utils functions
+  $scope.getNumber = function(num) {
+    return new Array(num);
+  };
 }
 );
 

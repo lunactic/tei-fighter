@@ -16,9 +16,17 @@ teifighterController = function ($scope) {
 	// the context changes (moving the view, drawing rectangles).
 	var inputManager;
 	
-	// This object stores the circles used for resizing the currently
+    // This object stores the circles used for resizing the currently
 	// selected area.
 	self.resizeCircles = null;
+
+    // scope variables empty initialization
+    $scope.currentUrl = ""; // Current url of the page (for canvas)
+    $scope.teiModel   = null; // reference to teiModel (service)
+    $scope.listAreas  = []; //list of areas of current Page
+    $scope.pageInfo   = null; // Current page
+    $scope.pageNumber = 0; // Number of the curren page
+    $scope.listOfPages = [];
 
     // Function that initializes the model variables
     $scope.init = function() {
@@ -28,11 +36,12 @@ teifighterController = function ($scope) {
         //create teiModel
         $scope.teiModel = {
             teiInfo : new TeiInfo("Title","Publication", "Source Description"),
-            listOfpages : [],
+            listOfPages : [],
 
         }
         $scope.currentUrl = "";
 
+        $scope.listOfPages = $scope.teiModel.listOfPages;
         //Add a new page
         //Add the url
         var testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg";
@@ -49,24 +58,58 @@ teifighterController = function ($scope) {
       $scope.addPage(ppage);
       $scope.pageInfo = ppage;
       $scope.listAreas = ppage.areas;
+      $scope.pageNumber = $scope.teiModel.listOfPages.length;
+
     };
-
-
-
     $scope.addPage = function(page) {
-        $scope.teiModel.listOfpages.push(page);
+        $scope.listOfPages.push(page);
+
     }
 
-    // Select the current page
-    $scope.setPage = function(page) {
+    // Change the model to the current page
+//    $scope.setPage = function(page) {
+//
+//        $scope.teiModel.listOfpages.forEach(function(lPage) {
+//         var i = 1;
+//         if (page === lPage) {
+//           $scope.pageInfo = lPage;
+//           $scope.listAreas = lPage.areas;
+//           $scope.pageNumber = i;
+//           i++;
+//           return;
+//         }
+//        });
+//
+//    }
 
-        $scope.teiModel.listOfpages.forEach(function(lPage) {
-         if (page === lPage) {
-           $scope.pageInfo = lPage;
-           $scope.listAreas = lPage.areas;
-         }
-        });
+    // Change the visualization to the current Page
+    $scope.setPage = function(indexPage) {
+        // TODO: check intervals
 
+        if ($scope.isActivePage(indexPage))
+            return;
+
+        var cPage = $scope.listOfPages[indexPage];
+        //Remove the old rectangles
+        $scope.removeRectangles();
+
+        //Set the variables to the new page
+        $scope.currentUrl = cPage.url;
+        $scope.listAreas = cPage.areas;
+        $scope.pageInfo  = cPage;
+        $scope.pageNumber = indexPage+1; // Page number starts by 1
+
+
+    }
+
+    // For the pagination buttons
+    $scope.isActivePage = function(indexPage) {
+        return (indexPage == $scope.pageNumber -1);
+
+    }
+
+    $scope.numPages = function() {
+        return $scope.listOfPages.length;
     }
 
     $scope.init();
@@ -217,6 +260,9 @@ teifighterController = function ($scope) {
 			self.resizeCircles.updateCircleSize();
 			paper.view.update();
 		});
+
+        // Redraw the areas
+        $scope.reDrawAreas();
 		this.update();
 
 	};
@@ -347,7 +393,43 @@ teifighterController = function ($scope) {
 		if ($scope.areaSelected==null) {
 			return;
 		}
+        $scope.areaSelected = null;
 	};
+
+    // Regenerates the rectangles on the list areas
+    // used when the pages is changed
+    // and the teiModel Service
+    $scope.reDrawAreas = function() {
+        $scope.listAreas.forEach(function(area) {
+            // Create the new rectangle
+
+		  var rect = new paper.Path.Rectangle({
+              from: self.view.getViewPoint(new paper.Point(area.topLeft())),
+			  to: self.view.getViewPoint(new paper.Point(area.bottomRight())),
+			  fillColor: 'blue',
+			  strokeColor: 'black',
+			  opacity: '0.5'
+		  });
+
+		  //bidireccional status
+		  rect.TranscriptionArea = area;
+		//addHandler for the click
+		  rect.onClick = function(event) {
+			$scope.selectArea(rect.TranscriptionArea);
+			$scope.$apply();
+		  };
+   		area.addRect(rect);
+      });
+      $scope.unselectCurrentArea();
+    }
+
+    $scope.removeRectangles = function() {
+        $scope.listAreas.forEach(function(area) {
+          if (area.rect)
+             area.rect.remove();
+        });
+    }
+
 
     $scope.createTestSample = function() {
 
