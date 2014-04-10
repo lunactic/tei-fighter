@@ -69,7 +69,7 @@ generateFacsimile = function(pageInfo, listAreas) {
     listAreas.forEach(function(area) {
         var zone = document.createElement("zone");
         addCoordElement(zone, area.id,
-                        area.left,area.up,
+                        area.left,area.top,
                         area.right, area.bottom);
         surface.appendChild(zone)
     });
@@ -112,6 +112,81 @@ generateFacsimile = function(pageInfo, listAreas) {
 
 }
 
+// Gets the page info object
+// and generates the facsimile tas
+// The mother of the lamb
+generateTEI = function(teiModel) {
+
+    //
+    var parser = new DOMParser();
+
+    var root = parser.parseFromString("<TEI/>", "text/xml");
+
+    var sHeader = generateHeader(teiModel.teiInfo);
+    var teiHeader = $(sHeader)[0];
+    root.firstChild.appendChild(teiHeader);
+    var facsimile = root.createElement("facsimile");
+    root.firstChild.appendChild(facsimile);
+    // For each page
+    teiModel.listOfPages.forEach(function(currentPage) {
+        //surface
+        var surface = root.createElement("surface");
+        addCoordElement(surface, currentPage.idSurface, 0, 0, currentPage.width, currentPage.height);
+       facsimile.appendChild(surface);
+//    // Graphic ur
+      var graphic = root.createElement("graphic");
+      graphic.setAttribute("url",currentPage.url);
+      surface.appendChild(graphic);
+//    // Adding the zone element
+      currentPage.areas.forEach(function(area) {
+          var zone = root.createElement("zone");
+        addCoordElement(zone, area.id,
+                        area.left,area.top,
+                        area.right, area.bottom);
+        surface.appendChild(zone)
+     }); //areas
+    });//pages
+
+    // now generate the text Area
+     var textTag  = root.createElement("text");
+    var bodyTag  = root.createElement("body");
+    textTag.appendChild(bodyTag);
+
+    teiModel.listOfPages.forEach(function(currentPage) {
+        var facs  = root.createElement("div");
+        var title = root.createElement("title");
+        title.textContent = currentPage.title;
+        facs.setAttribute("facs", currentPage.idSurface);
+        var titleWrapper = root.createElement("p")
+        titleWrapper.appendChild(root.createElement("s")
+                         .appendChild(title).parentElement);
+
+        // The transcription
+        // div
+        // -> pb facs=url
+        // -> p facs=textId
+        var transDiv = root.createElement("div");
+        var pb = root.createElement("pb")
+        pb.setAttribute("facs", currentPage.url);
+        transDiv.appendChild(pb);
+        // Add one p for each zi=one
+        currentPage.areas.forEach(function(area) {
+        var transFac = root.createElement("p");
+         transFac.setAttribute("facs",area.id);
+//
+        // FIXME: Parse the content as xml
+        transFac.textContent = area.transcription;
+        transDiv.appendChild(transFac);
+      }); // areas
+      facs.appendChild(transDiv);
+     bodyTag.appendChild(facs);
+    }); // pages
+
+    root.firstChild.appendChild(textTag);
+    return root.firstChild;
+
+}
+
 generateHeader = function (teiInfo){
 
     return "<teiHeader>\
@@ -120,16 +195,6 @@ generateHeader = function (teiInfo){
             <sourceDesc><p>{2}</p></sourceDesc>\
     </fileDesc>\
     </teiHeader>".format(teiInfo.title,teiInfo.publicationInformation,teiInfo.sourceDesc);
-
-
-}
-
-generateTEI = function(teiInfo) {
-
-    // Load the header
-    var header = generateHeader(teiInfo.title, teiInfo.publicationInformation, teiInfo.sourceDesc);
-
-
 
 
 }

@@ -142,7 +142,7 @@ teifighterController = function ($scope, teiService) {
 		paper.project.activeLayer.position = [raster.width/2, raster.height/2];
 		
         // Update page size
-        $scope.pageInfo.setSize(raster.width, raster.size);
+        $scope.pageInfo.setSize(raster.width, raster.height);
         
 		// Create a view controller for the canvas.
 		self.view = createViewController(
