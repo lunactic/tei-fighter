@@ -41,7 +41,7 @@ teifighterApp.controller("TeifighterController", ['$scope', 'teiService', teifig
 
 teifighterApp.controller("settingsController", function($scope)
 {
-  $scope.testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg";
+  $scope.testUrl = "";
 }
 );
 

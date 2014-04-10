@@ -2,6 +2,7 @@ teifighterController = function ($scope) {
 	$scope.hello = 'It works';
 	$scope.more = "yes it is";
 	
+
 	// This is the view controller. It can be used for scrolling,
 	// zooming and transforming coordinates. I think it should be
 	// visible to the whole project, but in a cleaner way than using
@@ -19,6 +20,56 @@ teifighterController = function ($scope) {
 	// selected area.
 	self.resizeCircles = null;
 
+    // Function that initializes the model variables
+    $scope.init = function() {
+
+        console.log("Initialization")
+
+        //create teiModel
+        $scope.teiModel = {
+            teiInfo : new TeiInfo("Title","Publication", "Source Description"),
+            listOfpages : [],
+
+        }
+        $scope.currentUrl = "";
+
+        //Add a new page
+        //Add the url
+        var testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg";
+        $scope.newPage(testUrl);
+
+    }
+
+
+    // Given an url generates a new page
+    // initialize canvas will be called automatically
+    $scope.newPage = function(purl) {
+      var ppage = new PageInfo(purl);
+      $scope.currentUrl = purl;
+      $scope.addPage(ppage);
+      $scope.pageInfo = ppage;
+      $scope.listAreas = ppage.areas;
+    };
+
+
+
+    $scope.addPage = function(page) {
+        $scope.teiModel.listOfpages.push(page);
+    }
+
+    // Select the current page
+    $scope.setPage = function(page) {
+
+        $scope.teiModel.listOfpages.forEach(function(lPage) {
+         if (page === lPage) {
+           $scope.pageInfo = lPage;
+           $scope.listAreas = lPage.areas;
+         }
+        });
+
+    }
+
+    $scope.init();
 	// Initialization of the canvas, mainly creates different observers
 	$scope.initializeCanvas = function() {
         // For the closure
@@ -40,8 +91,8 @@ teifighterController = function ($scope) {
 		// of the canvas, it has to be offseted.
 		paper.project.activeLayer.position = [raster.width/2, raster.height/2];
 		
-        // FIXME: This code must be refactored when new pages will be created
-        this.pageInfo = new PageInfo(raster.width, raster.height);
+        // Update page size
+        $scope.pageInfo.setSize(raster.width, raster.size);
         
 		// Create a view controller for the canvas.
 		self.view = createViewController(
@@ -221,10 +272,6 @@ teifighterController = function ($scope) {
 	$scope.setInputManager = function(inManager) {
 		inputManager = inManager;
 	};
-	
-	// Areas and model part
-    $scope.pageInfo  = null;
-	$scope.listAreas = [];
 
 	$scope.areaSelected = null;
 
@@ -244,6 +291,9 @@ teifighterController = function ($scope) {
 
 		$scope.areaSelected = area;
 		$scope.areaSelected.rect.fillColor = 'red';
+
+		// Put resize circles there
+		self.resizeCircles.assignToArea(area);
 
 		// Fixme create an id to focus.
 		// the id must be unique and work well with
@@ -300,17 +350,21 @@ teifighterController = function ($scope) {
 	};
 
     $scope.createTestSample = function() {
+
         var areas = [[45, 134, 330, 1138],
                      [57,1131, 713, 1737],
                     ];
+
         areas.forEach(function(elem) {
                     topLeft = {'x':elem[0], 'y':elem[1]};
                     bottomRight = {'x':elem[2], 'y':elem[3]};
                     console.log(topLeft, bottomRight);
                     $scope.createArea(topLeft, bottomRight);
                     });
-
+        $scope.testUrl="http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007r.jpg";
     };
+
+
 
 
 	
