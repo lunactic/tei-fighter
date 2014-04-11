@@ -1,4 +1,4 @@
-var teifighterApp = angular.module('teifighterApp', []);
+var teifighterApp = angular.module('teifighterApp', ['ui.codemirror']);
  
 teifighterApp.config(['$routeProvider',
   function($routeProvider) {

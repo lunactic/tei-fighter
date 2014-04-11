@@ -2,27 +2,31 @@
 <div class="container">
 <h2> Tei File description</h2>
     <a href = "#" class = "btn">Page View</a>
-    <div>
-        <label for = "title">Title</label>
-        <input id = "title" type="text" class="form-control" ng-model="teiInfo.title" ng-change="update()">
-        <label for = "publicationInformation">Publication Information</label>
-        <input id = "publication" type = "text" class="form-control" ng-model = "teiInfo.publicationInformation" ng-class="update">
-        <label for="sourceDesc">Source Desc</label>
-        <input type="text" id="sourceDesc" class="form-control" ng-model="teiInfo.sourceDesc" ng-class="update()">
-    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <label for = "title">Title</label>
+            <input id = "title" type="text" class="form-control" ng-model="teiInfo.title" ng-change="update()">
+            <label for = "publicationInformation">Publication Information</label>
+            <input id = "publication" type = "text" class="form-control" ng-model = "teiInfo.publicationInformation" ng-change="update()">
+            <label for="sourceDesc">Source Desc</label>
+            <input type="text" id="sourceDesc" class="form-control" ng-model="teiInfo.sourceDesc" ng-class="ng-change">
+            <button class="btn" ng-click="update()">Refresh! </button>
+        </div>
 
-    <hr>
-    <h2> XML Header View</h2>
-    <div>
-        <textarea rows="10" cols="50">
-            {{teiHeader}}
-        </textarea>
+    <div class="col-lg-6">
+        <h2> XML Header View</h2>
+        <div>
+            <ui-codemirror ui-codemirror-opts="editorOptions" ng-model="teiHeader" rows="5"></ui-codemirror>
+
+        </div>
     </div>
+    <hr>
     <hr>
     <h2> Tei Info File View</h2>
     <div>
-        <textarea rows="30" cols="100">
-            {{teiXml}}
-        </textarea>
+      <ui-codemirror ui-codemirror-opts="editorOptions" ng-model="teiXml"></ui-codemirror>
+
+
     </div>
+
 </div>

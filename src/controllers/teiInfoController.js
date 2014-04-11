@@ -1,6 +1,14 @@
 teiInfoController = function($scope, teiService) {
     var teiModel = teiService.teiModel
+    //Codemirror
+    $scope.editorOptions = {
+        lineWrapping : true,
+        lineNumbers: true,
+        //readOnly: 'nocursor',
+        mode: 'xml',
 
+    };
+    $scope.isSomething = true;
     // DEBUG generates a new teiModel
     if (!teiModel || !teiModel.teiInfo) {
         //create teiModel
@@ -16,13 +24,15 @@ teiInfoController = function($scope, teiService) {
     $scope.teiInfo = teiService.teiModel.teiInfo;
 
     $scope.update = function() {
-        $scope.teiHeader = formatXml(generateHeader($scope.teiInfo));
+        console.log($scope.teiHeader);
+        $scope.teiHeader = vkbeautify.xml(generateHeader($scope.teiInfo).outerHTML);
 
+        $scope.isSomething = true;
         var teiNode = generateTEI(teiModel);
         console.log(teiNode);
-        $scope.teiXml = formatXml(teiNode.outerHTML);
+        $scope.teiXml = vkbeautify.xml(teiNode.outerHTML);
     };
 
-    // Generate the header
-    //$scope.teiHeader = generateHeader($scope.teiInfo);
+    $scope.update();
+
 }

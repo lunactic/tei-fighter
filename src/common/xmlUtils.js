@@ -7,108 +7,12 @@ String.prototype.format = function() {
     return formatted;
 };
 
-function formatXml(xml) {
-    var formatted = '';
-    var reg = /(>)(<)(\/*)/g;
-    xml = xml.replace(reg, '$1\r\n$2$3');
-    var pad = 0;
-    jQuery.each(xml.split('\r\n'), function(index, node) {
-        var indent = 0;
-        if (node.match( /.+<\/\w[^>]*>$/ )) {
-            indent = 0;
-        } else if (node.match( /^<\/\w/ )) {
-            if (pad != 0) {
-                pad -= 1;
-            }
-        } else if (node.match( /^<\w[^>]*[^\/]>.*$/ )) {
-            indent = 1;
-        } else {
-            indent = 0;
-        }
-
-        var padding = '';
-        for (var i = 0; i < pad; i++) {
-            padding += '  ';
-        }
-
-        formatted += padding + node + '\r\n';
-        pad += indent;
-    });
-
-    return formatted;
-}
-
 var addCoordElement = function(node, xmlId, ulx, uly, lrx, lry) {
     node.setAttribute("xmld:id", xmlId);
     node.setAttribute("ulx", ulx);
     node.setAttribute("uly", uly);
     node.setAttribute("lrx", lrx);
     node.setAttribute("lry", lry);
-
-}
-
-// Gets the page info object and the list of areas
-// and generates the facsimile tas
-generateFacsimile = function(pageInfo, listAreas) {
-
-    //
-    var parser = new DOMParser();
-
-    var root = parser.parseFromString("<TEI/>", "text/xml");
-
-    var facsimile = root.createElement("facsimile");
-    root.firstChild.appendChild(facsimile);
-    //surface
-    var surface = root.createElement("surface");
-
-    addCoordElement(surface, pageInfo.idSurface, 0, 0, pageInfo.width, pageInfo.height);
-    facsimile.appendChild(surface)
-    // Graphic ur
-    var graphic = root.createElement(graphic);
-    // Adding the zone element
-    listAreas.forEach(function(area) {
-        var zone = document.createElement("zone");
-        addCoordElement(zone, area.id,
-                        area.left,area.top,
-                        area.right, area.bottom);
-        surface.appendChild(zone)
-    });
-
-    // now generate the text Area
-    var textTag  = root.createElement("text");
-    var bodyTag  = root.createElement("body");
-    textTag.appendChild(bodyTag);
-    var facs  = root.createElement("div");
-    var title = root.createElement("title");
-    title.textContent = pageInfo.title;
-    facs.setAttribute("facs", pageInfo.idSurface);
-
-    var titleWrapper = root.createElement("p")
-    titleWrapper.appendChild(root.createElement("s")
-                         .appendChild(title).parentElement);
-
-    // The transcription
-    // div
-    // -> pb facs=url
-    // -> p facs=textId
-    var transDiv = root.createElement("div");
-    var pb = root.createElement("pb")
-    pb.setAttribute("facs", pageInfo.url);
-
-    // Add one p for each zi=one
-    listAreas.forEach(function(area) {
-        var transFac = root.createElement("p");
-        transFac.setAttribute("facs",area.id);
-
-        // FIXME: Parse the content as xml
-        transFac.textContent = area.transcription;
-        transDiv.appendChild(transFac);
-    });
-    facs.appendChild(transDiv);
-    bodyTag.appendChild(facs);
-
-    root.firstChild.appendChild(textTag);
-    return root.firstChild;
 
 }
 
@@ -120,10 +24,9 @@ generateTEI = function(teiModel) {
     //
     var parser = new DOMParser();
 
-    var root = parser.parseFromString("<TEI/>", "text/xml");
+    var root = parser.parseFromString('<TEI/>', "text/xml");
 
-    var sHeader = generateHeader(teiModel.teiInfo);
-    var teiHeader = $(sHeader)[0];
+    var teiHeader = generateHeader(teiModel.teiInfo);
     root.firstChild.appendChild(teiHeader);
     var facsimile = root.createElement("facsimile");
     root.firstChild.appendChild(facsimile);
@@ -161,18 +64,21 @@ generateTEI = function(teiModel) {
         titleWrapper.appendChild(root.createElement("s")
                          .appendChild(title).parentElement);
 
+        facs.appendChild(titleWrapper);
         // The transcription
         // div
         // -> pb facs=url
         // -> p facs=textId
+
         var transDiv = root.createElement("div");
         var pb = root.createElement("pb")
+
         pb.setAttribute("facs", currentPage.url);
         transDiv.appendChild(pb);
         // Add one p for each zi=one
         currentPage.areas.forEach(function(area) {
         var transFac = root.createElement("p");
-         transFac.setAttribute("facs",area.id);
+         transFac.setAttribute("facs","#"+area.id);
 //
         // FIXME: Parse the content as xml
         transFac.textContent = area.transcription;
@@ -183,18 +89,36 @@ generateTEI = function(teiModel) {
     }); // pages
 
     root.firstChild.appendChild(textTag);
+
+
     return root.firstChild;
 
 }
 
+// Given the teiInfo file generates the header
 generateHeader = function (teiInfo){
 
-    return "<teiHeader>\
-    <fileDesc><titleStmt><title>{0}</title></titleStmt>\
-        <publicationStmt><p>{1}</p></publicationStmt>\
-            <sourceDesc><p>{2}</p></sourceDesc>\
-    </fileDesc>\
-    </teiHeader>".format(teiInfo.title,teiInfo.publicationInformation,teiInfo.sourceDesc);
+    var parser = new DOMParser();
+    var root = parser.parseFromString('<teiHeader/>', "text/xml");
+
+    var fileDesc = root.createElement("fileDesc");
+    var titleStmt = root.createElement("titleStmt");
+    var titleTag = root.createElement("title");
+    titleTag.textContent = teiInfo.title;
+    titleStmt.appendChild(titleTag);
+    var publicationStmt = root.createElement("publicationStmt");
+    publicationStmt.textContent = teiInfo.publicationInformation;
+    var sourceDesc = root.createElement("sourceDesc");
+    sourceDesc.textContent = teiInfo.sourceDesc;
+
+
+    root.firstChild.appendChild(fileDesc);
+    fileDesc.appendChild(titleStmt);
+    fileDesc.appendChild(publicationStmt);
+    fileDesc.appendChild(sourceDesc);
+
+    return root.firstChild;
+
 
 
 }

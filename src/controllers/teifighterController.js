@@ -5,6 +5,7 @@ teifighterController = function ($scope, teiService) {
     teiModel = teiService.teiModel;
     console.log("Service",  teiService);
 
+
 	// This is the view controller. It can be used for scrolling,
 	// zooming and transforming coordinates. I think it should be
 	// visible to the whole project, but in a cleaner way than using
