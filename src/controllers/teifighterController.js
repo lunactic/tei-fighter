@@ -2,9 +2,8 @@ teifighterController = function ($scope, teiService) {
 	$scope.hello = 'It works';
 	$scope.more = "yes it is";
 	
-    teiModel = teiService.teiModel;
-    console.log("Service",  teiService);
-
+	teiModel = teiService.teiModel;
+	console.log("Service",  teiService);
 
 	// This is the view controller. It can be used for scrolling,
 	// zooming and transforming coordinates. I think it should be
@@ -13,68 +12,68 @@ teifighterController = function ($scope, teiService) {
 	var view = null;
 	
 	// This is a reference to the teifighterController itself.
-    var self = this;
+	var self = this;
 
 	// This object manages the inputs of the user. It is changed when
 	// the context changes (moving the view, drawing rectangles).
 	var inputManager;
 	
-    // This object stores the circles used for resizing the currently
+	// This object stores the circles used for resizing the currently
 	// selected area.
 	self.resizeCircles = null;
 
-    // scope variables empty initialization
-    $scope.currentUrl = ""; // Current url of the page (for canvas)
-    //teiModel   = null; // reference to teiModel (service)
-    $scope.listAreas  = []; //list of areas of current Page
-    $scope.pageInfo   = null; // Current page
-    $scope.pageNumber = 0; // Number of the curren page
-    $scope.listOfPages = [];
+	// scope variables empty initialization
+	$scope.currentUrl = ""; // Current url of the page (for canvas)
+	//teiModel   = null; // reference to teiModel (service)
+	$scope.listAreas  = []; //list of areas of current Page
+	$scope.pageInfo   = null; // Current page
+	$scope.pageNumber = 0; // Number of the curren page
+	$scope.listOfPages = [];
 
-    // Function that initializes the model variables
-    $scope.init = function() {
+	// Function that initializes the model variables
+	$scope.init = function() {
 
-        console.log("Initialization")
+		console.log("Initialization")
 
-        if (teiModel && teiModel.teiInfo) {
-            //TODO: Check that exists at least one page
-            $scope.setPage(0);
+		if (teiModel && teiModel.teiInfo) {
+			//TODO: Check that exists at least one page
+			$scope.setPage(0);
 
-        }
-        else {
-            //create teiModel
-            teiModel.teiInfo = new TeiInfo("Title","Publication", "Source Description");
-            teiModel.listOfPages = [];
+		}
+		else {
+			//create teiModel
+			teiModel.teiInfo = new TeiInfo("Title","Publication", "Source Description");
+			teiModel.listOfPages = [];
 
-            $scope.currentUrl = "";
-
-
-            //Add a new page
-            //Add the url
-            var testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg";
-            $scope.newPage(testUrl);
-        }
-        $scope.listOfPages = teiModel.listOfPages;
-    }
+			$scope.currentUrl = "";
 
 
-    // Given an url generates a new page
-    // initialize canvas will be called automatically
-    $scope.newPage = function(purl) {
-      var ppage = new PageInfo(purl);
-      $scope.currentUrl = purl;
-      $scope.addPage(ppage);
-      $scope.pageInfo = ppage;
-      $scope.listAreas = ppage.areas;
-      $scope.pageNumber = teiModel.listOfPages.length;
+			//Add a new page
+			//Add the url
+			var testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg";
+			$scope.newPage(testUrl);
+		}
+		$scope.listOfPages = teiModel.listOfPages;
+	}
 
-    };
-    $scope.addPage = function(page) {
-        teiModel.listOfPages.push(page);
 
-    }
+	// Given an url generates a new page
+	// initialize canvas will be called automatically
+	$scope.newPage = function(purl) {
+		var ppage = new PageInfo(purl);
+		$scope.currentUrl = purl;
+		$scope.addPage(ppage);
+		$scope.pageInfo = ppage;
+		$scope.listAreas = ppage.areas;
+		$scope.pageNumber = teiModel.listOfPages.length;
 
-    // Change the model to the current page
+	};
+	$scope.addPage = function(page) {
+		teiModel.listOfPages.push(page);
+
+	}
+
+	// Change the model to the current page
 //    $scope.setPage = function(page) {
 //
 //        teiModel.listOfpages.forEach(function(lPage) {
@@ -90,43 +89,43 @@ teifighterController = function ($scope, teiService) {
 //
 //    }
 
-    // Change the visualization to the current Page
-    $scope.setPage = function(indexPage) {
-        // TODO: check intervals
+	// Change the visualization to the current Page
+	$scope.setPage = function(indexPage) {
+		// TODO: check intervals
 
-        if ($scope.isActivePage(indexPage))
-            return;
+		if ($scope.isActivePage(indexPage))
+			return;
 
-        var cPage = teiModel.listOfPages[indexPage];
-        //Remove the old rectangles
-        $scope.removeRectangles();
+		var cPage = teiModel.listOfPages[indexPage];
+		//Remove the old rectangles
+		$scope.removeRectangles();
 
-        //Set the variables to the new page
-        $scope.currentUrl = cPage.url;
-        $scope.listAreas = cPage.areas;
-        $scope.pageInfo  = cPage;
-        $scope.pageNumber = indexPage+1; // Page number starts by 1
+		//Set the variables to the new page
+		$scope.currentUrl = cPage.url;
+		$scope.listAreas = cPage.areas;
+		$scope.pageInfo  = cPage;
+		$scope.pageNumber = indexPage+1; // Page number starts by 1
 
 
-    }
+	}
 
-    // For the pagination buttons
-    $scope.isActivePage = function(indexPage) {
-        return (indexPage == $scope.pageNumber -1);
+	// For the pagination buttons
+	$scope.isActivePage = function(indexPage) {
+		return (indexPage == $scope.pageNumber -1);
 
-    }
+	}
 
-    $scope.numPages = function() {
-        return $scope.listOfPages.length;
-    }
+	$scope.numPages = function() {
+		return $scope.listOfPages.length;
+	}
 
 
 	// Initialization of the canvas, mainly creates different observers
 	$scope.initializeCanvas = function() {
-        // For the closure
+		// For the closure
 
 		// Getting the canva, setting paper
-        this.canvas = document.getElementById('canvas');
+		this.canvas = document.getElementById('canvas');
 		paper.setup(canvas);
 		paper.view.draw();
 		
@@ -142,14 +141,14 @@ teifighterController = function ($scope, teiService) {
 		// of the canvas, it has to be offseted.
 		paper.project.activeLayer.position = [raster.width/2, raster.height/2];
 		
-        // Update page size
-        $scope.pageInfo.setSize(raster.width, raster.height);
-        
+		// Update page size
+		$scope.pageInfo.setSize(raster.width, raster.height);
+		
 		// Create a view controller for the canvas.
 		self.view = createViewController(
 			paper.project.view,
 			paper.project.activeLayer
-		);
+			);
 		
 		// Creating the resize circles
 		self.resizeCircles = new ResizeCircles(this, paper, self.view);
@@ -242,7 +241,7 @@ teifighterController = function ($scope, teiService) {
 			var realP   = getRealPoint(viewP);
 			// Zoom or unzoom
 			if (direction<0) {
-                self.view.zoomIn();
+				self.view.zoomIn();
 			} else {
 				self.view.zoomOut();
 			}
@@ -269,8 +268,8 @@ teifighterController = function ($scope, teiService) {
 			paper.view.update();
 		});
 
-        // Redraw the areas
-        $scope.reDrawAreas();
+		// Redraw the areas
+		$scope.reDrawAreas();
 		this.update();
 
 	};
@@ -311,12 +310,12 @@ teifighterController = function ($scope, teiService) {
 	// scale areas of the document
 	$scope.selectResizeController = function(area, circle, pMoveTop, pMoveLeft) {
 		inputManager = new createResizeController(this,
-												  self.view,
-												  canvas,
-												  area,
-												  self.resizeCircles,
-												  pMoveTop,
-												  pMoveLeft);
+			self.view,
+			canvas,
+			area,
+			self.resizeCircles,
+			pMoveTop,
+			pMoveLeft);
 	};
 	
 	$scope.getInputManager = function() {
@@ -358,25 +357,25 @@ teifighterController = function ($scope, teiService) {
 		// Put resize circles there
 		self.resizeCircles.assignToArea(area);
 	};
-       // Update the angular variables on hardcode
-    $scope.update = function() {
-        $scope.$apply();
-    };
+	   // Update the angular variables on hardcode
+	   $scope.update = function() {
+		$scope.$apply();
+	   };
 
-	$scope.createArea = function (topLeft, bottomRight) {
+	   $scope.createArea = function (topLeft, bottomRight) {
 		//First create the area
 
 		var area = new Area(topLeft, bottomRight);
 
 	// Create the new rectangle
 
-		var rect = new paper.Path.Rectangle({
-			from: self.view.getViewPoint(new paper.Point(topLeft)),
-			to: self.view.getViewPoint(new paper.Point(bottomRight)),
-			fillColor: 'blue',
-			strokeColor: 'black',
-			opacity: '0.5'
-		});
+	var rect = new paper.Path.Rectangle({
+		from: self.view.getViewPoint(new paper.Point(topLeft)),
+		to: self.view.getViewPoint(new paper.Point(bottomRight)),
+		fillColor: 'blue',
+		strokeColor: 'black',
+		opacity: '0.5'
+	});
 
 		//bidireccional status
 		rect.TranscriptionArea = area;
@@ -401,66 +400,66 @@ teifighterController = function ($scope, teiService) {
 		if ($scope.areaSelected==null) {
 			return;
 		}
-        $scope.areaSelected = null;
+		$scope.areaSelected = null;
 	};
 
-    // Regenerates the rectangles on the list areas
-    // used when the pages is changed
-    // and the teiModel Service
-    $scope.reDrawAreas = function() {
-        $scope.listAreas.forEach(function(area) {
-            // Create the new rectangle
+	// Regenerates the rectangles on the list areas
+	// used when the pages is changed
+	// and the teiModel Service
+	$scope.reDrawAreas = function() {
+		$scope.listAreas.forEach(function(area) {
+			// Create the new rectangle
 
-		  var rect = new paper.Path.Rectangle({
-              from: self.view.getViewPoint(new paper.Point(area.topLeft())),
-			  to: self.view.getViewPoint(new paper.Point(area.bottomRight())),
-			  fillColor: 'blue',
-			  strokeColor: 'black',
-			  opacity: '0.5'
-		  });
+			var rect = new paper.Path.Rectangle({
+				from: self.view.getViewPoint(new paper.Point(area.topLeft())),
+				to: self.view.getViewPoint(new paper.Point(area.bottomRight())),
+				fillColor: 'blue',
+				strokeColor: 'black',
+				opacity: '0.5'
+			});
 
 		  //bidireccional status
 		  rect.TranscriptionArea = area;
 		//addHandler for the click
-		  rect.onClick = function(event) {
+		rect.onClick = function(event) {
 			$scope.selectArea(rect.TranscriptionArea);
 			$scope.$apply();
-		  };
-   		area.addRect(rect);
-      });
-      $scope.unselectCurrentArea();
-    }
+		};
+		area.addRect(rect);
+	});
+		$scope.unselectCurrentArea();
+	}
 
-    $scope.removeRectangles = function() {
-        $scope.listAreas.forEach(function(area) {
-          if (area.rect)
-             area.rect.remove();
-        });
-    }
-
-
-    $scope.createTestSample = function() {
-
-        var areas = [[45, 134, 330, 1138],
-                     [57,1131, 713, 1737],
-                    ];
-
-        areas.forEach(function(elem) {
-                    topLeft = {'x':elem[0], 'y':elem[1]};
-                    bottomRight = {'x':elem[2], 'y':elem[3]};
-                    console.log(topLeft, bottomRight);
-                    $scope.createArea(topLeft, bottomRight);
-                    });
-        $scope.testUrl="http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007r.jpg";
-    };
+	$scope.removeRectangles = function() {
+		$scope.listAreas.forEach(function(area) {
+			if (area.rect)
+				area.rect.remove();
+		});
+	}
 
 
-    // Initialize the controller
-    $scope.init();
+	$scope.createTestSample = function() {
+
+		var areas = [[45, 134, 330, 1138],
+		[57,1131, 713, 1737],
+		];
+
+		areas.forEach(function(elem) {
+			topLeft = {'x':elem[0], 'y':elem[1]};
+			bottomRight = {'x':elem[2], 'y':elem[3]};
+			console.log(topLeft, bottomRight);
+			$scope.createArea(topLeft, bottomRight);
+		});
+		$scope.testUrl="http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007r.jpg";
+	};
+
+
+	// Initialize the controller
+	$scope.init();
 
 
 	
 
 }
 
- 
+
