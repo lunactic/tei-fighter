@@ -17,14 +17,11 @@ teifighterController = function ($scope, teiService) {
 	// This object manages the inputs of the user. It is changed when
 	// the context changes (moving the view, drawing rectangles).
 	var inputManager;
-    
-    self.view = null;
 	
 	// This object stores the circles used for resizing the currently
 	// selected area.
 	self.resizeCircles = null;
     
-    self.updateDelay = -1;
     
     // True after their initialization
     self.areListenersInitialized = false;
@@ -136,6 +133,11 @@ teifighterController = function ($scope, teiService) {
 		paper.setup(canvas);
 		paper.view.draw();
 		
+		paper.view.onFrame = function(event) {
+			//Log funny sutff in there :)
+			//console.log(paper.project.activeLayer.position.x+" "+paper.project.activeLayer.position.y);
+		};
+		
 		// loading the image
 		raster = new paper.Raster('image');
 		
@@ -147,10 +149,10 @@ teifighterController = function ($scope, teiService) {
 		$scope.pageInfo.setSize(raster.width, raster.height);
 		
 		// Create a view controller for the canvas.
-        self.view = createViewController(
-            paper.project.view,
-            paper.project.activeLayer
-        );
+		self.view = createViewController(
+			paper.project.view,
+			paper.project.activeLayer
+			);
 		
 		// Creating the resize circles
 		self.resizeCircles = new ResizeCircles(this, paper, self.view);
@@ -162,10 +164,8 @@ teifighterController = function ($scope, teiService) {
 		$scope.initializeListeners();
 
 		// Redraw the areas
-       
 		$scope.reDrawAreas();
-   		this.update();
-        
+		this.update();
 
 	};
     
@@ -173,23 +173,7 @@ teifighterController = function ($scope, teiService) {
         if (self.areListenersInitialized) {
             return ;
         }
-        
         self.areListenersInitialized = true;
-        
-        
-                paper.view.onFrame = function(event) {
-                    
-                    if (self.updateDelay>-1) {
-                        self.updateDelay--;
-                        console.log(self.updateDelay);
-                    }
-                    if (self.updateDelay==0) {
-                        //paper.view.update();
-                    }
-                    //Log funny sutff in there :)
-                    //console.log(paper.project.activeLayer.position.x+" "+paper.project.activeLayer.position.y);
-                };
-        
         // Ugly code, it will have to be cleaned ! These variables store
 		// the state of the mouse at some moments.
 		// This indicates if the mouse button is being hold down ; it is
