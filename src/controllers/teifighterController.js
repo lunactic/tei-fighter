@@ -21,6 +21,10 @@ teifighterController = function ($scope, $location, teiService) {
 	// This object stores the circles used for resizing the currently
 	// selected area.
 	self.resizeCircles = null;
+    
+    
+    // True after their initialization
+    self.areListenersInitialized = false;
 
 	// scope variables empty initialization
 	$scope.currentUrl = ""; // Current url of the page (for canvas)
@@ -166,7 +170,20 @@ teifighterController = function ($scope, $location, teiService) {
 		// creating the default input manager (moving the image)
 		inputManager = viewOffsetController(this, self.view, canvas);
 		
-		// Ugly code, it will have to be cleaned ! These variables store
+		$scope.initializeListeners();
+
+		// Redraw the areas
+		$scope.reDrawAreas();
+		this.update();
+
+	};
+    
+    $scope.initializeListeners = function() {
+        if (self.areListenersInitialized) {
+            return ;
+        }
+        self.areListenersInitialized = true;
+        // Ugly code, it will have to be cleaned ! These variables store
 		// the state of the mouse at some moments.
 		// This indicates if the mouse button is being hold down ; it is
 		// used to discriminate mouse move from mouse drag
@@ -276,12 +293,7 @@ teifighterController = function ($scope, $location, teiService) {
 			self.resizeCircles.updateCircleSize();
 			paper.view.update();
 		});
-
-		// Redraw the areas
-		$scope.reDrawAreas();
-		this.update();
-
-	};
+    }
 	
 	// Zooms in toward the center of the view
 	$scope.centerZoomIn = function($scope) {
