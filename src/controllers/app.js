@@ -28,7 +28,7 @@ teifighterApp.service('teiService', function() {
             }
     }
 });
-teifighterApp.controller("TeifighterController", ['$scope', 'teiService', teifighterController])
+teifighterApp.controller("TeifighterController", ['$scope', '$location', 'teiService', teifighterController])
 .directive('imageonload', function() {
     return {
        restrict: 'A',

@@ -1,4 +1,4 @@
-teifighterController = function ($scope, teiService) {
+teifighterController = function ($scope, $location, teiService) {
 	$scope.hello = 'It works';
 	$scope.more = "yes it is";
 	
@@ -36,9 +36,19 @@ teifighterController = function ($scope, teiService) {
 		console.log("Initialization")
 
 		if (teiModel && teiModel.teiInfo) {
-			//TODO: Check that exists at least one page
-			$scope.setPage(0);
 
+			//TODO: Check that variable fits
+			var paramPage = $location.search().page;
+			if (paramPage) {
+				var currentPage = parseInt(paramPage);
+
+				console.log("Setting Page: " + currentPage);
+				$scope.setPage(currentPage);
+			}
+			else {
+				//TODO: Check that exists at least one page
+				paramPage = $scope.setPage(0);
+			}
 		}
 		else {
 			//create teiModel
@@ -123,9 +133,9 @@ teifighterController = function ($scope, teiService) {
 	// Initialization of the canvas, mainly creates different observers
 	$scope.initializeCanvas = function() {
 		// For the closure
-
 		// Getting the canva, setting paper
 		this.canvas = document.getElementById('canvas');
+
 		paper.setup(canvas);
 		paper.view.draw();
 		
@@ -152,7 +162,6 @@ teifighterController = function ($scope, teiService) {
 		
 		// Creating the resize circles
 		self.resizeCircles = new ResizeCircles(this, paper, self.view);
-
 
 		// creating the default input manager (moving the image)
 		inputManager = viewOffsetController(this, self.view, canvas);
