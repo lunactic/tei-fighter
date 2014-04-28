@@ -1,4 +1,4 @@
-<div ng-controller= "TeifighterController" class = "displayArea" >
+<div ng-controller= "TranscriptionController" class = "displayArea" >
 	<div class="row container">
 
 		<div class= "col-md-6 page-info">
@@ -6,7 +6,8 @@
 			<input type="text" ng-model="pageInfo.title"><br>
 			<label for = "idSurfaces">Id Surface:</label>
 			<input type="text" ng-model="pageInfo.idSurface">
-			<button class="btn btn-primary" data-toggle="modal" data-target="#newPageModal">
+			<button class = "btn btn-primary" data-toggle="modal" data-target="#newPageModal">
+				<span class = "glyphicon glyphicon-plus"></span>
 				Add new page.
 			</button>
 			<div class="btn btn-default" ng-click="createTestSample()">
@@ -21,7 +22,12 @@
 			Hi right: we have {{listAreas.length}} areas.
 		</div>
 		<div class = "col-md-6">
-
+			<h4>Arrange Transcription:</h4>
+			<div class = "btn-group">
+				<div class = "btn btn-default" ng-click='setArrange("LIST")' ng-class = '{ active: checkArrange("LIST") }'>List</div>
+				<div class = "btn btn-default" ng-click='setArrange("LAYOUT")' ng-class = '{ active: checkArrange("LAYOUT") }' >Layout</div>
+			</div>
+			{{helloTranscription}} {{currentArrange}}
 
 		</div>
 		<!-- Button trigger modal -->
@@ -36,13 +42,15 @@
 					<button type="button" class="btn btn-default" ng-click="centerZoomIn();">Zoom in</button>
 					<button type="button" class="btn btn-default" ng-click="centerZoomOut();">Zoom out</button>
 					<button type="button" class="btn btn-default" ng-click="selectOffsetController();">Move view</button>
-					<button type="button" class="btn btn-default" ng-click="selectRectanglesController();">Create areas</button>
+					<button type="button" class="btn btn-default" ng-click="selectRectanglesController();" >Create areas</button>
 				</div>
 			</div>
 			<canvas id="canvas" style="background-color: blue; width: 100%; height:70%"> </canvas>
 		</div>
+
 		<div class="col-md-6" style="background-color:green">
-			<div class="transcriptions">
+
+			<div class="transcriptions" ng-style="transcriptionsStyle()">
 				<div ng-repeat='area in listAreas'>
 					<div class = 'transcription'
 							 ng-class = '{areaSelected: isAreaSelected(area)}'
@@ -58,7 +66,6 @@
 						<div ng-show=!isAreaSelected(area)>
 							<label>{{area.transcription}}</label>
 						</div>
-
 					</div>
 				</div>
 			</div>

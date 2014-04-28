@@ -22,6 +22,7 @@ createViewController = function(pView, pLayer) {
 		this.layer.scale(1.5);
 		zoom *= 1.5;
 		this.view.update();
+		onViewUpdate();
 	}
 	
 	// Zooms out, reaches unusual new coordinates
@@ -29,6 +30,7 @@ createViewController = function(pView, pLayer) {
 		this.layer.scale(1/1.5);
 		zoom /= 1.5;
 		this.view.update();
+		onViewUpdate();
 	}
 	
 	this.getZoomRatio = function() {
@@ -81,6 +83,7 @@ createViewController = function(pView, pLayer) {
 		this.layer.position.x += dx/z;
 		this.layer.position.y += dy/z;
 		this.view.update();
+		onViewUpdate();
 	}
 	
 	// Offsets the view so that the point reapP is at the
@@ -90,6 +93,12 @@ createViewController = function(pView, pLayer) {
 		var dx = viewP.x - q.x;
 		var dy = viewP.y - q.y;
 		offsetView(dx, dy);
+	}
+
+	// Called whenever the view is updated - in some case maybe
+	// in a redundant way
+	onViewUpdate = function() {
+		//$scope.update();
 	}
 
 	return this;
