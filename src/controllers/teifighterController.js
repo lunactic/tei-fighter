@@ -22,6 +22,7 @@ teifighterController = function ($scope, teiService) {
 	// selected area.
 	self.resizeCircles = null;
     
+    self.updateDelay = -1;
     
     // True after their initialization
     self.areListenersInitialized = false;
@@ -102,7 +103,7 @@ teifighterController = function ($scope, teiService) {
 
 		var cPage = teiModel.listOfPages[indexPage];
 		//Remove the old rectangles
-		$scope.removeRectangles();
+		//$scope.removeRectangles();
 
 		//Set the variables to the new page
 		$scope.currentUrl = cPage.url;
@@ -130,13 +131,15 @@ teifighterController = function ($scope, teiService) {
 
 		// Getting the canva, setting paper
 		this.canvas = document.getElementById('canvas');
-		paper.setup(canvas);
+        
+        if (self.areListenersInitialized) {
+            paper.remove();
+        }
+        
+        paper.setup(canvas);
 		paper.view.draw();
 		
-		paper.view.onFrame = function(event) {
-			//Log funny sutff in there :)
-			//console.log(paper.project.activeLayer.position.x+" "+paper.project.activeLayer.position.y);
-		};
+        
 		
 		// loading the image
 		raster = new paper.Raster('image');
@@ -162,11 +165,41 @@ teifighterController = function ($scope, teiService) {
 		inputManager = viewOffsetController(this, self.view, canvas);
 		
 		$scope.initializeListeners();
+        
+        self.dummyRectangle = null;
+        
+		paper.view.onFrame = function(event) {
+			//Log funny sutff in there :)
+            if (self.updateDelay>-1) {
+                console.log(self.updateDelay);
+                self.updateDelay--;
+            }
+            if (self.updateDelay>0) {
+                if (self.dummyRectangle != null) {
+                    self.dummyRectangle.remove();
+                }
+                raster.sendToBack();
+                self.dummyRectangle = new paper.Path.Rectangle({
+                    from: self.view.getViewPoint(new paper.Point(0,0)),
+                    to: self.view.getViewPoint(new paper.Point(100,100)),
+                    fillColor: 'red',
+                    strokeColor: 'green',
+                    opacity: '1'
+                });
+                paper.view.update();
+            }
+            if (self.updateDelay==0) {
+                self.dummyRectangle.remove();
+                self.dummyRectangle = null;
+                //paper.view.update();
+            }
+			//console.log(paper.project.activeLayer.position.x+" "+paper.project.activeLayer.position.y);
+		};
 
 		// Redraw the areas
 		$scope.reDrawAreas();
 		this.update();
-
+        self.updateDelay = 100;
 	};
     
     $scope.initializeListeners = function() {
@@ -174,6 +207,10 @@ teifighterController = function ($scope, teiService) {
             return ;
         }
         self.areListenersInitialized = true;
+        
+        
+        
+        
         // Ugly code, it will have to be cleaned ! These variables store
 		// the state of the mouse at some moments.
 		// This indicates if the mouse button is being hold down ; it is
@@ -438,6 +475,7 @@ teifighterController = function ($scope, teiService) {
 			$scope.$apply();
 		};
 		area.addRect(rect);
+        raster.sendToBack();
 	});
 		$scope.unselectCurrentArea();
 	}
