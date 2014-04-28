@@ -5,6 +5,7 @@ teifighterController = function ($scope, $location, teiService) {
 	teiModel = teiService.teiModel;
 	console.log("Service",  teiService);
 
+
 	// This is the view controller. It can be used for scrolling,
 	// zooming and transforming coordinates. I think it should be
 	// visible to the whole project, but in a cleaner way than using
@@ -23,8 +24,8 @@ teifighterController = function ($scope, $location, teiService) {
 	self.resizeCircles = null;
     
     
-    // True after their initialization
-    self.areListenersInitialized = false;
+  // True after their initialization
+  self.areListenersInitialized = false;
 
 	// scope variables empty initialization
 	$scope.currentUrl = ""; // Current url of the page (for canvas)
@@ -164,6 +165,10 @@ teifighterController = function ($scope, $location, teiService) {
 			paper.project.activeLayer
 			);
 		
+		self.view.onViewUpdate = function() {
+			$scope.update();
+		}
+
 		// Creating the resize circles
 		self.resizeCircles = new ResizeCircles(this, paper, self.view);
 
@@ -295,6 +300,13 @@ teifighterController = function ($scope, $location, teiService) {
 		});
     }
 	
+	// View wrapper
+	$scope.getView = function() {
+		return self.view;
+
+	}
+
+
 	// Zooms in toward the center of the view
 	$scope.centerZoomIn = function($scope) {
 		var p = self.view.getCenter();
@@ -424,6 +436,7 @@ teifighterController = function ($scope, $location, teiService) {
 		$scope.areaSelected = null;
 	};
 
+
 	// Regenerates the rectangles on the list areas
 	// used when the pages is changed
 	// and the teiModel Service
@@ -450,6 +463,8 @@ teifighterController = function ($scope, $location, teiService) {
 	});
 		$scope.unselectCurrentArea();
 	}
+
+
 
 	$scope.removeRectangles = function() {
 		$scope.listAreas.forEach(function(area) {

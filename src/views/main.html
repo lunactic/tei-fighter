@@ -1,98 +1,111 @@
-<div ng-controller= "TeifighterController" class = "displayArea" >
-<h1> This the main overview of the application</h1><a href='#/header'>Header</a>
+<div ng-controller= "TranscriptionController" class = "displayArea" >
+	<div class="row container">
 
-<div class="row">
-	<div id="canvas-container" class="col-md-6" style="background-color:red;">
-		<div id="canvas-tools-panel" style="background-color: black" width="100%">
-			
-			<div class="btn-group">
-			  <button type="button" class="btn btn-default" ng-click="centerZoomIn();">Zoom in</button>
-			  <button type="button" class="btn btn-default" ng-click="centerZoomOut();">Zoom out</button>
-			  <button type="button" class="btn btn-default" ng-click="selectOffsetController();">Move view</button>
-			  <button type="button" class="btn btn-default" ng-click="selectRectanglesController();">Create areas</button>
+		<div class= "col-md-6 page-info">
+			<label for = "title">Title</label>
+			<input type="text" ng-model="pageInfo.title"><br>
+			<label for = "idSurfaces">Id Surface:</label>
+			<input type="text" ng-model="pageInfo.idSurface">
+			<button class = "btn btn-primary" data-toggle="modal" data-target="#newPageModal">
+				<span class = "glyphicon glyphicon-plus"></span>
+				Add new page.
+			</button>
+			<div class="btn btn-default" ng-click="createTestSample()">
+				Test!
 			</div>
-		</div>
-		<canvas id="canvas" style="background-color: blue" width="555" height="555"> </canvas>
-	</div>
-	<div class="col-md-6" style="background-color:green">
-        <div class= "page-info">
-            <label for = "title">Title</label>
-            <input type="text" ng-model="pageInfo.title"><br>
-            <label for = "idSurfaces">Id Surface:</label>
-            <input type="text" ng-model="pageInfo.idSurface"><br>
-            <span>Width: {{pageInfo.width}}</span><span>Height: {{pageInfo.height}}</span>
-        </div>
-		Hi right: we have {{listAreas.length}} areas.
-		
-		<div class="btn btn-default" ng-click="createTestSample()">
-            Test!
-		</div>
-        <div class="btn btn-default" ng-click="testXML()">
-            Test!
-		</div>
-        <!-- Button trigger modal -->
-        <button class="btn btn-primary" data-toggle="modal" data-target="#newPageModal">
-        Add new page.
-        </button>
-		<div class="transcriptions">
-
-			<div class="row" ng-repeat='area in listAreas'>
-
-				<div class = 'container transcription'
-				 ng-class = '{areaSelected: isAreaSelected(area)}'
-				 ng-click = 'selectArea(area)'>
-                <div class = "area-info">
-
-                    <label>Id:</label><input type="text" ng-model="area.id"><br>
-                    ulx: {{area.left}} uly: {{area.top}} lrx: {{area.right}} lry: {{area.bottom}}
-                </div>
-				 <div ng-show=isAreaSelected(area)>
-					<input text="type" id={{area.id}} ng-model="area.transcription">
-				</div>
-				<div ng-show=!isAreaSelected(area)>
-				<label>{{area.transcription}}</label>
-				</div>
-
-				</div>
-				
+			<div class="btn btn-default" ng-click="testXML()">
+				Test!
 			</div>
-		</div> 
-		
+			<br>
+			<span>Width: {{pageInfo.width}}. </span><span>Height: {{pageInfo.height}}.</span>
+
+			Hi right: we have {{listAreas.length}} areas.
+		</div>
+		<div class = "col-md-6">
+			<h4>Arrange Transcription:</h4>
+			<div class = "btn-group">
+				<div class = "btn btn-default" ng-click='setArrange("LIST")' ng-class = '{ active: checkArrange("LIST") }'>List</div>
+				<div class = "btn btn-default" ng-click='setArrange("LAYOUT")' ng-class = '{ active: checkArrange("LAYOUT") }' >Layout</div>
+			</div>
+			{{helloTranscription}} {{currentArrange}}
+
+		</div>
+		<!-- Button trigger modal -->
+
 	</div>
-</div>
-<div id="tei_pagination">
-    We have {{pageNumber}}/{{numPages()}}.
-    <ul class = "pagination">
-        <li ng-repeat='page in listOfPages' ng-class = '{active: isActivePage($index)}'>
-        <a href ng-click="setPage($index)" >{{$index + 1}}</a>
-        </li>
-    </ul>
-</div>
 
-<!-- <img id="image" ng-src="{{testUrl}}" style="visibility: hidden;" width="10px" height="10px"/> -->
-<img id="image" ng-src="{{currentUrl}}" width="10px" height="10px" imageonload />
+	<div class="row">
+		<div id="canvas-container" class="col-md-6" style="background-color:red;">
+			<div id="canvas-tools-panel" style="background-color: black" width="100%">
 
-<!-- New Page menu -->
-<div class="modal fade" id="newPageModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Add new page</h4>
-      </div>
-      <div class="modal-body">
-          <div class="input-group">
-            <span class="input-group-addon">URL:</span>
+				<div class="btn-group">
+					<button type="button" class="btn btn-default" ng-click="centerZoomIn();">Zoom in</button>
+					<button type="button" class="btn btn-default" ng-click="centerZoomOut();">Zoom out</button>
+					<button type="button" class="btn btn-default" ng-click="selectOffsetController();">Move view</button>
+					<button type="button" class="btn btn-default" ng-click="selectRectanglesController();" >Create areas</button>
+				</div>
+			</div>
+			<canvas id="canvas" style="background-color: blue; width: 100%; height:70%"> </canvas>
+		</div>
 
-            <input type="text" ng-model="value" class="form-control" placeholder="pageUrl">
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-binding>Close</button>
-        <button type="button" class="btn btn-primary" ng-click =newPage(value)>Add</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+		<div class="col-md-6" style="background-color:green">
+
+			<div class="transcriptions" ng-style="transcriptionsStyle()">
+				<div ng-repeat='area in listAreas'>
+					<div class = 'transcription'
+							 ng-class = '{areaSelected: isAreaSelected(area)}'
+							 ng-click = 'selectArea(area)'
+							 ng-style="styleArea(area)">
+						<div class = "area-info">
+							<label>Id:</label><input type="text"  ng-model="area.id"><br>
+							ulx: {{area.left}} uly: {{area.top}} lrx: {{area.right}} lry: {{area.bottom}}
+						</div>
+						<div ng-show=isAreaSelected(area)>
+							<input text="type" id={{area.id}} ng-model="area.transcription">
+						</div>
+						<div ng-show=!isAreaSelected(area)>
+							<label>{{area.transcription}}</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div id="tei_pagination">
+		We have {{pageNumber}}/{{numPages()}} (Param: {{pageParam}}).
+		<ul class = "pagination">
+			<li ng-repeat='page in listOfPages' ng-class = '{active: isActivePage($index)}'>
+				<a href="#/?page={{$index}}" >{{$index + 1}}</a>
+			</li>
+		</ul>
+
+	</div>
+
+	<!-- <img id="image" ng-src="{{testUrl}}" style="visibility: hidden;" width="10px" height="10px"/> -->
+	<img id="image" ng-src="{{currentUrl}}" width="10px" height="10px" imageonload />
+
+	<!-- New Page menu -->
+	<div class="modal fade" id="newPageModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Add new page</h4>
+				</div>
+				<div class="modal-body">
+					<div class="input-group">
+						<span class="input-group-addon">URL:</span>
+
+						<input type="text" ng-model="value" class="form-control" placeholder="pageUrl">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-binding>Close</button>
+					<button type="button" class="btn btn-primary" ng-click =newPage(value)>Add</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
 </div>

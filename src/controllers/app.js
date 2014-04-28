@@ -5,7 +5,7 @@ teifighterApp.config(['$routeProvider',
     $routeProvider.
       when('/', {
         templateUrl: 'views/main.html',
-        controller: 'settingsController'
+        controller: 'TeifighterController'
       }).
       when('/info', {
       	templateUrl:'views/info.html',
@@ -41,6 +41,7 @@ teifighterApp.controller("TeifighterController", ['$scope', '$location', 'teiSer
 });
 
 teifighterApp.controller("TeiInfoController", ['$scope', 'teiService', teiInfoController])
+teifighterApp.controller("TranscriptionController", ['$scope', transcriptionController]);
 
 teifighterApp.controller("settingsController", function($scope)
 {
