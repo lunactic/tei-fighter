@@ -14,12 +14,7 @@
 				<span class = "glyphicon glyphicon-barcode"></span>
 				TEI Info
 				</a>
-			<div class="btn btn-default" ng-click="createTestSample()">
-				Test!
-			</div>
-			<div class="btn btn-default" ng-click="testXML()">
-				Test!
-			</div>
+
 			<br>
 			<span>Width: {{pageInfo.width}}. </span><span>Height: {{pageInfo.height}}.</span>
 
@@ -30,8 +25,16 @@
 			<div class = "btn-group">
 				<div class = "btn btn-default" ng-click='setArrange("LIST")' ng-class = '{ active: checkArrange("LIST") }'>List</div>
 				<div class = "btn btn-default" ng-click='setArrange("LAYOUT")' ng-class = '{ active: checkArrange("LAYOUT") }' >Layout</div>
+
 			</div>
-			{{helloTranscription}} {{currentArrange}}
+					<div class="btn btn-danger" ng-click="createTestSample()">
+					<span class = "glyphicon glyphicon-screenshot"></span>
+					Generate Test Model!
+			</div>
+			<div class="btn btn-warning" ng-click="testXML()">
+				Test!
+			</div>
+
 
 		</div>
 		<!-- Button trigger modal -->

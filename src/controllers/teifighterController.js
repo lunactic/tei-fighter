@@ -1,4 +1,4 @@
-teifighterController = function ($scope, $location, teiService) {
+teifighterController = function ($scope, $location, $timeout,  teiService) {
 	$scope.hello = 'It works';
 	$scope.more = "yes it is";
 	
@@ -40,19 +40,21 @@ teifighterController = function ($scope, $location, teiService) {
 
 		console.log("Initialization")
 
+		var currentPage = 0
 		if (teiModel && teiModel.teiInfo) {
 
 			//TODO: Check that variable fits
 			var paramPage = $location.search().page;
-			if (paramPage) {
-				var currentPage = parseInt(paramPage);
 
+			if (paramPage) {
+				currentPage = parseInt(paramPage);
+			}
+
+			$scope.listOfPages = teiModel.listOfPages;
+
+			if (currentPage < teiModel.listOfPages.length) {
 				console.log("Setting Page: " + currentPage);
 				$scope.setPage(currentPage);
-			}
-			else {
-				//TODO: Check that exists at least one page
-				paramPage = $scope.setPage(0);
 			}
 		}
 		else {
@@ -65,8 +67,8 @@ teifighterController = function ($scope, $location, teiService) {
 
 			//Add a new page
 			//Add the url
-			var testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg";
-			$scope.newPage(testUrl);
+			//var testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg";
+
 		}
 		$scope.listOfPages = teiModel.listOfPages;
 	}
@@ -476,21 +478,26 @@ teifighterController = function ($scope, $location, teiService) {
 
 	$scope.createTestSample = function() {
 
+		var testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg";
+		$scope.newPage(testUrl);
+
 		var areas = [[45, 134, 330, 1138],
 		[57,1131, 713, 1737],
 		];
 
-		areas.forEach(function(elem) {
-			topLeft = {'x':elem[0], 'y':elem[1]};
-			bottomRight = {'x':elem[2], 'y':elem[3]};
-			console.log(topLeft, bottomRight);
-			$scope.createArea(topLeft, bottomRight);
-		});
-		$scope.testUrl="http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007r.jpg";
+		$timeout(function () {
+			areas.forEach(function(elem) {
+				topLeft = {'x':elem[0], 'y':elem[1]};
+				bottomRight = {'x':elem[2], 'y':elem[3]};
+				console.log(topLeft, bottomRight);
+				$scope.createArea(topLeft, bottomRight);
+			})
+		},500);
+
 	};
 
 
-	// Initialize the controller
+
 	$scope.init();
 
 
