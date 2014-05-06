@@ -1,31 +1,38 @@
 teifighterController = function ($scope, $location, $timeout,  teiService) {
 	$scope.hello = 'It works';
 	$scope.more = "yes it is";
-	
+
 	teiModel = teiService.teiModel;
 	console.log("Service",  teiService);
 
+	$scope.editorOptions = {
+		lineWrapping : true,
+		lineNumbers: true,
+		//readOnly: 'nocursor',
+		mode: 'xml',
+
+	};
 
 	// This is the view controller. It can be used for scrolling,
 	// zooming and transforming coordinates. I think it should be
 	// visible to the whole project, but in a cleaner way than using
 	// global variables.
 	var view = null;
-	
+
 	// This is a reference to the teifighterController itself.
 	var self = this;
 
 	// This object manages the inputs of the user. It is changed when
 	// the context changes (moving the view, drawing rectangles).
 	var inputManager;
-	
+
 	// This object stores the circles used for resizing the currently
 	// selected area.
 	self.resizeCircles = null;
-    
-    
-  // True after their initialization
-  self.areListenersInitialized = false;
+
+
+	// True after their initialization
+	self.areListenersInitialized = false;
 
 	// scope variables empty initialization
 	$scope.currentUrl = ""; // Current url of the page (for canvas)
@@ -91,20 +98,20 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 	}
 
 	// Change the model to the current page
-//    $scope.setPage = function(page) {
-//
-//        teiModel.listOfpages.forEach(function(lPage) {
-//         var i = 1;
-//         if (page === lPage) {
-//           $scope.pageInfo = lPage;
-//           $scope.listAreas = lPage.areas;
-//           $scope.pageNumber = i;
-//           i++;
-//           return;
-//         }
-//        });
-//
-//    }
+	//    $scope.setPage = function(page) {
+	//
+	//        teiModel.listOfpages.forEach(function(lPage) {
+	//         var i = 1;
+	//         if (page === lPage) {
+	//           $scope.pageInfo = lPage;
+	//           $scope.listAreas = lPage.areas;
+	//           $scope.pageNumber = i;
+	//           i++;
+	//           return;
+	//         }
+	//        });
+	//
+	//    }
 
 	// Change the visualization to the current Page
 	$scope.setPage = function(indexPage) {
@@ -145,28 +152,28 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 
 		paper.setup(canvas);
 		paper.view.draw();
-		
+
 		paper.view.onFrame = function(event) {
 			//Log funny sutff in there :)
 			//console.log(paper.project.activeLayer.position.x+" "+paper.project.activeLayer.position.y);
 		};
-		
+
 		// loading the image
 		raster = new paper.Raster('image');
-		
+
 		// By default, the center of the image is on the left-top corner
 		// of the canvas, it has to be offseted.
 		paper.project.activeLayer.position = [raster.width/2, raster.height/2];
-		
+
 		// Update page size
 		$scope.pageInfo.setSize(raster.width, raster.height);
-		
+
 		// Create a view controller for the canvas.
 		self.view = createViewController(
 			paper.project.view,
 			paper.project.activeLayer
-			);
-		
+		);
+
 		self.view.onViewUpdate = function() {
 			$scope.update();
 		}
@@ -176,7 +183,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 
 		// creating the default input manager (moving the image)
 		inputManager = viewOffsetController(this, self.view, canvas);
-		
+
 		$scope.initializeListeners();
 
 		// Redraw the areas
@@ -184,13 +191,13 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 		this.update();
 
 	};
-    
-    $scope.initializeListeners = function() {
-        if (self.areListenersInitialized) {
-            return ;
-        }
-        self.areListenersInitialized = true;
-        // Ugly code, it will have to be cleaned ! These variables store
+
+	$scope.initializeListeners = function() {
+		if (self.areListenersInitialized) {
+			return ;
+		}
+		self.areListenersInitialized = true;
+		// Ugly code, it will have to be cleaned ! These variables store
 		// the state of the mouse at some moments.
 		// This indicates if the mouse button is being hold down ; it is
 		// used to discriminate mouse move from mouse drag
@@ -202,13 +209,13 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 		// Position of the mouse during drag - updated at the end of the
 		// function call.
 		var prevDragPos  = new paper.Point(0,0);
-		
+
 		// Mouseup, there has been a click
 		canvas.onmouseup = function(event) {
 			// Getting the coordinates of the mouse
 			mouseUpPos.x = event.clientX - canvas.getBoundingClientRect().left;
 			mouseUpPos.y = event.clientY - canvas.getBoundingClientRect().top;
-			
+
 			// if the coordinates have not changed while the mouse button was
 			// down, it is a click
 			if (mouseUpPos.x==mouseDownPos.x && mouseUpPos.y==mouseDownPos.y) {
@@ -218,12 +225,12 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 				// Else the button has been released after a mouse drag
 				inputManager.dragStopped();
 			}
-			
+
 			// Not down anymore.
 			isMouseDown = false;
 
 		}
-		
+
 		// If the mouse leaves the canvas, we considere it a bit like an
 		// eventless mouse click.
 		canvas.onmouseleave = function(event) {
@@ -231,38 +238,38 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 			mouseUpPos.y = event.clientY - canvas.getBoundingClientRect().top;
 			isMouseDown = false;
 		}
-		
+
 		// The mouse was pressed on the canvas - reset mouseDownPos
 		// and also prevDragPos.
 		canvas.onmousedown = function(event) {
 			prevDragPos.x = mouseDownPos.x = event.clientX - canvas.getBoundingClientRect().left;
 			prevDragPos.y = mouseDownPos.y = event.clientY - canvas.getBoundingClientRect().top;
 			isMouseDown = true;
-			
+
 		}
 
 		// The mouse was moved... was it dragged ?
 		canvas.onmousemove = function(event)  {
 			// If not dragged...
 			if (!isMouseDown) return;
-			
+
 			// Get coordinates of the click
 			x = event.clientX - canvas.getBoundingClientRect().left;
 			y = event.clientY - canvas.getBoundingClientRect().top;
 			pos = new paper.Point(x,y);
-			
+
 			// Compute by how much it moved since last such event
 			dx = x - prevDragPos.x;
 			dy = y - prevDragPos.y;
-			
+
 			// Tell the input manager that there was a drag
 			inputManager.drag(mouseDownPos, pos, dx, dy);
-			
+
 			// Update data
 			prevDragPos.x = x;
 			prevDragPos.y = y;
 		}
-		
+
 		// Zoom-scroll - due to Firefox & Chrome incompatibilities,
 		// it has to be coded twice. Crap.
 		canvas.addEventListener("mousewheel", function (e) {
@@ -289,7 +296,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 			var direction = e.detail;
 			var viewP = new paper.Point(e.layerX, e.layerY);
 			var realP   = getRealPoint(viewP);
-			
+
 			if (direction<0) {
 				self.view.zoomIn();
 			} else {
@@ -300,8 +307,8 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 			self.resizeCircles.updateCircleSize();
 			paper.view.update();
 		});
-    }
-	
+	}
+
 	// View wrapper
 	$scope.getView = function() {
 		return self.view;
@@ -318,7 +325,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 		self.resizeCircles.updateCircleSize();
 		paper.view.update();
 	};
-	
+
 	// Zooms out from the center of the view
 	$scope.centerZoomOut = function($scope) {
 		var p = self.view.getCenter();
@@ -328,35 +335,35 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 		self.resizeCircles.updateCircleSize();
 		paper.view.update();
 	};
-	
+
 	// Indicates to teifighterController that we want now to
 	// move the document around
 	$scope.selectOffsetController = function($scope) {
 		inputManager = viewOffsetController(this, self.view, canvas);
 	};
-	
+
 	// Indicates to teifighterController that we want now to
 	// draw rectangles on the document
 	$scope.selectRectanglesController = function($scope) {
 		inputManager = createRectanglesController(this, self.view, canvas);
 	};
-	
+
 	// Indicates to teifighterController that we want now to
 	// scale areas of the document
 	$scope.selectResizeController = function(area, circle, pMoveTop, pMoveLeft) {
 		inputManager = new createResizeController(this,
-			self.view,
-			canvas,
-			area,
-			self.resizeCircles,
-			pMoveTop,
-			pMoveLeft);
+																							self.view,
+																							canvas,
+																							area,
+																							self.resizeCircles,
+																							pMoveTop,
+																							pMoveLeft);
 	};
-	
+
 	$scope.getInputManager = function() {
 		return inputManager;
 	};
-	
+
 	$scope.setInputManager = function(inManager) {
 		inputManager = inManager;
 	};
@@ -365,10 +372,10 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 
 	// Selecting areas
 	$scope.isAreaSelected = function(area)  {
-		
+
 		return area === $scope.areaSelected;
 	};
-	
+
 	$scope.selectArea = function(area) {
 		// FIXME the colors should be global variables
 		// or use a method on the rectangle like activate/deactivate
@@ -386,31 +393,32 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 		// Fixme create an id to focus.
 		// the id must be unique and work well with
 		//$("#"+area.id).focus();
-		
+
 		paper.view.update();
-		
+
 		// Put resize circles there
 		self.resizeCircles.assignToArea(area);
 	};
-	   // Update the angular variables on hardcode
-	   $scope.update = function() {
+	// Update the angular variables on hardcode
+	$scope.update = function() {
 		$scope.$apply();
-	   };
+	};
 
-	   $scope.createArea = function (topLeft, bottomRight) {
+	$scope.createArea = function (topLeft, bottomRight) {
 		//First create the area
 
 		var area = new Area(topLeft, bottomRight);
 
-	// Create the new rectangle
+		// Create the new rectangle
 
-	var rect = new paper.Path.Rectangle({
-		from: self.view.getViewPoint(new paper.Point(topLeft)),
-		to: self.view.getViewPoint(new paper.Point(bottomRight)),
-		fillColor: 'blue',
-		strokeColor: 'black',
-		opacity: '0.5'
-	});
+		var rect = new paper.Path.Rectangle({
+			from: self.view.getViewPoint(new paper.Point(topLeft)),
+			to: self.view.getViewPoint(new paper.Point(bottomRight)),
+			fillColor: 'blue',
+			strokeColor: 'black',
+			opacity: '0.5'
+
+		});
 
 		//bidireccional status
 		rect.TranscriptionArea = area;
@@ -427,9 +435,9 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 		// With this the list it's updated. Seems a bug of angular
 		// More info: http://jimhoskins.com/2012/12/17/angularjs-and-apply.html
 		$scope.listAreas.push(area);
-
+		return area;
 	};
-	
+
 	$scope.unselectCurrentArea = function() {
 		// If no current area is selected...
 		if ($scope.areaSelected==null) {
@@ -454,15 +462,15 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 				opacity: '0.5'
 			});
 
-		  //bidireccional status
-		  rect.TranscriptionArea = area;
-		//addHandler for the click
-		rect.onClick = function(event) {
-			$scope.selectArea(rect.TranscriptionArea);
-			$scope.$apply();
-		};
-		area.addRect(rect);
-	});
+			//bidireccional status
+			rect.TranscriptionArea = area;
+			//addHandler for the click
+			rect.onClick = function(event) {
+				$scope.selectArea(rect.TranscriptionArea);
+				$scope.$apply();
+			};
+			area.addRect(rect);
+		});
 		$scope.unselectCurrentArea();
 	}
 
@@ -482,27 +490,36 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 		$scope.newPage(testUrl);
 
 		var areas = [[45, 134, 330, 1138],
-		[57,1131, 713, 1737],
-		];
+								 [57,1131, 713, 1737],
+								];
 
+								 var lines = [ [ [45, 151, 268, 187],
+																[45,161, 268, 197],
+													],
+									 [ ],
+										 ];
 		$timeout(function () {
+			var i = 0;
 			areas.forEach(function(elem) {
-				topLeft = {'x':elem[0], 'y':elem[1]};
-				bottomRight = {'x':elem[2], 'y':elem[3]};
-				console.log(topLeft, bottomRight);
-				$scope.createArea(topLeft, bottomRight);
+				var topLeft = {'x':elem[0], 'y':elem[1]};
+				var bottomRight = {'x':elem[2], 'y':elem[3]};
+				console.log("Creating area", topLeft, bottomRight);
+				var area = $scope.createArea(topLeft, bottomRight);
+
+				var l = lines[i];
+				l.forEach(function(line) {
+					var topLeft = {'x':line[0], 'y':line[1]};
+					var bottomRight = {'x':line[2], 'y':line[3]};
+					console.log("Creating line", topLeft, bottomRight);
+					area.addLine(topLeft, bottomRight);
+				});
+				++i;
 			})
 		},500);
 
 	};
 
-
-
 	$scope.init();
-
-
-	
-
 }
 
 

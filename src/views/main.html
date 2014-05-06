@@ -56,22 +56,39 @@
 		</div>
 
 		<div class="col-md-6" style="background-color:green">
-
+			<div class = "area-info" style="background-color:yellow">
+							<label>Id:</label><input type="text"  ng-model="areaSelected.id"><br>
+							ulx: {{areaSelected.left}} uly: {{areaSelected.top}} lrx: {{areaSelected.right}} lry: {{areaSelected.bottom}}
+						</div>
 			<div class="transcriptions" ng-style="transcriptionsStyle()">
 				<div ng-repeat='area in listAreas'>
 					<div class = 'transcription'
 							 ng-class = '{areaSelected: isAreaSelected(area)}'
 							 ng-click = 'selectArea(area)'
 							 ng-style="styleArea(area)">
-						<div class = "area-info">
-							<label>Id:</label><input type="text"  ng-model="area.id"><br>
-							ulx: {{area.left}} uly: {{area.top}} lrx: {{area.right}} lry: {{area.bottom}}
+
+						<label>{{area.id}}</label>
+
+						<div ng-show="area.hasLines()">
+							<div ng-repeat = "line in area.lines">
+								<div ng-show="isAreaSelected(area)">
+									<input type="text" ng-model="line.transcription">
+								</div>
+								<div ng-hide="isAreaSelected(area)">
+									<p>{{line.transcription}}</p>
+								</div>
+							</div>
 						</div>
-						<div ng-show=isAreaSelected(area)>
-							<input text="type" id={{area.id}} ng-model="area.transcription">
-						</div>
-						<div ng-show=!isAreaSelected(area)>
-							<label>{{area.transcription}}</label>
+
+
+					<div ng-hide="area.hasLines()">
+							  <div ng-show="isAreaSelected(area)">
+									<input type="text" ng-model="area.transcription">
+								</div>
+								<div ng-hide="isAreaSelected(area)">
+									<p>{{area.transcription}}</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
