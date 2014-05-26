@@ -23,9 +23,9 @@ Rectangle.prototype.width  = function() {
 Area = function(topLeft, bottomRight) {
 
 	Rectangle.call(this,topLeft, bottomRight);
-	this.rect = null;
+	this.rect          = null;
 	this.transcription = '';
-	this.lines = [];
+	this.lines         = [];
 
 
 
@@ -34,14 +34,12 @@ Area = function(topLeft, bottomRight) {
 			this.rect.remove();
 		}
 		this.rect = rect;
-
 	};
 
 
 	this.addLine = function(topLeft, bottomRight) {
-		var line = new Line(topLeft, bottomRight);
+		var line  = new Line(topLeft, bottomRight);
 		this.lines.push(line);
-
 	};
 
 	this.numLines = function() {
@@ -60,6 +58,7 @@ Area = function(topLeft, bottomRight) {
 
 Line = function(topLeft, bottomRight) {
 	this.transcription = '';
+    this.rect = null;
 	Rectangle.call(this,topLeft, bottomRight);
 
 	return this;

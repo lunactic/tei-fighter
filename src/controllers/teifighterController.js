@@ -380,15 +380,50 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 		// FIXME the colors should be global variables
 		// or use a method on the rectangle like activate/deactivate
 
-		if ($scope.areaSelected)
+		if ($scope.areaSelected) {
 			$scope.areaSelected.rect.fillColor = 'blue';
+            // We can hide the lines
+            for (var i=0; i<$scope.areaSelected.lines.length; i++) {
+                if ($scope.areaSelected.lines[i]!=null) {
+                    $scope.areaSelected.lines[i].rect.visible = false;
+                }
+            }
+        }
 
 
 		$scope.areaSelected = area;
 		$scope.areaSelected.rect.fillColor = 'red';
+        
+        // Display the lines
+        for (var i=0; i<area.lines.length; i++) {
+            var line = area.lines[i];
+            // The lines may not be created at the same time as the
+            // area, so I think we could create the rectangles displaying
+            // the lines end to end just in time.
+            if (line.rect == null) {
+                var TL = new paper.Point(line.left, line.top);
+                var RB = new paper.Point(line.right, line.bottom);
+                line.rect = new paper.Path.Rectangle({
+                    from: self.view.getViewPoint(TL),
+                    to: self.view.getViewPoint(RB),
+                    fillColor: 'green',
+                    strokeColor: 'black',
+                    opacity: '0.15'
+                });
+                line.rect.line    = line;
+                line.rect.area    = area;
+                line.rect.onClick = function() {
+                    $scope.selectLine(this.area, this.line);
+                };
+            } else {
+                area.lines[i].rect.visible = true;
+            }
+            
+        }
+        
 
 		// Put resize circles there
-		self.resizeCircles.assignToArea(area);
+		self.resizeCircles.assignTo(area);
 
 		// Fixme create an id to focus.
 		// the id must be unique and work well with
@@ -399,6 +434,14 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 		// Put resize circles there
 		self.resizeCircles.assignToArea(area);
 	};
+    
+    //TODO: implement
+    $scope.selectLine = function(area, line) {
+        console.log("Line ", line, " selected !");
+        self.resizeCircles.assignTo(line);
+    }
+    
+    
 	// Update the angular variables on hardcode
 	$scope.update = function() {
 		$scope.$apply();
@@ -416,7 +459,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 			to: self.view.getViewPoint(new paper.Point(bottomRight)),
 			fillColor: 'blue',
 			strokeColor: 'black',
-			opacity: '0.5'
+			opacity: '0.15'
 
 		});
 
@@ -493,8 +536,9 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 								 [57,1131, 713, 1737],
 								];
 
-								 var lines = [ [ [45, 151, 268, 187],
-																[45,161, 268, 197],
+								 var lines = [ [ [115, 149, 269, 189],
+                                                 [115,190, 303, 217],
+                                                 [114,222, 271,247]
 													],
 									 [ ],
 										 ];

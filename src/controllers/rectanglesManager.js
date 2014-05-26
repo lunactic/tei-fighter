@@ -32,7 +32,7 @@ createRectanglesController = function(pTeifighterController,
 			to: curPoint,
 			fillColor: 'red',
 			strokeColor: 'black',
-			opacity: '0.5'
+			opacity: '0.25'
 		});
 	}
 	
@@ -82,7 +82,7 @@ ResizeCircles = function(pTeifighterController, pPaper, pView) {
 		return c;
 	};
 	
-	this.placeCircleOnArea = function(circle, area, tolog) {
+	this.placeCircleOnArea = function(circle, area) {
 		var position = new paper.Point(0,0);
 		if (circle.isForTop) {
 			position.y = area.top;
@@ -98,17 +98,39 @@ ResizeCircles = function(pTeifighterController, pPaper, pView) {
 		
 		circle.bringToFront();
 	};
+    
+    // Assuming that targ is a Rectangle as defined in
+    // area.js
+    this.placeCircleOn = function(circle, targ) {
+		var position = new paper.Point(0,0);
+		if (circle.isForTop) {
+			position.y = targ.top;
+		} else {
+			position.y = targ.bottom;
+		}
+		if (circle.isForLeft) {
+			position.x = targ.left;
+		} else {
+			position.x = targ.right;
+		}
+		circle.position = this.view.getViewPoint(position);
+		
+		circle.bringToFront();
+	};
 	
 	// Create the circles
 	this.topLeft     = this.createCircle(true,  true);
 	this.topRight    = this.createCircle(true,  false);
 	this.bottomLeft  = this.createCircle(false, true);
 	this.bottomRight = this.createCircle(false, false);
+    
+    // Object which has to be resized
+    this.targ = null;
 	
-	this.topLeft.fillColor = 'red';
+	/*this.topLeft.fillColor = 'red';
 	this.topRight.fillColor = 'green';
 	this.bottomLeft.fillColor = 'blue';
-	this.bottomRight.fillColor = 'black';
+	this.bottomRight.fillColor = 'black';*/
 	
 	this.circles = new Array();
 	this.circles[0] = this.topLeft;
@@ -132,11 +154,12 @@ ResizeCircles = function(pTeifighterController, pPaper, pView) {
 		area = pArea;
 		
 		for (var i=0; i<4; i++) {
-			this.placeCircleOnArea(this.circles[i], area, i==0);
+			this.placeCircleOnArea(this.circles[i], area);
 			this.circles[i].visible = true;
 		}
 	};
 	
+    // Makes the circles keep the same size after zooming
 	this.updateCircleSize = function() {
 		// Get the difference of zoom
 		var ratio = previousZoom / this.view.getZoomRatio();
@@ -149,11 +172,23 @@ ResizeCircles = function(pTeifighterController, pPaper, pView) {
 		previousZoom = this.view.getZoomRatio();
 	};
 	
+    // Hides the circles
 	this.hideCircles = function() {
 		for (var i=0; i<4; i++) {
 			this.circles[i].visible = false;
 		}
 	};
+    
+    // Tells the circles which object they are supposed to
+    // resize
+    this.assignTo = function(target) {
+        console.log("The circles will resize ", target);
+        this.targ = target;
+        for (var i=0; i<4; i++) {
+			this.placeCircleOn(this.circles[i], target);
+			this.circles[i].visible = true;
+		}
+    }
 	
 	return this;
 };
@@ -181,43 +216,43 @@ createResizeController = function(pTeifighterController,
 	this.drag  = function(downPoint, curPoint, dx, dy) {
 		var pt = view.getRealPoint(curPoint);
 		if (moveTop) {
-			// Updating the area
-			area.top = pt.y;
+			// Updating the target
+			circles.targ.top = pt.y;
 			
 			// Updating the graphics
-			var newHeight = (area.bottom-area.top) * view.getZoomRatio();
-			var ratio     = newHeight / area.rect.bounds.height;
-			area.rect.scale(1, ratio);
-			area.rect.position.y += dy / 2.0;
+			var newHeight = (circles.targ.bottom-circles.targ.top) * view.getZoomRatio();
+			var ratio     = newHeight / circles.targ.rect.bounds.height;
+			circles.targ.rect.scale(1, ratio);
+			circles.targ.rect.position.y += dy / 2.0;
 			circles.topLeft.position.y += dy;
 			circles.topRight.position.y += dy;
 		} else {
-			// Updating the area
-			area.bottom  = pt.y;
+			// Updating the target
+			circles.targ.bottom  = pt.y;
 			
 			// Updating the graphics
-			var newHeight = (area.bottom-area.top) * view.getZoomRatio();
-			var ratio     = newHeight / area.rect.bounds.height;
-			area.rect.scale(1, ratio);
-			area.rect.position.y += dy / 2.0;
+			var newHeight = (circles.targ.bottom-circles.targ.top) * view.getZoomRatio();
+			var ratio     = newHeight / circles.targ.rect.bounds.height;
+			circles.targ.rect.scale(1, ratio);
+			circles.targ.rect.position.y += dy / 2.0;
 			circles.bottomLeft.position.y += dy;
 			circles.bottomRight.position.y += dy;
 		}
 		
 		if (moveLeft) {
-			area.left = pt.x;
-			var newWidth = (area.right - area.left) * view.getZoomRatio();
-			var ratio    = newWidth / area.rect.bounds.width;
-			area.rect.scale(ratio, 1);
-			area.rect.position.x          += dx / 2.0;
+			circles.targ.left = pt.x;
+			var newWidth = (circles.targ.right - circles.targ.left) * view.getZoomRatio();
+			var ratio    = newWidth / circles.targ.rect.bounds.width;
+			circles.targ.rect.scale(ratio, 1);
+			circles.targ.rect.position.x          += dx / 2.0;
 			circles.topLeft.position.x    += dx;
 			circles.bottomLeft.position.x += dx;
 		} else {
-			area.right = pt.x;
-			var newWidth = (area.right - area.left) * view.getZoomRatio();
-			var ratio    = newWidth / area.rect.bounds.width;
-			area.rect.scale(ratio, 1);
-			area.rect.position.x           += dx / 2.0;
+			circles.targ.right = pt.x;
+			var newWidth = (circles.targ.right - circles.targ.left) * view.getZoomRatio();
+			var ratio    = newWidth / circles.targ.rect.bounds.width;
+			circles.targ.rect.scale(ratio, 1);
+			circles.targ.rect.position.x           += dx / 2.0;
 			circles.topRight.position.x    += dx;
 			circles.bottomRight.position.x += dx;
 		}
