@@ -347,6 +347,12 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 	$scope.selectRectanglesController = function($scope) {
 		inputManager = createRectanglesController(this, self.view, canvas);
 	};
+    
+    // Indicates to teifighterController that we want now to
+	// draw lines on the document
+	$scope.selectLinesController = function($scope) {
+		inputManager = createLinesController(this, self.view, canvas);
+	};
 
 	// Indicates to teifighterController that we want now to
 	// scale areas of the document
@@ -384,7 +390,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 			$scope.areaSelected.rect.fillColor = 'blue';
             // We can hide the lines
             for (var i=0; i<$scope.areaSelected.lines.length; i++) {
-                if ($scope.areaSelected.lines[i]!=null) {
+                if ($scope.areaSelected.lines[i].rect!=null) {
                     $scope.areaSelected.lines[i].rect.visible = false;
                 }
             }
@@ -480,6 +486,42 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 		$scope.listAreas.push(area);
 		return area;
 	};
+    
+    $scope.createLine = function(topLeft, bottomRight) {
+        // Some shortcuts
+        var left   = topLeft.x;
+        var top    = topLeft.y;
+        var right  = bottomRight.x;
+        var bottom = bottomRight.y;
+        
+        var optimalArea  = null;
+        var optimalScore = 0;
+        for (var i=0; i<$scope.listAreas.length; i++) {
+            var a = $scope.listAreas[i];
+            // Computing intersections
+            var minX = (a.left>left)     ? a.left   : left;
+            var maxX = (a.right<right)   ? a.right  : right;
+            var minY = (a.top>top)       ? a.top    : top;
+            var maxY = (a.bottom<bottom) ? a.bottom : bottom;
+            var dx = maxX - minX;
+            var dy = maxY - minY;
+            
+            // If there is an intersection
+            if (dx>0 && dy>0) {
+                var score = dx*dy;
+                // We may assign the line to the area
+                if (score>optimalScore) {
+                    optimalScore = score;
+                    optimalArea  = a;
+                }
+            }
+        }
+        if (optimalArea!=null) {
+            console.log("Score ", optimalScore, " for ", optimalArea);
+            optimalArea.addLine(topLeft, bottomRight);
+            $scope.selectArea(optimalArea);
+        }
+    };
 
 	$scope.unselectCurrentArea = function() {
 		// If no current area is selected...
