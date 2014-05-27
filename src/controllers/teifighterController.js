@@ -375,7 +375,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 	};
 
 	$scope.areaSelected = null;
-
+	$scope.lineSelected = null;
 	// Selecting areas
 	$scope.isAreaSelected = function(area)  {
 
@@ -386,14 +386,17 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 		// FIXME the colors should be global variables
 		// or use a method on the rectangle like activate/deactivate
 
-		if ($scope.areaSelected) {
-			$scope.areaSelected.rect.fillColor = 'blue';
+		if ($scope.areaSelected && $scope.areaSelected != area) {
+
             // We can hide the lines
             for (var i=0; i<$scope.areaSelected.lines.length; i++) {
                 if ($scope.areaSelected.lines[i].rect!=null) {
                     $scope.areaSelected.lines[i].rect.visible = false;
                 }
             }
+					// Unselect line
+					$scope.unselectCurrentArea();
+
         }
 
 
@@ -440,13 +443,28 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 		// Put resize circles there
 		self.resizeCircles.assignToArea(area);
 	};
+
+	$scope.isLineSelected = function(line)  {
+
+		return line === $scope.lineSelected;
+	};
     
-    //TODO: implement
-    $scope.selectLine = function(area, line) {
-        console.log("Line ", line, " selected !");
-        self.resizeCircles.assignTo(line);
-    }
+  //TODO: implement
+  $scope.selectLine = function(area, line) {
+   	console.log("Line ", line, " selected !");
+
+		$scope.unselectCurrentLine();
+
+   	self.resizeCircles.assignTo(line);
+		line.rect.fillColor = "blue";
+		//$scope.areaSelected = area;
+	  $scope.lineSelected = line;
+
+
+		$scope.update();
+  };
     
+
     
 	// Update the angular variables on hardcode
 	$scope.update = function() {
@@ -523,12 +541,21 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
         }
     };
 
+	$scope.unselectCurrentLine = function() {
+		if ($scope.lineSelected) {
+				$scope.lineSelected.rect.fillColor = "green";
+			}
+		$scope.lineSelected = null;
+	}
 	$scope.unselectCurrentArea = function() {
 		// If no current area is selected...
-		if ($scope.areaSelected==null) {
-			return;
+		if ($scope.areaSelected!=null) {
+			$scope.areaSelected.rect.fillColor = "blue";
+			$scope.unselectCurrentLine();
+
 		}
 		$scope.areaSelected = null;
+
 	};
 
 

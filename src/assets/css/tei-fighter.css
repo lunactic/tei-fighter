@@ -4,10 +4,35 @@ body {
 
 .transcription {
 
-	background-color: #EEE;
+	background-color: #EEF;
 	border: 1px;
 }
 
 .areaSelected {
-	background-color: #DDD;
+	background-color: #FEE;
+}
+
+.line-text {
+	background-color: #EFE
+}
+
+.lineSelected {
+	background-color: #EEF;
+}
+
+#transcription-side {
+	background-color: #ABA;
+
+}
+
+#page-info {
+	background-color: yellow;
+
+}
+
+#canvas {
+	background-color: #99B;
+	width: 100%;
+
+	height:70%;
 }
