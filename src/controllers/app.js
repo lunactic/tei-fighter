@@ -38,7 +38,16 @@ teifighterApp.controller("TeifighterController", ['$scope', '$location', '$timeo
         });
      }
  };
-});
+}).directive('ngFocus', ['$parse', function($parse) {
+  return function(scope, element, attr) {
+    var fn = $parse(attr['ngFocus']);
+    element.bind('focus', function(event) {
+      scope.$apply(function() {
+        fn(scope, {$event:event});
+      });
+    });
+  }
+}]);
 
 teifighterApp.controller("TeiInfoController", ['$scope', 'teiService', teiInfoController])
 teifighterApp.controller("TranscriptionController", ['$scope', transcriptionController]);
@@ -53,5 +62,6 @@ teifighterApp.controller("settingsController", function($scope)
   };
 }
 );
+
 
 
