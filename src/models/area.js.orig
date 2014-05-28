@@ -1,0 +1,19 @@
+Area = function(topLeft, bottomRight)	{
+		this.top = topLeft.y;
+		this.left = topLeft.x;
+		this.right = bottomRight.x;
+		this.bottom = bottomRight.y;
+		this.rect = null;
+		this.transcription = '';
+
+		this.addRect = function(rect) {
+<<<<<<< HEAD
+		  this.rect = rect;
+=======
+            this.rect = rect;
+>>>>>>> 7bdfee42cf2d145b2943d743f9a649325ab3f364
+		};
+
+		return this;
+
+}

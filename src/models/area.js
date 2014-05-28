@@ -42,6 +42,16 @@ Area = function(topLeft, bottomRight) {
 		this.lines.push(line);
 	};
 
+	this.linesFromList = function(lines) {
+		this.lines = [];
+		var self = this;
+		lines.forEach(function(line) {
+			var topLeft = {x:line.left, y:line.top};
+			var bottomRight = {x:line.right, y:line.bottom};
+			self.addLine(topLeft, bottomRight);
+
+		});
+	};
 	this.numLines = function() {
 
 		return this.lines.length;

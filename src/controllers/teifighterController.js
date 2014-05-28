@@ -1,4 +1,4 @@
-teifighterController = function ($scope, $location, $timeout,  teiService) {
+teifighterController = function ($scope, $location, $timeout,  teiService, lineService) {
 	$scope.hello = 'It works';
 	$scope.more = "yes it is";
 
@@ -347,8 +347,8 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 	$scope.selectRectanglesController = function($scope) {
 		inputManager = createRectanglesController(this, self.view, canvas);
 	};
-    
-    // Indicates to teifighterController that we want now to
+
+	// Indicates to teifighterController that we want now to
 	// draw lines on the document
 	$scope.selectLinesController = function($scope) {
 		inputManager = createLinesController(this, self.view, canvas);
@@ -382,54 +382,57 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 		return area === $scope.areaSelected;
 	};
 
+
+
 	$scope.selectArea = function(area) {
 		// FIXME the colors should be global variables
 		// or use a method on the rectangle like activate/deactivate
 
 		if ($scope.areaSelected && $scope.areaSelected != area) {
 
-            // We can hide the lines
-            for (var i=0; i<$scope.areaSelected.lines.length; i++) {
-                if ($scope.areaSelected.lines[i].rect!=null) {
-                    $scope.areaSelected.lines[i].rect.visible = false;
-                }
-            }
-					// Unselect line
-					$scope.unselectCurrentArea();
+			// We can hide the lines
+			for (var i=0; i<$scope.areaSelected.lines.length; i++) {
+				if ($scope.areaSelected.lines[i].rect!=null) {
+					$scope.areaSelected.lines[i].rect.visible = false;
+				}
+			}
+			// Unselect line
+			$scope.unselectCurrentArea();
 
-        }
+		}
 
 
 		$scope.areaSelected = area;
 		$scope.areaSelected.rect.fillColor = 'red';
-        
-        // Display the lines
-        for (var i=0; i<area.lines.length; i++) {
-            var line = area.lines[i];
-            // The lines may not be created at the same time as the
-            // area, so I think we could create the rectangles displaying
-            // the lines end to end just in time.
-            if (line.rect == null) {
-                var TL = new paper.Point(line.left, line.top);
-                var RB = new paper.Point(line.right, line.bottom);
-                line.rect = new paper.Path.Rectangle({
-                    from: self.view.getViewPoint(TL),
-                    to: self.view.getViewPoint(RB),
-                    fillColor: 'green',
-                    strokeColor: 'black',
-                    opacity: '0.15'
-                });
-                line.rect.line    = line;
-                line.rect.area    = area;
-                line.rect.onClick = function() {
-                    $scope.selectLine(this.area, this.line);
-                };
-            } else {
-                area.lines[i].rect.visible = true;
-            }
-            
-        }
-        
+
+		// Display the lines
+		for (var i=0; i<area.lines.length; i++) {
+			var line = area.lines[i];
+			// The lines may not be created at the same time as the
+			// area, so I think we could create the rectangles displaying
+			// the lines end to end just in time.
+			if (line.rect == null) {
+				var TL = new paper.Point(line.left, line.top);
+				var RB = new paper.Point(line.right, line.bottom);
+				line.rect = new paper.Path.Rectangle({
+					from: self.view.getViewPoint(TL),
+					to: self.view.getViewPoint(RB),
+					fillColor: 'green',
+					strokeColor: 'black',
+					opacity: '0.15'
+				});
+				line.rect.line    = line;
+				line.rect.area    = area;
+				line.rect.onClick = function() {
+					$scope.selectLine(this.area, this.line);
+					$scope.update();
+				};
+			} else {
+				area.lines[i].rect.visible = true;
+			}
+
+		}
+
 
 		// Put resize circles there
 		self.resizeCircles.assignTo(area);
@@ -448,24 +451,23 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 
 		return line === $scope.lineSelected;
 	};
-    
-  //TODO: implement
-  $scope.selectLine = function(area, line) {
-   	console.log("Line ", line, " selected !");
+
+	//TODO: implement
+	$scope.selectLine = function(area, line) {
+		console.log("Line ", line, " selected !");
 
 		$scope.unselectCurrentLine();
 
-   	self.resizeCircles.assignTo(line);
 		line.rect.fillColor = "blue";
 		//$scope.areaSelected = area;
-	  $scope.lineSelected = line;
+		$scope.lineSelected = line;
+		self.resizeCircles.assignTo(line);
 
 
-		$scope.update();
-  };
-    
+	};
 
-    
+
+
 	// Update the angular variables on hardcode
 	$scope.update = function() {
 		$scope.$apply();
@@ -504,52 +506,52 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 		$scope.listAreas.push(area);
 		return area;
 	};
-    
-    $scope.createLine = function(topLeft, bottomRight) {
-        // Some shortcuts
-        var left   = topLeft.x;
-        var top    = topLeft.y;
-        var right  = bottomRight.x;
-        var bottom = bottomRight.y;
-        
-        var optimalArea  = null;
-        var optimalScore = 0;
-        for (var i=0; i<$scope.listAreas.length; i++) {
-            var a = $scope.listAreas[i];
-            // Computing intersections
-            var minX = (a.left>left)     ? a.left   : left;
-            var maxX = (a.right<right)   ? a.right  : right;
-            var minY = (a.top>top)       ? a.top    : top;
-            var maxY = (a.bottom<bottom) ? a.bottom : bottom;
-            var dx = maxX - minX;
-            var dy = maxY - minY;
-            
-            // If there is an intersection
-            if (dx>0 && dy>0) {
-                var score = dx*dy;
-                // We may assign the line to the area
-                if (score>optimalScore) {
-                    optimalScore = score;
-                    optimalArea  = a;
-                }
-            }
-        }
-        if (optimalArea!=null) {
-            console.log("Score ", optimalScore, " for ", optimalArea);
-            optimalArea.addLine(topLeft, bottomRight);
-            $scope.selectArea(optimalArea);
-        }
-    };
+
+	$scope.createLine = function(topLeft, bottomRight) {
+		// Some shortcuts
+		var left   = topLeft.x;
+		var top    = topLeft.y;
+		var right  = bottomRight.x;
+		var bottom = bottomRight.y;
+
+		var optimalArea  = null;
+		var optimalScore = 0;
+		for (var i=0; i<$scope.listAreas.length; i++) {
+			var a = $scope.listAreas[i];
+			// Computing intersections
+			var minX = (a.left>left)     ? a.left   : left;
+			var maxX = (a.right<right)   ? a.right  : right;
+			var minY = (a.top>top)       ? a.top    : top;
+			var maxY = (a.bottom<bottom) ? a.bottom : bottom;
+			var dx = maxX - minX;
+			var dy = maxY - minY;
+
+			// If there is an intersection
+			if (dx>0 && dy>0) {
+				var score = dx*dy;
+				// We may assign the line to the area
+				if (score>optimalScore) {
+					optimalScore = score;
+					optimalArea  = a;
+				}
+			}
+		}
+		if (optimalArea!=null) {
+			console.log("Score ", optimalScore, " for ", optimalArea);
+			optimalArea.addLine(topLeft, bottomRight);
+			$scope.selectArea(optimalArea);
+		}
+	};
 
 	$scope.unselectCurrentLine = function() {
 		if ($scope.lineSelected) {
-				$scope.lineSelected.rect.fillColor = "green";
-			}
+			$scope.lineSelected.rect.fillColor = "green";
+		}
 		$scope.lineSelected = null;
 	}
 	$scope.unselectCurrentArea = function() {
 		// If no current area is selected...
-		if ($scope.areaSelected!=null) {
+		if ($scope.areaSelected != null) {
 			$scope.areaSelected.rect.fillColor = "blue";
 			$scope.unselectCurrentLine();
 
@@ -606,11 +608,11 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 								];
 
 								 var lines = [ [ [115, 149, 269, 189],
-                                                 [115,190, 303, 217],
-                                                 [114,222, 271,247]
-													],
-									 [ ],
-										 ];
+				[115,190, 303, 217],
+				[114,222, 271,247]
+		],
+			[ ],
+				];
 		$timeout(function () {
 			var i = 0;
 			areas.forEach(function(elem) {
@@ -632,6 +634,29 @@ teifighterController = function ($scope, $location, $timeout,  teiService) {
 
 	};
 
+
+	// Line detection dealing
+
+	$scope.autoDetectLines = function() {
+
+		lineService.getAreaLines(
+			$scope.currentUrl,
+			$scope.areaSelected.top,
+			$scope.areaSelected.left,
+			$scope.areaSelected.bottom,
+			$scope.areaSelected.right
+		).then(function(result) {
+			console.log(result);
+			$scope.areaSelected.linesFromList(result);
+		}
+					);
+
+	}
+
+	//Trick for select lines
+	$scope.preventParent = function($event) {
+		$event.stopPropagation();
+	}
 	$scope.init();
 }
 
