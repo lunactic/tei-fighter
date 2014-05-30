@@ -19,16 +19,7 @@ teifighterApp.config(['$routeProvider',
       });
   }]);
 
-teifighterApp.service('teiService', function() {
-    // Stores the teiModel
-    return {
-        teiModel: {
-            listOfPages: [],
-            teiInfo: null,
-            }
-    }
-});
-
+teifighterApp.service('teiService', teiService);
 teifighterApp.service('lineService', ['$http','$q', lineService]);
 
 teifighterApp.controller("TeifighterController", ['$scope', '$location', '$timeout', 'teiService', 'lineService', teifighterController])
@@ -65,6 +56,12 @@ teifighterApp.controller("settingsController", function($scope)
   };
 }
 );
+
+teifighterApp.config(function($compileProvider){
+
+	$compileProvider.urlSanitizationWhitelist(/^\s*(|blob|):/);
+
+});
 
 
 

@@ -63,6 +63,20 @@ lineService = function($http,$q) {
 
 }
 
+teiService = function() {
+
+
+	  var teiModel = {
+            listOfPages: [],
+            teiInfo: null,
+            };
+    // Stores the teiModel
+    return {
+        teiModel: teiModel
+		}
+
+
+}
 
 
 

@@ -7,3 +7,5 @@ TeiInfo = function (title, publication, sourceDesc) {
 
     return this;
 }
+
+
