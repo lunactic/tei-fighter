@@ -36,7 +36,7 @@ generateTEI = function(teiModel) {
         var surface = root.createElement("surface");
         addCoordElement(surface, currentPage.idSurface, 0, 0, currentPage.width, currentPage.height);
        facsimile.appendChild(surface);
-//    // Graphic ur
+    // Graphic url
       var graphic = root.createElement("graphic");
       graphic.setAttribute("url",currentPage.url);
       surface.appendChild(graphic);
@@ -46,6 +46,16 @@ generateTEI = function(teiModel) {
         addCoordElement(zone, area.id,
                         area.left,area.top,
                         area.right, area.bottom);
+
+				// Add the lines, spaghetti code
+				var l = 0;
+				area.lines.forEach(function(line) {
+					var lineZone = root.createElement("line");
+					var lineId   = area.id+"l"+l;
+					addCoordElement(lineZone, lineId, line.left, line.top, line.right, line.bottom);
+					zone.appendChild(lineZone);
+					l++;
+				});
         surface.appendChild(zone)
      }); //areas
     });//pages
@@ -79,10 +89,23 @@ generateTEI = function(teiModel) {
         currentPage.areas.forEach(function(area) {
         var transFac = root.createElement("p");
          transFac.setAttribute("facs","#"+area.id);
-//
+
         // FIXME: Parse the content as xml
         transFac.textContent = area.transcription;
         transDiv.appendChild(transFac);
+
+				// lines
+				var l = 0;
+				area.lines.forEach(function(line) {
+					var lineNode = root.createElement("l");
+					var lineId = "l"+l;
+					var facsId   = "#"+area.id+"l"+l;
+					lineNode.setAttribute("xml:id",lineId);
+					lineNode.setAttribute("facs",facsId);
+					lineNode.textContent = line.transcription;
+					transFac.appendChild(lineNode);
+					l++;
+				});
       }); // areas
       facs.appendChild(transDiv);
      bodyTag.appendChild(facs);
