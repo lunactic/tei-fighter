@@ -1,15 +1,22 @@
 
 <div class="container">
 <h2> Tei File description</h2>
-    <a href = "#" class = "btn">Page View</a>
+	
+	  <div class = "btn-group">
+    	<a href = "#" class = "btn btn-default">Page View</a>
+			<a download="{{teiInfo.title}}.xml" class = "btn btn-info" ng-href="{{ xmlUrl }}">
+				Export TEI-File
+				<span class="glyphicon glyphicon-export"></span>
+			</a>
+		</div>
     <div class="row">
         <div class="col-lg-6">
             <label for = "title">Title</label>
-            <input id = "title" type="text" class="form-control" ng-model="teiInfo.title" ng-change="update()">
+            <input id = "title" type="text" class="form-control" ng-model="teiModel.teiInfo.title" ng-change="update()">
             <label for = "publicationInformation">Publication Information</label>
-            <input id = "publication" type = "text" class="form-control" ng-model = "teiInfo.publicationInformation" ng-change="update()">
+            <input id = "publication" type = "text" class="form-control" ng-model = "teiModel.teiInfo.publicationInformation" ng-change="update()">
             <label for="sourceDesc">Source Desc</label>
-            <input type="text" id="sourceDesc" class="form-control" ng-model="teiInfo.sourceDesc" ng-class="ng-change">
+            <input type="text" id="sourceDesc" class="form-control" ng-model="teiModel.teiInfo.sourceDesc" ng-change="update()">
             <button class="btn" ng-click="update()">Refresh! </button>
         </div>
 

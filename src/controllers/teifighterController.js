@@ -13,6 +13,8 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 
 	};
 
+
+
 	// This is the view controller. It can be used for scrolling,
 	// zooming and transforming coordinates. I think it should be
 	// visible to the whole project, but in a cleaner way than using
@@ -34,13 +36,8 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 	// True after their initialization
 	self.areListenersInitialized = false;
 
-	// scope variables empty initialization
-	$scope.currentUrl = ""; // Current url of the page (for canvas)
-	//teiModel   = null; // reference to teiModel (service)
-	$scope.listAreas  = []; //list of areas of current Page
-	$scope.pageInfo   = null; // Current page
-	$scope.pageNumber = 0; // Number of the curren page
-	$scope.listOfPages = [];
+	
+	//$scope.listOfPages = [];
 
 	// Function that initializes the model variables
 	$scope.init = function() {
@@ -56,9 +53,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 			if (paramPage) {
 				currentPage = parseInt(paramPage);
 			}
-
-			$scope.listOfPages = teiModel.listOfPages;
-
+			
 			if (currentPage < teiModel.listOfPages.length) {
 				console.log("Setting Page: " + currentPage);
 				$scope.setPage(currentPage);
@@ -66,11 +61,11 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 		}
 		else {
 			//create teiModel
-			teiModel.teiInfo = new TeiInfo("Title","Publication", "Source Description");
+			/*teiModel.teiInfo = new TeiInfo("Title","Publication", "Source Description");
 			teiModel.listOfPages = [];
-
-			$scope.currentUrl = "";
-
+			*/
+			
+		
 
 			//Add a new page
 			//Add the url
@@ -80,22 +75,16 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 		$scope.listOfPages = teiModel.listOfPages;
 	}
 
-
+   
 	// Given an url generates a new page
 	// initialize canvas will be called automatically
-	$scope.newPage = function(purl) {
-		var ppage = new PageInfo(purl);
-		$scope.currentUrl = purl;
-		$scope.addPage(ppage);
-		$scope.pageInfo = ppage;
-		$scope.listAreas = ppage.areas;
-		$scope.pageNumber = teiModel.listOfPages.length;
+	
 
-	};
-	$scope.addPage = function(page) {
-		teiModel.listOfPages.push(page);
-
-	}
+	$scope.$watch('listOfPages', function() {
+		if ($scope.listOfPages == 0) return;
+	
+		
+	});
 
 	// Change the model to the current page
 	//    $scope.setPage = function(page) {
@@ -139,11 +128,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 
 	}
 
-	$scope.numPages = function() {
-		return $scope.listOfPages.length;
-	}
-
-
+	
 	// Initialization of the canvas, mainly creates different observers
 	$scope.initializeCanvas = function() {
 		// For the closure
@@ -600,9 +585,12 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 
 	$scope.createTestSample = function() {
 
-		var testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg";
+		var testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/006v.jpg";
 		$scope.newPage(testUrl);
-
+		
+		testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg";
+		$scope.newPage(testUrl);
+		
 		var areas = [[45, 134, 330, 1138],
 								 [57,1131, 713, 1737],
 								];
@@ -631,6 +619,8 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 				++i;
 			})
 		},500);
+		
+		
 
 	};
 

@@ -9,7 +9,6 @@ transcriptionController = function ($scope) {
 
 	var self = this;
 
-
 	$scope.currentArrange = "LIST";
 
 	$scope.setArrange = function(paramArrange) {

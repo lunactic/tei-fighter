@@ -1,0 +1,16 @@
+<div ng-show="!isModelLoaded()" class="container">
+	<div class="jumbotron">
+		<h2>Welcome to TEI-Fighter, the TEI assisted encoding tool for transcripting documents.</h2>
+		<div ng-show="!isModelLoaded()">
+			<blockquote>
+				<p>There is no TEI file loaded yet! Click on
+					<a href="#" ng-click="newModel()">new TEI Document.</a>
+					for creating a new one.
+				</p>
+			</blockquote>
+		</div>	
+		<p><a class="btn btn-primary btn-lg" role="button" href="http://tei-c.org" target="_blank">
+			More info about TEI
+			</a></p>
+	</div>
+</div>
