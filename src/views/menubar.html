@@ -23,7 +23,7 @@
 		<ul class="nav navbar-nav" ng-show="isModelLoaded()">
 			<li><label class="navbar-text">Title</label></li>
 			<li>
-				<input type="text" class="form-control navbar-form"></li>
+				<input type="text" class="form-control navbar-form" ng-model="teiInfo.title"></li>
 			<li><div>
 				<a href="#header" type="button"
 					 class="btn navbar-btn btn-warning" >
@@ -46,7 +46,7 @@
 
 			<li>
 				<div>
-				<a download="{{xmlName}}.xml" class = "btn navbar-btn btn-warning" ng-href="{{ xmlUrl }}">
+				<a download="{{xmlName}}.xml" class = "btn navbar-btn btn-info" ng-href="{{ xmlUrl }}">
 
 				<span class="glyphicon glyphicon-export"></span>
 				Export TEI-File

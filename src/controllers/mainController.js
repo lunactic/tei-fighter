@@ -16,7 +16,7 @@ mainController = function ($scope, $location,  teiService) {
 	
 	$scope.newModel = function() {
 		teiService.teiModel.teiInfo = new TeiInfo("Title","Publication", "Source Description");
-		
+		$scope.teiInfo = teiService.teiModel.teiInfo;
 	};
 	
 	$scope.numPages = function() {
@@ -42,12 +42,12 @@ mainController = function ($scope, $location,  teiService) {
 
 
     // exporting xml
-   generateXMLUrl = function() {
-        var content = 'file content';
-        var teiContent = generateTEI(teiService.teiModel);
-        var blob = new Blob([ teiContent ], { type : 'text/plain' });
-        $scope.xmlUrl = (window.URL || window.webkitURL).createObjectURL( blob );
-			  $scope.xmlName = teiService.teiModel.teiInfo.title;
+	generateXMLUrl = function() {
+		var content = 'file content';
+		var teiContent = generateTEI(teiService.teiModel);
+		var blob = new Blob([ teiContent ], { type : 'text/plain' });
+		$scope.xmlUrl = (window.URL || window.webkitURL).createObjectURL( blob );
+		$scope.xmlName = teiService.teiModel.teiInfo.title;
     };
 	
 

@@ -33,11 +33,13 @@ teiInfoController = function($scope, teiService) {
 		var teiNode = generateTEI($scope.teiModel);
 		console.log(teiNode);
 		$scope.teiXml = vkbeautify.xml(teiNode.outerHTML);
+		generateXMLUrl();
 	};
 
 	$scope.update();
 
-	generateXMLUrl();
+	if($scope.teiModel.teiInfo)
+		generateXMLUrl();
 	/*var content = 'file content';
 	var blob = new Blob([ $scope.teiXml ], { type : 'text/plain' });
 	$scope.xmlUrl = (window.URL || window.webkitURL).createObjectURL( blob );
