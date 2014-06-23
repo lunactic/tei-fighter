@@ -1,4 +1,4 @@
-mainController = function ($scope, teiService) {
+mainController = function ($scope, $location,  teiService) {
 	
 	// scope variables empty initialization
 	$scope.currentUrl = ""; // Current url of the page (for canvas)
@@ -39,8 +39,16 @@ mainController = function ($scope, teiService) {
 
 
 	};
-	
-	
+
+
+    // exporting xml
+   generateXMLUrl = function() {
+        var content = 'file content';
+        var teiContent = generateTEI(teiService.teiModel);
+        var blob = new Blob([ teiContent ], { type : 'text/plain' });
+        $scope.xmlUrl = (window.URL || window.webkitURL).createObjectURL( blob );
+			  $scope.xmlName = teiService.teiModel.teiInfo.title;
+    };
 	
 
 	
@@ -48,5 +56,8 @@ mainController = function ($scope, teiService) {
 	$scope.snippets = {
 		notTei: "snippets/notTei.html",
 		newPage: "snippets/newPage.html"
-	}
+	};
+
 };
+
+

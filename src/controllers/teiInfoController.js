@@ -37,8 +37,9 @@ teiInfoController = function($scope, teiService) {
 
 	$scope.update();
 
-	var content = 'file content';
+	generateXMLUrl();
+	/*var content = 'file content';
 	var blob = new Blob([ $scope.teiXml ], { type : 'text/plain' });
 	$scope.xmlUrl = (window.URL || window.webkitURL).createObjectURL( blob );
-
+*/
 }

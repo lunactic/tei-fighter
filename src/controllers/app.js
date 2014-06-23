@@ -45,7 +45,7 @@ teifighterApp.controller("TeifighterController", ['$scope', '$location', '$timeo
 
 teifighterApp.controller("TeiInfoController", ['$scope', 'teiService', teiInfoController]);
 teifighterApp.controller("TranscriptionController", ['$scope', transcriptionController]);
-teifighterApp.controller("MainController", ['$scope', 'teiService', mainController]);
+teifighterApp.controller("MainController", ['$scope','$location', 'teiService', mainController]);
 teifighterApp.controller("settingsController", function($scope)
 {
   $scope.testUrl = "";
