@@ -8,7 +8,7 @@ teifighterApp.config(['$routeProvider',
         controller: 'TeifighterController'
       }).
       when('/info', {
-      	templateUrl:'views/info.html',
+      	templateUrl:'views/info.html'
       }).
         when('/header', {
       	templateUrl:'views/infoTei.html',
@@ -26,7 +26,7 @@ teifighterApp.controller("TeifighterController", ['$scope', '$location', '$timeo
 .directive('imageonload', function() {
     return {
        restrict: 'A',
-       link: function(scope, element, attrs) {
+       link: function(scope, element) {
            element.bind('load', function() {
               scope.initializeCanvas();
         });
@@ -43,7 +43,7 @@ teifighterApp.controller("TeifighterController", ['$scope', '$location', '$timeo
   }
 }]);
 
-teifighterApp.controller("TeiInfoController", ['$scope', 'teiService', teiInfoController])
+teifighterApp.controller("TeiInfoController", ['$scope', 'teiService', teiInfoController]);
 teifighterApp.controller("TranscriptionController", ['$scope', transcriptionController]);
 teifighterApp.controller("MainController", ['$scope', 'teiService', mainController]);
 teifighterApp.controller("settingsController", function($scope)
@@ -59,7 +59,7 @@ teifighterApp.controller("settingsController", function($scope)
 
 teifighterApp.config(function($compileProvider){
 
-	$compileProvider.urlSanitizationWhitelist(/^\s*(|blob|):/);
+	$compileProvider.urlSanitizationWhitelist(/^\s*(http|blob|ftp|mailto|chrome-extension):/);
 
 });
 

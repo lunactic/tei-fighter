@@ -12,22 +12,22 @@ mainController = function ($scope, teiService) {
 	// Returns true if there is some model loaded
 	$scope.isModelLoaded = function() {
 		return teiService.teiModel.teiInfo != null;	
-	}
+	};
 	
 	$scope.newModel = function() {
 		teiService.teiModel.teiInfo = new TeiInfo("Title","Publication", "Source Description");
 		
-	}
+	};
 	
 	$scope.numPages = function() {
 		return teiService.teiModel.listOfPages.length;
 		
-	}
+	};
 
 	$scope.havePages = function() {
 		return teiService.teiModel.listOfPages.length > 0; 	
 		
-	}
+	};
 	
 	$scope.newPage = function(purl) {
 		var ppage = new PageInfo(purl);
@@ -36,8 +36,7 @@ mainController = function ($scope, teiService) {
 		$scope.pageInfo = ppage;
 		$scope.listAreas = ppage.areas;
 		$scope.pageNumber = teiModel.listOfPages.length;
-		
-		
+
 
 	};
 	
@@ -50,4 +49,4 @@ mainController = function ($scope, teiService) {
 		notTei: "snippets/notTei.html",
 		newPage: "snippets/newPage.html"
 	}
-}
+};
