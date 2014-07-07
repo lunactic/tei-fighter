@@ -8,6 +8,12 @@ mainController = function ($scope, $location,  teiService) {
 	$scope.pageNumber = 0; // Number of the curren page
 	$scope.menubar = "views/menubar.html";
 	
+	// Setting the current page variable for retrieve the page while editing
+	$scope.data = {};
+	$scope.data.canvasUrl = "#";
+
+
+
 	$scope.listOfPages = teiService.teiModel.listOfPages;
 	// Returns true if there is some model loaded
 	$scope.isModelLoaded = function() {
@@ -21,12 +27,10 @@ mainController = function ($scope, $location,  teiService) {
 	
 	$scope.numPages = function() {
 		return teiService.teiModel.listOfPages.length;
-		
 	};
 
 	$scope.havePages = function() {
-		return teiService.teiModel.listOfPages.length > 0; 	
-		
+		return teiService.teiModel.listOfPages.length > 0;
 	};
 	
 	$scope.newPage = function(purl) {
@@ -36,7 +40,7 @@ mainController = function ($scope, $location,  teiService) {
 		$scope.pageInfo = ppage;
 		$scope.listAreas = ppage.areas;
 		$scope.pageNumber = teiModel.listOfPages.length;
-
+		$scope.data.canvasUrl = "#?page="+($scope.pageNumber-1);
 
 	};
 

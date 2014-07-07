@@ -13,8 +13,6 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 
 	};
 
-
-
 	// This is the view controller. It can be used for scrolling,
 	// zooming and transforming coordinates. I think it should be
 	// visible to the whole project, but in a cleaner way than using
@@ -78,8 +76,6 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
    
 	// Given an url generates a new page
 	// initialize canvas will be called automatically
-	
-
 	$scope.$watch('listOfPages', function() {
 		if ($scope.listOfPages == 0) return;
 	
@@ -118,7 +114,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 		$scope.listAreas = cPage.areas;
 		$scope.pageInfo  = cPage;
 		$scope.pageNumber = indexPage+1; // Page number starts by 1
-
+		$scope.data.canvasUrl = "#/?page="+indexPage;
 
 	}
 
@@ -573,15 +569,12 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 		$scope.unselectCurrentArea();
 	}
 
-
-
 	$scope.removeRectangles = function() {
 		$scope.listAreas.forEach(function(area) {
 			if (area.rect)
 				area.rect.remove();
 		});
 	}
-
 
 	$scope.createTestSample = function() {
 
@@ -626,10 +619,10 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 
 
 	// Line detection dealing
-
 	$scope.autoDetectLines = function() {
 
-		lineService.getAreaLines(
+		//lineService.getAreaLines(
+		lineService.getWords(
 			$scope.currentUrl,
 			$scope.areaSelected.top,
 			$scope.areaSelected.left,

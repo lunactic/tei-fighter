@@ -1,4 +1,4 @@
-teiInfoController = function($scope, teiService) {
+teiInfoController = function($scope, $rootScope, teiService) {
 	$scope.teiModel = teiService.teiModel
 	//Codemirror
 	$scope.editorOptions = {
@@ -8,6 +8,8 @@ teiInfoController = function($scope, teiService) {
 		mode: 'xml',
 
 	};
+
+
 	$scope.isSomething = true;
 	// DEBUG generates a new teiModel
 	/*if (!teiModel || !teiModel.teiInfo) {
