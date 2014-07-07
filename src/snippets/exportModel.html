@@ -1,0 +1,21 @@
+<!-- Export Page menu -->
+<div class="modal fade" id="exportModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Export XML File</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+			</div>
+			<div class="modal-body">
+				<div class="input-group">
+					<a download="{{xmlName}}.xml" class = "btn navbar-btn btn-info" ng-href="{{ xmlUrl }}">Save...</a>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" ng-binding>Close</button>
+
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
