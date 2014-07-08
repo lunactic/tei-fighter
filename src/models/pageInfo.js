@@ -13,6 +13,10 @@ PageInfo = function (pUrl) {
         this.width = width;
         this.height = height;
     };
+
+		this.addPage = function(page) {
+			this.areas.push(page);
+		}
     return this;
 }
 

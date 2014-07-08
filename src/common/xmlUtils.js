@@ -8,12 +8,11 @@ String.prototype.format = function() {
 };
 
 var addCoordElement = function(node, xmlId, ulx, uly, lrx, lry) {
-    node.setAttribute("xmld:id", xmlId);
+    node.setAttribute("xml:id", xmlId);
     node.setAttribute("ulx", ulx);
     node.setAttribute("uly", uly);
     node.setAttribute("lrx", lrx);
     node.setAttribute("lry", lry);
-
 }
 
 // Gets the page info object

@@ -80,7 +80,7 @@ lineService = function($http,$q) {
 				console.log("The words are successful", data);
 				d.resolve(data);
 			}).error(function(data, status) {
-				console.log("Marcel is Gay", data, status);
+				console.log("Something is wrong", data, status);
 			});
 
 		return d.promise;
@@ -92,9 +92,10 @@ lineService = function($http,$q) {
 		getWords: getWords
 	}
 
+
 }
 
-teiService = function() {
+teiService = function($http, $q) {
 
 
 	  var teiModel = {
@@ -103,10 +104,27 @@ teiService = function() {
 
             };
 	  var currentPage = null;
+
+    var loadJSONModel = function(model_url) {
+			var d = $q.defer();
+			$http({
+				method: 'GET',
+				url: model_url,
+
+			}).success(function(data) {
+				console.log("Loading the model", data);
+				d.resolve(data);
+			}).error(function(data, status) {
+				console.log("Error when loading the model", data, status);
+			});
+
+		return d.promise;
+		}
     // Stores the teiModel
     return {
         teiModel: teiModel,
-			  currentPage: currentPage
+			  currentPage: currentPage,
+				loadJSONModel: loadJSONModel
 
 		}
 

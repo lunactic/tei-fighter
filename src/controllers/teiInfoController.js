@@ -1,4 +1,4 @@
-teiInfoController = function($scope, $rootScope, teiService) {
+teiInfoController = function($scope, teiService) {
 	$scope.teiModel = teiService.teiModel
 	//Codemirror
 	$scope.editorOptions = {
@@ -35,14 +35,15 @@ teiInfoController = function($scope, $rootScope, teiService) {
 		var teiNode = generateTEI($scope.teiModel);
 		console.log(teiNode);
 		$scope.teiXml = vkbeautify.xml(teiNode.outerHTML);
-		generateXMLUrl();
+
 	};
 
 	$scope.update();
 
+	/*
 	if($scope.teiModel.teiInfo)
 		generateXMLUrl();
-	/*var content = 'file content';
+	var content = 'file content';
 	var blob = new Blob([ $scope.teiXml ], { type : 'text/plain' });
 	$scope.xmlUrl = (window.URL || window.webkitURL).createObjectURL( blob );
 */

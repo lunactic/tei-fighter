@@ -20,6 +20,7 @@ Rectangle.prototype.width  = function() {
 		return (this.right - this.left);
 	};
 
+
 Area = function(topLeft, bottomRight) {
 
 	Rectangle.call(this,topLeft, bottomRight);
@@ -62,6 +63,8 @@ Area = function(topLeft, bottomRight) {
 		return this.lines.length > 0;
 
 	};
+
+
 	return this;
 }
 
@@ -71,7 +74,12 @@ Line = function(topLeft, bottomRight) {
     this.rect = null;
 	Rectangle.call(this,topLeft, bottomRight);
 
+	this.copy = function(other) {
+		Rectangle.copy.call(this,other);
+
+	}
 	return this;
+
 }
 Area.prototype = Rectangle.prototype;
 Line.prototype = Rectangle.prototype;

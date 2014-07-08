@@ -56,15 +56,20 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 				console.log("Setting Page: " + currentPage);
 				$scope.setPage(currentPage);
 			}
+			else {
+				//TODO: remove the image
+
+				//if (typeof project !== 'undefined')
+					//project.activeLayer.removeChildren();
+				//project.clear();
+
+			}
 		}
 		else {
 			//create teiModel
 			/*teiModel.teiInfo = new TeiInfo("Title","Publication", "Source Description");
 			teiModel.listOfPages = [];
 			*/
-			
-		
-
 			//Add a new page
 			//Add the url
 			//var testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg";
@@ -78,9 +83,25 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 	// initialize canvas will be called automatically
 	$scope.$watch('listOfPages', function() {
 		if ($scope.listOfPages == 0) return;
-	
-		
+
+
 	});
+	
+	// Given an url generates a new page
+	// initialize canvas will be called automatically
+	$scope.$parent.$watch('data.changes', function(value){
+			console.log("change on teiModel", $scope.data.changes);
+
+		if (value == true) {
+				$scope.init();
+				console.log("reinitializing");
+				$scope.data.changes = false;
+		}
+
+		
+
+	});
+
 
 	// Change the model to the current page
 	//    $scope.setPage = function(page) {
