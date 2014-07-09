@@ -123,8 +123,9 @@ mainController = function ($scope, $location,  teiService) {
 					var topLeft = {x:area.left, y:area.top};
 					var bottomRight = {x:area.right, y:area.bottom};
 					var modelArea = new Area(topLeft, bottomRight);
-					modelArea.transcription = area.transcription;
 
+					modelArea.transcription = area.transcription;
+					modelArea.id = area.id;
 					for (var l = 0; l < area.lines.length; l++) {
 
 						var line = area.lines[l];
