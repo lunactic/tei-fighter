@@ -63,5 +63,31 @@ teifighterApp.config(function($compileProvider){
 
 });
 
+teifighterApp.directive("slider", function() {
+    return {
+        restrict: 'A',
+        scope: {
+            config: "=config",
+            value: "=model"
+        },
+        link: function(scope, elem, attrs) {
+            var setModel = function(value) {
+                scope.model = value;
+            }
 
+            $(elem).slider({
+              range: false,
+	            min: scope.config.min,
+	            max: scope.config.max,
+              step: scope.config.step,
+              slide: function(event, ui) {
+                    scope.$apply(function() {
+                        scope.value = ui.value;
+                    });
+							},
+							value: scope.value
+	        });
+    	}
+    }
+});
 

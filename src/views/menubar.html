@@ -11,12 +11,15 @@
 	</div>
 	<div class="collapse navbar-collapse">
 		<ul class="nav navbar-nav">
-			<li><button type="button"
-									class="btn navbar-btn btn-success"
-									ng-click="newModel()">
+			<li>
+				<div>
+				<a ng-href="#" class="btn navbar-btn btn-success"
+									ng-click="newModel()"
+									>
 				<span class="glyphicon glyphicon-file"
 							></span>
-				New</button>
+				New</a>
+				</div>
 			</li>
 		</ul>
 
@@ -45,14 +48,18 @@
 			</li>
 
 			<li>
-				<div>
+				<button class = "btn btn-primary navbar-btn" data-toggle="modal" data-target="#exportModal" ng-click="exportModel()">
+					<span class="glyphicon glyphicon-export"></span>
+					Export XML
+				</button>
+				<!--<div>
 				<a download="{{xmlName}}.xml" class = "btn navbar-btn btn-info" ng-href="{{ xmlUrl }}">
 
 				<span class="glyphicon glyphicon-export"></span>
 				Export TEI-File
 
 				</a>
-				</div>
+				</div>-->
 			</li>
 			<li>
 				<button class = "btn btn-primary navbar-btn" data-toggle="modal" data-target="#newPageModal">

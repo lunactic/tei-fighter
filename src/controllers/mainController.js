@@ -1,5 +1,22 @@
 mainController = function ($scope, $location,  teiService) {
 
+
+	$scope.drawingOptions = {
+		area_color : "blue",
+		selected_area_color: "red",
+		line_color : "green",
+		selected_line_color: "purple",
+		opacity: 0.4
+
+	};
+
+
+	  $scope.sliderConfig = {
+        min: 0,
+        max: 1,
+        step: 0.1
+    }
+
 	// scope variables empty initialization
 	$scope.currentUrl = ""; // Current url of the page (for canvas)
 	//teiModel   = null; // reference to teiModel (service)

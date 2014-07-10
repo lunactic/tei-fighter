@@ -13,6 +13,8 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 
 	};
 
+
+
 	// This is the view controller. It can be used for scrolling,
 	// zooming and transforming coordinates. I think it should be
 	// visible to the whole project, but in a cleaner way than using
@@ -76,6 +78,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 
 		}
 		$scope.listOfPages = teiModel.listOfPages;
+		//$scope.setOpacity($scope.drawingOptions.opacity);
 	}
 
    
@@ -85,22 +88,27 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 		if ($scope.listOfPages == 0) return;
 
 
+
 	});
 	
 	// Given an url generates a new page
 	// initialize canvas will be called automatically
 	$scope.$parent.$watch('data.changes', function(value){
 			console.log("change on teiModel", $scope.data.changes);
-
 		if (value == true) {
 				$scope.init();
 				console.log("reinitializing");
 				$scope.data.changes = false;
 		}
 
-		
-
 	});
+
+	$scope.$parent.$watch('drawingOptions.opacity', function(value){
+			console.log("change on the opacity", value);
+			$scope.setOpacity(value);
+		}
+
+	);
 
 
 	// Change the model to the current page
@@ -127,8 +135,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 			return;
 
 		var cPage = teiModel.listOfPages[indexPage];
-		//Remove the old rectangles
-		$scope.removeRectangles();
+
 
 		//Set the variables to the new page
 		$scope.currentUrl = cPage.url;
@@ -136,7 +143,8 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 		$scope.pageInfo  = cPage;
 		$scope.pageNumber = indexPage+1; // Page number starts by 1
 		$scope.data.canvasUrl = "#/?page="+indexPage;
-
+		//Remove the old rectangles
+		$scope.removeRectangles();
 	}
 
 	// For the pagination buttons
@@ -405,7 +413,8 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 
 
 		$scope.areaSelected = area;
-		$scope.areaSelected.rect.fillColor = 'red';
+		$scope.areaSelected.rect.fillColor = $scope.drawingOptions.selected_area_color;
+		$scope.areaSelected.rect.fillColor.alpha = $scope.drawingOptions.opacity;
 
 		// Display the lines
 		for (var i=0; i<area.lines.length; i++) {
@@ -419,10 +428,12 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 				line.rect = new paper.Path.Rectangle({
 					from: self.view.getViewPoint(TL),
 					to: self.view.getViewPoint(RB),
-					fillColor: 'green',
-					strokeColor: 'black',
-					opacity: '0.15'
+					fillColor: $scope.drawingOptions.line_color,
+					strokeColor: 'black'
+
 				});
+					//opacity: $scope.drawingOptions.opacity
+				line.rect.fillColor.alpha = $scope.drawingOptions.opacity;
 				line.rect.line    = line;
 				line.rect.area    = area;
 				line.rect.onClick = function() {
@@ -460,7 +471,9 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 
 		$scope.unselectCurrentLine();
 
-		line.rect.fillColor = "blue";
+		line.rect.fillColor = $scope.drawingOptions.selected_line_color;
+		line.rect.fillColor.alpha = $scope.drawingOptions.opacity;
+
 		//$scope.areaSelected = area;
 		$scope.lineSelected = line;
 		self.resizeCircles.assignTo(line);
@@ -485,12 +498,12 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 		var rect = new paper.Path.Rectangle({
 			from: self.view.getViewPoint(new paper.Point(topLeft)),
 			to: self.view.getViewPoint(new paper.Point(bottomRight)),
-			fillColor: 'blue',
+			fillColor: $scope.drawingOptions,
 			strokeColor: 'black',
-			opacity: '0.15'
+			//opacity: $scope.drawingOptions.opacity
 
 		});
-
+		rect.fillColor.alpha = $scope.drawingOptions.opacity;
 		//bidireccional status
 		rect.TranscriptionArea = area;
 		//addHandler for the click
@@ -547,14 +560,16 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 
 	$scope.unselectCurrentLine = function() {
 		if ($scope.lineSelected) {
-			$scope.lineSelected.rect.fillColor = "green";
+			$scope.lineSelected.rect.fillColor = $scope.drawingOptions.line_color;
+			$scope.lineSelected.rect.fillColor.alpha = $scope.drawingOptions.opacity;
 		}
 		$scope.lineSelected = null;
 	}
 	$scope.unselectCurrentArea = function() {
 		// If no current area is selected...
 		if ($scope.areaSelected != null) {
-			$scope.areaSelected.rect.fillColor = "blue";
+			$scope.areaSelected.rect.fillColor = $scope.drawingOptions.area_color;
+			$scope.areaSelected.rect.fillColor.alpha = $scope.drawingOptions.opacity;
 			$scope.unselectCurrentLine();
 
 		}
@@ -573,11 +588,11 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 			var rect = new paper.Path.Rectangle({
 				from: self.view.getViewPoint(new paper.Point(area.topLeft())),
 				to: self.view.getViewPoint(new paper.Point(area.bottomRight())),
-				fillColor: 'blue',
+				fillColor: $scope.drawingOptions.area_color,
 				strokeColor: 'black',
-				opacity: '0.5'
-			});
 
+			});
+			rect.fillColor.alpha = $scope.drawingOptions.opacity
 			//bidireccional status
 			rect.TranscriptionArea = area;
 			//addHandler for the click
@@ -590,12 +605,35 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 		$scope.unselectCurrentArea();
 	}
 
+	$scope.setOpacity = function(value) {
+
+		$scope.listAreas.forEach(function(area) {
+
+
+			area.rect.fillColor.alpha = value;
+			area.lines.forEach(function(line) {
+				if(line.rect)
+					line.rect.fillColor.alpha = value;
+			});
+		});
+
+	}
+
 	$scope.removeRectangles = function() {
 		$scope.listAreas.forEach(function(area) {
-			if (area.rect)
+			if (area.rect) {
 				area.rect.remove();
-		});
+				area.rect = null;
+			}
+			area.lines.forEach(function(line) {
+					if (line.rect)
+						line.rect.remove();
+						line.rect = null;
+				});
+
+		 });
 	}
+	$
 
 	$scope.createTestSample = function() {
 

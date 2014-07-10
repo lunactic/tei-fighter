@@ -36,3 +36,9 @@ body {
 
 	height:70%;
 }
+
+.cdbl-slider {
+    width: 300px;
+    margin: 10px;
+		float:right;
+}
