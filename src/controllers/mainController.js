@@ -108,7 +108,7 @@ mainController = function ($scope, $location,  teiService) {
 		exportModel: "snippets/exportModel.html"
 	};
 
-	// exporting xml
+	// exporting json
 	$scope.generateJSONUrl = function() {
 
 		if (!teiService.teiModel) return;
