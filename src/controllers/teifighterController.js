@@ -133,8 +133,8 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 	$scope.setPage = function(indexPage) {
 		// TODO: check intervals
 
-		if ($scope.isActivePage(indexPage))
-			return;
+/*		if ($scope.isActivePage(indexPage))
+			return;*/
 
 		var cPage = teiModel.listOfPages[indexPage];
 

@@ -9,10 +9,10 @@ String.prototype.format = function() {
 
 var addCoordElement = function(node, xmlId, ulx, uly, lrx, lry) {
     node.setAttribute("xml:id", xmlId);
-    node.setAttribute("ulx", ulx);
-    node.setAttribute("uly", uly);
-    node.setAttribute("lrx", lrx);
-    node.setAttribute("lry", lry);
+    node.setAttribute("ulx", ulx.toFixed());
+    node.setAttribute("uly", uly.toFixed());
+    node.setAttribute("lrx", lrx.toFixed());
+    node.setAttribute("lry", lry.toFixed());
 }
 
 // Gets the page info object
@@ -20,7 +20,6 @@ var addCoordElement = function(node, xmlId, ulx, uly, lrx, lry) {
 // The mother of the lamb
 generateTEI = function(teiModel) {
 
-    //
     var parser = new DOMParser();
 
     var root = parser.parseFromString('<TEI/>', "text/xml");

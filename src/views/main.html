@@ -75,7 +75,7 @@
 		<div class="col-md-6" id="transcription-side">
 			<div class = "area-info" id="area-info">
 				<label>Id:</label><input type="text"  ng-model="areaSelected.id"><br>
-				ulx: {{areaSelected.left}} uly: {{areaSelected.top}} lrx: {{areaSelected.right}} lry: {{areaSelected.bottom}}
+				ulx: {{areaSelected.left | number:0}} uly: {{areaSelected.top | number:0}} lrx: {{areaSelected.right | number:0}} lry: {{areaSelected.bottom| number:0}}
 			</div>
 			<div class="transcriptions" ng-style="transcriptionsStyle()">
 				<div ng-repeat='area in listAreas'>
