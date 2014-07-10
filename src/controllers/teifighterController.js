@@ -96,10 +96,12 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 	$scope.$parent.$watch('data.changes', function(value){
 			console.log("change on teiModel", $scope.data.changes);
 		if (value == true) {
+				$scope.pageNumber = 0;
 				$scope.init();
 				console.log("reinitializing");
 				$scope.data.changes = false;
 		}
+
 
 	});
 
@@ -609,8 +611,8 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 
 		$scope.listAreas.forEach(function(area) {
 
-
-			area.rect.fillColor.alpha = value;
+			if(area.rect)
+				area.rect.fillColor.alpha = value;
 			area.lines.forEach(function(line) {
 				if(line.rect)
 					line.rect.fillColor.alpha = value;
