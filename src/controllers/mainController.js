@@ -105,7 +105,8 @@ mainController = function ($scope, $location,  teiService) {
 	$scope.snippets = {
 		notTei: "snippets/notTei.html",
 		newPage: "snippets/newPage.html",
-		exportModel: "snippets/exportModel.html"
+		exportModel: "snippets/exportModel.html",
+		importModel: "snippets/importModel.html"
 	};
 
 	// exporting json
@@ -123,9 +124,8 @@ mainController = function ($scope, $location,  teiService) {
 	$scope.demo1_url = "samples/demo1.json";
 	$scope.demo2_url = "samples/demo2.json";
 
-	$scope.loadJSONModel = function(model_url) {
-		teiService.loadJSONModel(model_url).then(function(data) {
-			// TODO: Check that the modle is correct
+	parseJSONModel = function(data) {
+			// TODO: Check that the model is correct
 
 			// removing the list elements
 			teiService.teiModel.listOfPages.length = 0;
@@ -157,10 +157,30 @@ mainController = function ($scope, $location,  teiService) {
 				teiService.teiModel.listOfPages.push(modelPage);
 			}
 			$scope.data.changes = true;
-		}); // ending of the promise request
+
+	};
+
+	$scope.loadJSONModel = function(model_url) {
+		teiService.loadJSONModel(model_url).then(parseJSONModel
+		); // ending of the promise request
 	};
 
 
+  $scope.inputJSON = function($fileContent,$fileName){
+		try {
+		    var data = JSON.parse($fileContent);
+        parseJSONModel(data);
+				$scope.importInfo = "Model Loaded succesfully!";
+		}
+		catch(err) {
+				$scope.importInfo = "Seems that something is not going well: "+err;
+		}
+  };
+
+	$scope.closeImport = function($fileContent,$fileName){
+			$scope.importInfo = "";
+
+  };
 
 };
 
