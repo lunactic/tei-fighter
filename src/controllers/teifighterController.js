@@ -699,6 +699,11 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 		).then(function(result) {
 			console.log(result);
 			$scope.areaSelected.linesFromList(result);
+            var area = $scope.areaSelected;
+            $scope.unselectCurrentArea();
+            $scope.selectArea(area);
+            
+            
 		}
 					);
 
