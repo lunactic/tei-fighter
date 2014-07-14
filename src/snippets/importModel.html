@@ -1,0 +1,25 @@
+<!-- Export Page menu -->
+<div class="modal fade" id="importModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Import JSON File</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+			</div>
+			<div class="modal-body">
+				<div class="input-group">
+					<input type="file" on-read-file="inputJSON($fileContent, $fileName)" />
+    			<div ng-if="content">
+        	<h2>Load Status:</h2>
+        	<pre>{{ importInfo }}</pre>
+    </div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" ng-binding ng-click="closeImport()">Close</button>
+
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
