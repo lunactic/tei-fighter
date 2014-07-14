@@ -2,8 +2,8 @@ lineService = function($http,$q) {
 
 
 	settings = {
-		server_url: "http://134.21.140.44",
-		port: 8080
+		server_url: "http://diufpc49",
+		port: 8088
 	}
 
 	var trolled = function(top, left, bottom, right) {
@@ -86,10 +86,42 @@ lineService = function($http,$q) {
 		return d.promise;
 
 	};
+    
+    var getLines = function(urlImage, top, left, bottom, right) {
+
+		var data_send =
+					{
+						"url":urlImage,
+						"top":top,
+						"bottom": bottom,
+						"left":left,
+						"right":right,
+						"mode":"trolled"
+					};
+
+
+			var d = $q.defer();
+			var service_url = settings.server_url + ":" + settings.port +"/LineSeg/LineSeg";
+			console.log("Sending request", service_url, data_send);
+		  $http({
+				method: 'POST',
+				url: service_url,
+				data: data_send,
+			}).success(function(data) {
+				console.log("The words are successful", data);
+				d.resolve(data);
+			}).error(function(data, status) {
+				console.log("Something is wrong", data, status);
+			});
+
+		return d.promise;
+
+	};
 
 	return {
 		getAreaLines: getAreaLines,
-		getWords: getWords
+		getWords: getWords,
+		getLines: getLines
 	}
 
 

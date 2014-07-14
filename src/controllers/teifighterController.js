@@ -221,6 +221,13 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 		// Position of the mouse during drag - updated at the end of the
 		// function call.
 		var prevDragPos  = new paper.Point(0,0);
+        
+        document.getElementsByTagName("body")[0].onkeypress = function(event) {
+            event = event || window.event;
+            if (event.keyCode==46 || event.keyCode==127) {
+                alert('Delete');
+            }
+        };
 
 		// Mouseup, there has been a click
 		canvas.onmouseup = function(event) {
@@ -683,7 +690,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 	$scope.autoDetectLines = function() {
 
 		//lineService.getAreaLines(
-		lineService.getWords(
+		lineService.getLines(
 			$scope.currentUrl,
 			$scope.areaSelected.top,
 			$scope.areaSelected.left,
