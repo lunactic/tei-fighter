@@ -1,4 +1,4 @@
-var teifighterApp = angular.module('teifighterApp', ['ui.codemirror']);
+var teifighterApp = angular.module('teifighterApp', ['ui.codemirror', 'ui.bootstrap']);
  
 teifighterApp.config(['$routeProvider',
   function($routeProvider) {
@@ -21,8 +21,11 @@ teifighterApp.config(['$routeProvider',
 
 teifighterApp.service('teiService', teiService);
 teifighterApp.service('lineService', ['$http','$q', lineService]);
+teifighterApp.service('questionService', ['$modal', questionService]);
 
-teifighterApp.controller("TeifighterController", ['$scope', '$location', '$timeout', 'teiService', 'lineService', teifighterController])
+teifighterApp.controller("TeifighterController", ['$scope', '$location', '$timeout',
+																									'teiService', 'lineService', 'questionService',
+																									teifighterController])
 .directive('imageonload', function() {
     return {
        restrict: 'A',
@@ -45,7 +48,7 @@ teifighterApp.controller("TeifighterController", ['$scope', '$location', '$timeo
 
 teifighterApp.controller("TeiInfoController", ['$scope', 'teiService', teiInfoController]);
 teifighterApp.controller("TranscriptionController", ['$scope', transcriptionController]);
-teifighterApp.controller("MainController", ['$scope','$location', 'teiService', mainController]);
+teifighterApp.controller("MainController", ['$scope','$location', '$modal', 'teiService','questionService', mainController]);
 teifighterApp.controller("settingsController", function($scope)
 {
   $scope.testUrl = "";

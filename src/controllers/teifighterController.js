@@ -1,4 +1,4 @@
-teifighterController = function ($scope, $location, $timeout,  teiService, lineService) {
+teifighterController = function ($scope, $location, $timeout,  teiService, lineService, questionService) {
 	$scope.hello = 'It works';
 	$scope.more = "yes it is";
 
@@ -36,7 +36,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 	// True after their initialization
 	self.areListenersInitialized = false;
 
-	
+
 	//$scope.listOfPages = [];
 
 	// Function that initializes the model variables
@@ -53,7 +53,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 			if (paramPage) {
 				currentPage = parseInt(paramPage);
 			}
-			
+
 			if (currentPage < teiModel.listOfPages.length) {
 				console.log("Setting Page: " + currentPage);
 				$scope.setPage(currentPage);
@@ -62,7 +62,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 				//TODO: remove the image
 
 				//if (typeof project !== 'undefined')
-					//project.activeLayer.removeChildren();
+				//project.activeLayer.removeChildren();
 				//project.clear();
 
 			}
@@ -81,7 +81,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 		//$scope.setOpacity($scope.drawingOptions.opacity);
 	}
 
-   
+
 	// Given an url generates a new page
 	// initialize canvas will be called automatically
 	$scope.$watch('listOfPages', function() {
@@ -90,27 +90,27 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 
 
 	});
-	
+
 	// Given an url generates a new page
 	// initialize canvas will be called automatically
 	$scope.$parent.$watch('data.changes', function(value){
-			console.log("change on teiModel", $scope.data.changes);
+		console.log("change on teiModel", $scope.data.changes);
 		if (value == true) {
-				$scope.pageNumber = 0;
-				$scope.init();
-				console.log("reinitializing");
-				$scope.data.changes = false;
+			$scope.pageNumber = 0;
+			$scope.init();
+			console.log("reinitializing");
+			$scope.data.changes = false;
 		}
 
 
 	});
 
 	$scope.$parent.$watch('drawingOptions.opacity', function(value){
-			console.log("change on the opacity", value);
-			$scope.setOpacity(value);
-		}
+		console.log("change on the opacity", value);
+		$scope.setOpacity(value);
+	}
 
-	);
+											 );
 
 
 	// Change the model to the current page
@@ -133,7 +133,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 	$scope.setPage = function(indexPage) {
 		// TODO: check intervals
 
-/*		if ($scope.isActivePage(indexPage))
+		/*		if ($scope.isActivePage(indexPage))
 			return;*/
 
 		var cPage = teiModel.listOfPages[indexPage];
@@ -155,7 +155,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 
 	}
 
-	
+
 	// Initialization of the canvas, mainly creates different observers
 	$scope.initializeCanvas = function() {
 		// For the closure
@@ -221,13 +221,13 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 		// Position of the mouse during drag - updated at the end of the
 		// function call.
 		var prevDragPos  = new paper.Point(0,0);
-        
-        document.getElementsByTagName("body")[0].onkeypress = function(event) {
-            event = event || window.event;
-            if (event.keyCode==46 || event.keyCode==127) {
-                alert('Delete');
-            }
-        };
+
+		document.getElementsByTagName("body")[0].onkeypress = function(event) {
+			event = event || window.event;
+			if (event.keyCode==46 || event.keyCode==127) {
+				alert('Delete');
+			}
+		};
 
 		// Mouseup, there has been a click
 		canvas.onmouseup = function(event) {
@@ -441,7 +441,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 					strokeColor: 'black'
 
 				});
-					//opacity: $scope.drawingOptions.opacity
+				//opacity: $scope.drawingOptions.opacity
 				line.rect.fillColor.alpha = $scope.drawingOptions.opacity;
 				line.rect.line    = line;
 				line.rect.area    = area;
@@ -635,23 +635,23 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 				area.rect = null;
 			}
 			area.lines.forEach(function(line) {
-					if (line.rect)
-						line.rect.remove();
-						line.rect = null;
-				});
+				if (line.rect)
+					line.rect.remove();
+				line.rect = null;
+			});
 
-		 });
+		});
 	}
-	$
+
 
 	$scope.createTestSample = function() {
 
 		var testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/006v.jpg";
 		$scope.newPage(testUrl);
-		
+
 		testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg";
 		$scope.newPage(testUrl);
-		
+
 		var areas = [[45, 134, 330, 1138],
 								 [57,1131, 713, 1737],
 								];
@@ -680,8 +680,8 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 				++i;
 			})
 		},500);
-		
-		
+
+
 
 	};
 
@@ -689,23 +689,53 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 	// Line detection dealing
 	$scope.autoDetectLines = function() {
 
-		//lineService.getAreaLines(
-		lineService.getLines(
-			$scope.currentUrl,
-			$scope.areaSelected.top,
-			$scope.areaSelected.left,
-			$scope.areaSelected.bottom,
-			$scope.areaSelected.right
-		).then(function(result) {
-			console.log(result);
-			$scope.areaSelected.linesFromList(result);
-            var area = $scope.areaSelected;
-            $scope.unselectCurrentArea();
-            $scope.selectArea(area);
-            
-            
+		var hasTranscription = false;
+		for (var l = 0; l < $scope.areaSelected.lines.length; l++) {
+			var line = $scope.areaSelected.lines[l];
+			if (line.transcription) {
+				hasTranscription = true;
+				break;
+			}
+
 		}
-					);
+
+		var doStuff = function() {
+			//lineService.getAreaLines(
+			lineService.getLines(
+				$scope.currentUrl,
+				$scope.areaSelected.top,
+				$scope.areaSelected.left,
+				$scope.areaSelected.bottom,
+				$scope.areaSelected.right
+			).then(function(result) {
+				console.log(result);
+				$scope.areaSelected.lines.forEach(function(line) {
+					if (line.rect)
+						line.rect.remove();
+					line.rect = null;
+				});
+				$scope.areaSelected.linesFromList(result);
+
+				var area = $scope.areaSelected;
+
+				$scope.unselectCurrentArea();
+				$scope.selectArea(area);
+
+
+
+			}
+						);
+		}
+
+		if (hasTranscription) {
+			var conf = questionService.confirm("Warning!", "The current area have already lines with transcription on them. \
+This lines will be removed, are you sure you want to continue?").then(function() {
+				doStuff();
+			});
+			return;
+		}
+
+		doStuff();
 
 	}
 

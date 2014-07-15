@@ -1,4 +1,4 @@
-mainController = function ($scope, $location,  teiService) {
+mainController = function ($scope, $location,  $modal, teiService, questionService) {
 
 
 	$scope.drawingOptions = {
@@ -183,6 +183,16 @@ mainController = function ($scope, $location,  teiService) {
 
   };
 
+  $scope.testModal = function() {
+
+		questionService.confirm("Warning!", "The current area have already lines with transcription on them. \
+		This lines will be removed, are you sure you want to continue?").then(function() {
+			alert("alerta");
+		});
+
+	}
 };
+
+
 
 
