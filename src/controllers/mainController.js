@@ -134,6 +134,7 @@ mainController = function ($scope, $location,  teiService) {
 			for (var p = 0; p < data.listOfPages.length; p++) {
 				var page = data.listOfPages[p];
 				var modelPage = new PageInfo(page.url);
+			 $scope.teiInfo = teiService.teiModel.teiInfo;
 
 				for (var a = 0; a < page.areas.length; a++) {
 					var area = page.areas[a];
