@@ -697,6 +697,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 				break;
 			}
 
+
 		}
 
 		var doStuff = function() {
@@ -709,6 +710,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 				$scope.areaSelected.right
 			).then(function(result) {
 				console.log(result);
+				$scope.unselectCurrentLine();
 				$scope.areaSelected.lines.forEach(function(line) {
 					if (line.rect)
 						line.rect.remove();
