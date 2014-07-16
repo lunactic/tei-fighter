@@ -724,14 +724,12 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 				$scope.selectArea(area);
 
 
-
 			}
 						);
 		}
 
 		if (hasTranscription) {
-			var conf = questionService.confirm("Warning!", "The current area have already lines with transcription on them. \
-This lines will be removed, are you sure you want to continue?").then(function() {
+			var conf = questionService.confirm("Please confirm recomputing autolines.", "Existing transcriptions of this text area will be removed if you recompute auto-lines.").then(function() {
 				doStuff();
 			});
 			return;
@@ -739,6 +737,32 @@ This lines will be removed, are you sure you want to continue?").then(function()
 
 		doStuff();
 
+	}
+
+	$scope.sortRectangles = function(rectangles, sort_type) {
+		switch(sort_type) {
+			case "ID":
+						$scope.sortByID(rectangles);
+					break;
+			case "Y":
+						$scope.sortByY(rectangles);
+					break;
+			default:
+						$scope.sortByY(rectangles);
+					break;
+			}
+
+	}
+
+	// Sorting the lines
+	$scope.sortLines = function(sort_type) {
+		if(! $scope.areaSelected.lines) return;
+		$scope.sortRectangles($scope.areaSelected.lines,sort_type);
+
+	}
+
+	$scope.sortAreas = function(sort_type) {
+		$scope.sortRectangles($scope.listAreas,sort_type);
 	}
 
 	//Trick for select lines

@@ -184,6 +184,21 @@ mainController = function ($scope, $location,  $modal, teiService, questionServi
 
   };
 
+	// Sort the list given the Y components
+	$scope.sortByY = function(listOfLines) {
+		listOfLines.sort(function(lineA, lineB) {
+			return lineA.top > lineB.top;
+		});
+
+	}
+
+	// Sort the list given the Y components
+	$scope.sortByID = function(listOfLines) {
+		listOfLines.sort(function(lineA, lineB) {
+			return lineA.id > lineB.id;
+		});
+
+	}
 	$scope.showAbout = function() {
 
 		var version = $scope.version;
