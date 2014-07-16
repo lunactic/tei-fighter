@@ -20,7 +20,8 @@ body {
 	background-color: #EEF;
 }
 
-#transcription-side {
+
+#transcriptions {
 	background-color: #ABA;
 
 }
@@ -38,7 +39,7 @@ body {
 }
 
 .cdbl-slider {
-    width: 300px;
+    width: 100%;
     margin: 10px;
 		float:right;
 }
