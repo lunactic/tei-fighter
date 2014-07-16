@@ -1,5 +1,6 @@
 mainController = function ($scope, $location,  $modal, teiService, questionService) {
 
+	$scope.version = "0.0.2";
 
 	$scope.drawingOptions = {
 		area_color : "blue",
@@ -182,6 +183,25 @@ mainController = function ($scope, $location,  $modal, teiService, questionServi
 			$scope.importInfo = "";
 
   };
+
+	$scope.showAbout = function() {
+
+		var version = $scope.version;
+		var modalInstance = $modal.open({
+			templateUrl: 'snippets/about.html',
+			controller: function($scope, $modalInstance, version) {
+				$scope.version = version;
+				$scope.close = function() {
+					$modalInstance.close();
+				}
+			},
+			resolve: {
+				version: function() { return version; }
+
+			}
+		});
+
+	}
 
   $scope.testModal = function() {
 
