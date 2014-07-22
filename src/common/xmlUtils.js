@@ -49,7 +49,7 @@ generateTEI = function(teiModel) {
 				var l = 0;
 				area.lines.forEach(function(line) {
 					var lineZone = root.createElement("line");
-					var lineId   = area.id+"l"+l;
+					var lineId   = line.id;
 					addCoordElement(lineZone, lineId, line.left, line.top, line.right, line.bottom);
 					zone.appendChild(lineZone);
 					l++;

@@ -1,1 +1,704 @@
-{"listOfPages":[{"width":3328,"height":4992,"title":"New Page","idSurface":"surface1","url":"http://www.e-codices.unifr.ch/manuscripts/max/csg-0402/csg-0402_004.jpg","areas":[{"top":1131.2499656677246,"left":782.1249999999999,"right":1998.390625000001,"bottom":3639.9999485015887,"rect":null,"transcription":"","lines":[{"transcription":"G Aprilis Theodore virginis","rect":null,"top":1131.4999847412118,"left":1198.1406250000011,"right":1849.1406250000011,"bottom":1249.9999847412118,"$$hashKey":"00T"},{"transcription":"A IIII nonas","rect":null,"top":1228.9999847412118,"left":791.6406250000011,"right":1196.6406250000011,"bottom":1335.4999847412118,"$$hashKey":"00V"},{"transcription":"B III nonas Theodosie virginis","rect":null,"top":1344.4999847412118,"left":839.6406250000011,"right":1657.1406250000011,"bottom":1419.4999847412118,"$$hashKey":"00X"},{"transcription":"C II nonas Ambrosii episcopi","rect":null,"top":1428.4999847412118,"left":830.6406250000011,"right":1667.6406250000011,"bottom":1510.9999847412118,"$$hashKey":"00Z"},{"transcription":"D nonas","rect":null,"top":1479.4999847412118,"left":814.1406250000011,"right":1223.6406250000011,"bottom":1558.9999847412118,"$$hashKey":"011"},{"transcription":"E VIII idvs Celestini pape","rect":null,"top":1561.9999847412118,"left":832.1406250000011,"right":1702.1406250000011,"bottom":1660.9999847412118,"$$hashKey":"013"},{"transcription":"F VII idvs","rect":null,"top":1633.9999847412118,"left":793.1406250000011,"right":1201.1406250000011,"bottom":1699.9999847412118,"$$hashKey":"015"},{"transcription":"G VI idvs","rect":null,"top":1716.4999847412118,"left":818.6406250000011,"right":1199.6406250000011,"bottom":1800.4999847412118,"$$hashKey":"017"},{"transcription":"A V idvs Marie Egiptiace","rect":null,"top":1803.6406097412084,"left":816.4062500000032,"right":1796.6406250000011,"bottom":1902.4999847412118,"$$hashKey":"019"},{"transcription":"B IIII idvs","rect":null,"top":1864.9999847412118,"left":814.1406250000011,"right":1211.6406250000011,"bottom":1974.4999847412118,"$$hashKey":"01B"},{"transcription":"C XIIII kalendas Eleucherij episcopi","rect":null,"top":1975.9999847412118,"left":815.6406250000011,"right":1624.1406250000011,"bottom":2052.499984741212,"$$hashKey":"01D"},{"transcription":"D II idvs","rect":null,"top":2057.499977111817,"left":790.1406250000013,"right":1237.8906250000014,"bottom":2122.749977111817,"$$hashKey":"01F"},{"transcription":"E idvs Eufemie virginis","rect":null,"top":2131.749977111817,"left":828.3906250000013,"right":1624.8906250000014,"bottom":2223.999977111817,"$$hashKey":"01H"},{"transcription":"F XVIII kalendas Maij Tyburtij, Valeriani et Maximi","rect":null,"top":2192.499977111817,"left":832.8906250000013,"right":2518.906250000003,"bottom":2306.1406097412087,"$$hashKey":"01J"},{"transcription":"G XVII kalendas","rect":null,"top":2275.749977111817,"left":817.1406250000013,"right":1213.1406250000014,"bottom":2370.249977111817,"$$hashKey":"01L"},{"transcription":"A XVI kalendas","rect":null,"top":2343.249977111817,"left":774.3906250000013,"right":1190.6406250000014,"bottom":2462.499977111817,"$$hashKey":"01N"},{"transcription":"B XV kalendas Petri diaconi","rect":null,"top":2424.249977111817,"left":812.6406250000013,"right":1710.3906250000014,"bottom":2538.999977111817,"$$hashKey":"01P"},{"transcription":"C XIIII kalendas Eleucherij episcopi","rect":null,"top":2520.999977111817,"left":794.6406250000013,"right":1737.3906250000014,"bottom":2599.749977111817,"$$hashKey":"01R"},{"transcription":"D XIII kalendas","rect":null,"top":2588.499977111817,"left":781.1406250000013,"right":1215.3906250000014,"bottom":2669.499977111817,"$$hashKey":"01T"},{"transcription":"E XII kalendas Senesij martyris","rect":null,"top":2671.749977111817,"left":810.3906250000013,"right":1602.3906250000014,"bottom":2754.999977111817,"$$hashKey":"01V"},{"transcription":"F XI kalendas Symeonis episcopi","rect":null,"top":2741.499977111817,"left":814.8906250000013,"right":1717.1406250000014,"bottom":2840.499977111817,"$$hashKey":"01X"},{"transcription":"G X kalendas","rect":null,"top":2802.249977111817,"left":805.8906250000013,"right":1208.6406250000014,"bottom":2912.499977111817,"$$hashKey":"01Z"},{"transcription":"A VIIII kalendas Georgij martyris","rect":null,"top":2889.999977111817,"left":796.8906250000013,"right":1627.1406250000014,"bottom":3011.499977111817,"$$hashKey":"021"},{"transcription":"B VIII kalendas","rect":null,"top":2964.249977111817,"left":796.8906250000013,"right":1192.8906250000014,"bottom":3085.749977111817,"$$hashKey":"023"},{"transcription":"C VII kalendas Marci ewangeliste","rect":null,"top":3068.869781494141,"left":1980.2187500000034,"right":819.4687500000038,"bottom":3144.869781494141,"$$hashKey":"025"},{"transcription":"D VI kalendas Druperti confessoris","rect":null,"top":3138.869781494141,"left":838.4687500000038,"right":2060.6328125000036,"bottom":3231.869781494141,"$$hashKey":"027"},{"transcription":"E V kalendas Cleti pape","rect":null,"top":3239.4999656677237,"left":799.1406250000039,"right":1605.7656250000039,"bottom":3313.7499656677237,"$$hashKey":"029"},{"transcription":"F IIII kalendas Vitalis matryris","rect":null,"top":3303.6249656677237,"left":802.5156250000039,"right":1599.0156250000039,"bottom":3391.3749656677237,"$$hashKey":"02B"},{"transcription":"G III kalendas","rect":null,"top":3387.9999656677237,"left":812.6406250000039,"right":1217.6406250000039,"bottom":3475.7499656677232,"$$hashKey":"02D"},{"transcription":"A II kalendas Quirini martyris","rect":null,"top":3475.7499656677232,"left":789.0156250000039,"right":1703.6406250000039,"bottom":3593.8749656677232,"$$hashKey":"02F"}],"id":"Index","$$hashKey":"00B"},{"top":2561.124965667725,"left":2016.3906250000014,"right":2823.0156250000014,"bottom":3475.749965667725,"rect":null,"transcription":"","lines":[{"transcription":"","rect":null,"top":2968.7499771118155,"left":2488.8906250000027,"right":2623.8906250000027,"bottom":3270.2499771118155,"$$hashKey":"02H"}],"id":"Text1","$$hashKey":"00D"},{"top":1139.6874485015855,"left":1884.2031250000034,"right":2962.515625000004,"bottom":2066.1249485015855,"rect":null,"transcription":"","lines":[],"id":"Text2","$$hashKey":"00F"},{"top":809.7811727523796,"left":912.2031250000027,"right":1496.9218750000027,"bottom":1204.6561727523797,"rect":null,"transcription":"","lines":[],"id":"Text3","$$hashKey":"00H"},{"top":3317.1249656677237,"left":2652.015625000004,"right":2176.140625000004,"bottom":3634.3749656677232,"rect":null,"transcription":"","lines":[],"id":"Text4","$$hashKey":"00J"}],"$$hashKey":"00L"},{"width":0,"height":0,"title":"New Page","idSurface":"surface1","url":"http://www.e-codices.unifr.ch/manuscripts/max/csg-0402/csg-0402_005.jpg","areas":[{"top":1121.999948501586,"left":592.8437499999995,"right":2465.9687500000005,"bottom":3794.9999485015865,"rect":null,"transcription":"","lines":[{"transcription":"","rect":null,"top":1152.374948501586,"left":618.1562499999995,"right":1914.1562500000002,"bottom":1273.874948501586},{"transcription":"","rect":null,"top":1228.312448501586,"left":602.9687499999995,"right":1640.7812500000002,"bottom":1329.562448501586},{"transcription":"","rect":null,"top":1314.374948501586,"left":582.7187499999995,"right":1726.8437500000002,"bottom":1425.749948501586},{"transcription":"","rect":null,"top":1425.749948501586,"left":592.8437499999995,"right":2405.2187500000005,"bottom":1526.999948501586},{"transcription":"","rect":null,"top":1476.374948501586,"left":602.9687499999995,"right":1007.9687499999997,"bottom":1567.499948501586},{"transcription":"","rect":null,"top":1562.437448501586,"left":592.8437499999995,"right":1985.0312500000002,"bottom":1658.624948501586},{"transcription":"","rect":null,"top":1633.312448501586,"left":587.7812499999995,"right":1002.9062499999997,"bottom":1734.562448501586},{"transcription":"","rect":null,"top":1739.624948501586,"left":577.6562499999995,"right":1807.8437500000002,"bottom":1820.624948501586},{"transcription":"","rect":null,"top":1810.499948501586,"left":562.4687499999995,"right":987.7187499999997,"bottom":1886.437448501586},{"transcription":"","rect":null,"top":1886.437448501586,"left":562.4687499999995,"right":1018.0937499999997,"bottom":1967.437448501586},{"transcription":"","rect":null,"top":1982.624948501586,"left":592.8437499999995,"right":1721.7812500000002,"bottom":2073.749948501586},{"transcription":"","rect":null,"top":2048.437448501586,"left":577.6562499999995,"right":1428.1562499999995,"bottom":2164.874948501586},{"transcription":"","rect":null,"top":2129.437448501586,"left":577.6562499999995,"right":1468.6562500000002,"bottom":2220.562448501586},{"transcription":"","rect":null,"top":2220.562448501586,"left":562.4687499999995,"right":1412.9687499999995,"bottom":2321.812448501586},{"transcription":"","rect":null,"top":2301.562448501586,"left":597.9062499999995,"right":957.3437499999997,"bottom":2402.812448501586},{"transcription":"","rect":null,"top":2387.624948501586,"left":602.9687499999995,"right":1696.4687500000002,"bottom":2453.437448501586},{"transcription":"","rect":null,"top":2448.374948501586,"left":582.7187499999995,"right":1574.9687500000002,"bottom":2539.499948501586},{"transcription":"","rect":null,"top":2519.249948501586,"left":587.7812499999995,"right":962.4062499999997,"bottom":2630.6249485015865},{"transcription":"","rect":null,"top":2610.3749485015865,"left":597.9062499999995,"right":1514.2187500000002,"bottom":2701.4999485015865},{"transcription":"","rect":null,"top":2671.1249485015865,"left":567.5312499999995,"right":1007.9687499999997,"bottom":2777.4374485015865},{"transcription":"","rect":null,"top":2747.0624485015865,"left":562.4687499999995,"right":982.6562499999997,"bottom":2838.1874485015865},{"transcription":"","rect":null,"top":2838.1874485015865,"left":562.4687499999995,"right":1377.5312499999995,"bottom":2954.6249485015865},{"transcription":"","rect":null,"top":2939.4374485015865,"left":582.7187499999995,"right":987.7187499999997,"bottom":3010.3124485015865},{"transcription":"","rect":null,"top":3000.1874485015865,"left":582.7187499999995,"right":1397.7812499999995,"bottom":3106.4999485015865},{"transcription":"","rect":null,"top":3101.4374485015865,"left":562.4687499999995,"right":1529.4062500000002,"bottom":3207.7499485015865},{"transcription":"","rect":null,"top":3177.3749485015865,"left":557.4062499999995,"right":1018.0937499999997,"bottom":3283.6874485015865},{"transcription":"","rect":null,"top":3258.3749485015865,"left":587.7812499999995,"right":1392.7187499999995,"bottom":3349.4999485015865},{"transcription":"","rect":null,"top":3349.4999485015865,"left":592.8437499999995,"right":1544.5937500000002,"bottom":3435.5624485015865},{"transcription":"","rect":null,"top":3430.4999485015865,"left":567.5312499999995,"right":1544.5937500000002,"bottom":3516.5624485015865},{"transcription":"","rect":null,"top":3496.3124485015865,"left":567.5312499999995,"right":1023.1562499999997,"bottom":3597.5624485015865},{"transcription":"","rect":null,"top":3582.3749485015865,"left":562.4687499999995,"right":1519.2812500000002,"bottom":3683.6249485015865}],"id":"Text0"}],"$$hashKey":"00N"},{"width":0,"height":0,"title":"New Page","idSurface":"surface1","url":"http://www.e-codices.unifr.ch/manuscripts/max/csg-0402/csg-0402_006.jpg","areas":[],"$$hashKey":"00P"},{"width":0,"height":0,"title":"New Page","idSurface":"surface1","url":"http://www.e-codices.unifr.ch/manuscripts/max/csg-0402/csg-0402_007.jpg","areas":[],"$$hashKey":"00R"}],"teiInfo":{"title":"Sant Gallen, Stiftsbiliothek","publicationInformation":"Publication","sourceDesc":"Source Description"}}
+{
+    "listOfPages": [
+        {
+            "width": 3328,
+            "height": 4992,
+            "title": "New Page",
+            "idSurface": "surface1",
+            "url": "http://www.e-codices.unifr.ch/manuscripts/max/csg-0402/csg-0402_004.jpg",
+            "areas": [
+                {
+                    "top": 1131.2499656677246,
+                    "left": 782.1249999999999,
+                    "right": 1998.390625000001,
+                    "bottom": 3639.9999485015887,
+                    "rect": null,
+                    "transcription": "",
+                    "lines": [
+                        {
+                            "transcription": "G Aprilis Theodore virginis",
+                            "rect": null,
+                            "top": 1131.4999847412118,
+                            "left": 1198.1406250000011,
+                            "right": 1849.1406250000011,
+                            "bottom": 1249.9999847412118,
+                            "id": "Indexl0",
+                            "$$hashKey": "00U"
+                        },
+                        {
+                            "transcription": "A IIII nonas",
+                            "rect": null,
+                            "top": 1228.9999847412118,
+                            "left": 791.6406250000011,
+                            "right": 1196.6406250000011,
+                            "bottom": 1335.4999847412118,
+                            "id": "Indexl1",
+                            "$$hashKey": "00W"
+                        },
+                        {
+                            "transcription": "B III nonas Theodosie virginis",
+                            "rect": null,
+                            "top": 1344.4999847412118,
+                            "left": 839.6406250000011,
+                            "right": 1657.1406250000011,
+                            "bottom": 1419.4999847412118,
+                            "id": "Indexl2",
+                            "$$hashKey": "00Y"
+                        },
+                        {
+                            "transcription": "C II nonas Ambrosii episcopi",
+                            "rect": null,
+                            "top": 1428.4999847412118,
+                            "left": 830.6406250000011,
+                            "right": 1667.6406250000011,
+                            "bottom": 1510.9999847412118,
+                            "id": "Indexl3",
+                            "$$hashKey": "010"
+                        },
+                        {
+                            "transcription": "D nonas",
+                            "rect": null,
+                            "top": 1479.4999847412118,
+                            "left": 814.1406250000011,
+                            "right": 1223.6406250000011,
+                            "bottom": 1558.9999847412118,
+                            "id": "Indexl4",
+                            "$$hashKey": "012"
+                        },
+                        {
+                            "transcription": "E VIII idvs Celestini pape",
+                            "rect": null,
+                            "top": 1561.9999847412118,
+                            "left": 832.1406250000011,
+                            "right": 1702.1406250000011,
+                            "bottom": 1660.9999847412118,
+                            "id": "Indexl5",
+                            "$$hashKey": "014"
+                        },
+                        {
+                            "transcription": "F VII idvs",
+                            "rect": null,
+                            "top": 1633.9999847412118,
+                            "left": 793.1406250000011,
+                            "right": 1201.1406250000011,
+                            "bottom": 1699.9999847412118,
+                            "id": "Indexl6",
+                            "$$hashKey": "016"
+                        },
+                        {
+                            "transcription": "G VI idvs",
+                            "rect": null,
+                            "top": 1716.4999847412118,
+                            "left": 818.6406250000011,
+                            "right": 1199.6406250000011,
+                            "bottom": 1800.4999847412118,
+                            "id": "Indexl7",
+                            "$$hashKey": "018"
+                        },
+                        {
+                            "transcription": "A V idvs Marie Egiptiace",
+                            "rect": null,
+                            "top": 1803.6406097412084,
+                            "left": 816.4062500000032,
+                            "right": 1796.6406250000011,
+                            "bottom": 1902.4999847412118,
+                            "id": "Indexl8",
+                            "$$hashKey": "01A"
+                        },
+                        {
+                            "transcription": "B IIII idvs",
+                            "rect": null,
+                            "top": 1864.9999847412118,
+                            "left": 814.1406250000011,
+                            "right": 1211.6406250000011,
+                            "bottom": 1974.4999847412118,
+                            "id": "Indexl9",
+                            "$$hashKey": "01C"
+                        },
+                        {
+                            "transcription": "C XIIII kalendas Eleucherij episcopi",
+                            "rect": null,
+                            "top": 1975.9999847412118,
+                            "left": 815.6406250000011,
+                            "right": 1624.1406250000011,
+                            "bottom": 2052.499984741212,
+                            "id": "Indexl10",
+                            "$$hashKey": "01E"
+                        },
+                        {
+                            "transcription": "D II idvs",
+                            "rect": null,
+                            "top": 2057.499977111817,
+                            "left": 790.1406250000013,
+                            "right": 1237.8906250000014,
+                            "bottom": 2122.749977111817,
+                            "id": "Indexl11",
+                            "$$hashKey": "01G"
+                        },
+                        {
+                            "transcription": "E idvs Eufemie virginis",
+                            "rect": null,
+                            "top": 2131.749977111817,
+                            "left": 828.3906250000013,
+                            "right": 1624.8906250000014,
+                            "bottom": 2223.999977111817,
+                            "id": "Indexl12",
+                            "$$hashKey": "01I"
+                        },
+                        {
+                            "transcription": "F XVIII kalendas Maij Tyburtij, Valeriani et Maximi",
+                            "rect": null,
+                            "top": 2192.499977111817,
+                            "left": 832.8906250000013,
+                            "right": 2518.906250000003,
+                            "bottom": 2306.1406097412087,
+                            "id": "Indexl13",
+                            "$$hashKey": "01K"
+                        },
+                        {
+                            "transcription": "G XVII kalendas",
+                            "rect": null,
+                            "top": 2275.749977111817,
+                            "left": 817.1406250000013,
+                            "right": 1213.1406250000014,
+                            "bottom": 2370.249977111817,
+                            "id": "Indexl14",
+                            "$$hashKey": "01M"
+                        },
+                        {
+                            "transcription": "A XVI kalendas",
+                            "rect": null,
+                            "top": 2343.249977111817,
+                            "left": 774.3906250000013,
+                            "right": 1190.6406250000014,
+                            "bottom": 2462.499977111817,
+                            "id": "Indexl15",
+                            "$$hashKey": "01O"
+                        },
+                        {
+                            "transcription": "B XV kalendas Petri diaconi",
+                            "rect": null,
+                            "top": 2424.249977111817,
+                            "left": 812.6406250000013,
+                            "right": 1710.3906250000014,
+                            "bottom": 2538.999977111817,
+                            "id": "Indexl16",
+                            "$$hashKey": "01Q"
+                        },
+                        {
+                            "transcription": "C XIIII kalendas Eleucherij episcopi",
+                            "rect": null,
+                            "top": 2520.999977111817,
+                            "left": 794.6406250000013,
+                            "right": 1737.3906250000014,
+                            "bottom": 2599.749977111817,
+                            "id": "Indexl17",
+                            "$$hashKey": "01S"
+                        },
+                        {
+                            "transcription": "D XIII kalendas",
+                            "rect": null,
+                            "top": 2588.499977111817,
+                            "left": 781.1406250000013,
+                            "right": 1215.3906250000014,
+                            "bottom": 2669.499977111817,
+                            "id": "Indexl18",
+                            "$$hashKey": "01U"
+                        },
+                        {
+                            "transcription": "E XII kalendas Senesij martyris",
+                            "rect": null,
+                            "top": 2671.749977111817,
+                            "left": 810.3906250000013,
+                            "right": 1602.3906250000014,
+                            "bottom": 2754.999977111817,
+                            "id": "Indexl19",
+                            "$$hashKey": "01W"
+                        },
+                        {
+                            "transcription": "F XI kalendas Symeonis episcopi",
+                            "rect": null,
+                            "top": 2741.499977111817,
+                            "left": 814.8906250000013,
+                            "right": 1717.1406250000014,
+                            "bottom": 2840.499977111817,
+                            "id": "Indexl20",
+                            "$$hashKey": "01Y"
+                        },
+                        {
+                            "transcription": "G X kalendas",
+                            "rect": null,
+                            "top": 2802.249977111817,
+                            "left": 805.8906250000013,
+                            "right": 1208.6406250000014,
+                            "bottom": 2912.499977111817,
+                            "id": "Indexl21",
+                            "$$hashKey": "020"
+                        },
+                        {
+                            "transcription": "A VIIII kalendas Georgij martyris",
+                            "rect": null,
+                            "top": 2889.999977111817,
+                            "left": 796.8906250000013,
+                            "right": 1627.1406250000014,
+                            "bottom": 3011.499977111817,
+                            "id": "Indexl22",
+                            "$$hashKey": "022"
+                        },
+                        {
+                            "transcription": "B VIII kalendas",
+                            "rect": null,
+                            "top": 2964.249977111817,
+                            "left": 796.8906250000013,
+                            "right": 1192.8906250000014,
+                            "bottom": 3085.749977111817,
+                            "id": "Indexl23",
+                            "$$hashKey": "024"
+                        },
+                        {
+                            "transcription": "C VII kalendas Marci ewangeliste",
+                            "rect": null,
+                            "top": 3068.869781494141,
+                            "left": 1980.2187500000034,
+                            "right": 819.4687500000038,
+                            "bottom": 3144.869781494141,
+                            "id": "Indexl24",
+                            "$$hashKey": "026"
+                        },
+                        {
+                            "transcription": "D VI kalendas Druperti confessoris",
+                            "rect": null,
+                            "top": 3138.869781494141,
+                            "left": 838.4687500000038,
+                            "right": 2060.6328125000036,
+                            "bottom": 3231.869781494141,
+                            "id": "Indexl25",
+                            "$$hashKey": "028"
+                        },
+                        {
+                            "transcription": "E V kalendas Cleti pape",
+                            "rect": null,
+                            "top": 3239.4999656677237,
+                            "left": 799.1406250000039,
+                            "right": 1605.7656250000039,
+                            "bottom": 3313.7499656677237,
+                            "id": "Indexl26",
+                            "$$hashKey": "02A"
+                        },
+                        {
+                            "transcription": "F IIII kalendas Vitalis matryris",
+                            "rect": null,
+                            "top": 3303.6249656677237,
+                            "left": 802.5156250000039,
+                            "right": 1599.0156250000039,
+                            "bottom": 3391.3749656677237,
+                            "id": "Indexl27",
+                            "$$hashKey": "02C"
+                        },
+                        {
+                            "transcription": "G III kalendas",
+                            "rect": null,
+                            "top": 3387.9999656677237,
+                            "left": 812.6406250000039,
+                            "right": 1217.6406250000039,
+                            "bottom": 3475.7499656677232,
+                            "id": "Indexl28",
+                            "$$hashKey": "02E"
+                        },
+                        {
+                            "transcription": "A II kalendas Quirini martyris",
+                            "rect": null,
+                            "top": 3475.7499656677232,
+                            "left": 789.0156250000039,
+                            "right": 1703.6406250000039,
+                            "bottom": 3593.8749656677232,
+                            "id": "Indexl29",
+                            "$$hashKey": "02G"
+                        }
+                    ],
+                    "id": "Index",
+                    "$$hashKey": "00C"
+                },
+                {
+                    "top": 2561.124965667725,
+                    "left": 2016.3906250000014,
+                    "right": 2823.0156250000014,
+                    "bottom": 3475.749965667725,
+                    "rect": null,
+                    "transcription": "",
+                    "lines": [
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 2968.7499771118155,
+                            "left": 2488.8906250000027,
+                            "right": 2623.8906250000027,
+                            "bottom": 3270.2499771118155,
+                            "id": "Area1l0",
+                            "$$hashKey": "02I"
+                        }
+                    ],
+                    "id": "Area1",
+                    "$$hashKey": "00E"
+                },
+                {
+                    "top": 1139.6874485015855,
+                    "left": 1884.2031250000034,
+                    "right": 2962.515625000004,
+                    "bottom": 2066.1249485015855,
+                    "rect": null,
+                    "transcription": "",
+                    "lines": [],
+                    "id": "Area2",
+                    "$$hashKey": "00G"
+                },
+                {
+                    "top": 809.7811727523796,
+                    "left": 912.2031250000027,
+                    "right": 1496.9218750000027,
+                    "bottom": 1204.6561727523797,
+                    "rect": null,
+                    "transcription": "",
+                    "lines": [],
+                    "id": "Area3",
+                    "$$hashKey": "00I"
+                },
+                {
+                    "top": 3317.1249656677237,
+                    "left": 2652.015625000004,
+                    "right": 2176.140625000004,
+                    "bottom": 3634.3749656677232,
+                    "rect": null,
+                    "transcription": "",
+                    "lines": [],
+                    "id": "Area4",
+                    "$$hashKey": "00K"
+                }
+            ],
+            "$$hashKey": "00M"
+        },
+        {
+            "width": 0,
+            "height": 0,
+            "title": "New Page",
+            "idSurface": "surface1",
+            "url": "http://www.e-codices.unifr.ch/manuscripts/max/csg-0402/csg-0402_005.jpg",
+            "areas": [
+                {
+                    "top": 1121.999948501586,
+                    "left": 592.8437499999995,
+                    "right": 2465.9687500000005,
+                    "bottom": 3794.9999485015865,
+                    "rect": null,
+                    "transcription": "",
+                    "lines": [
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 1152.374948501586,
+                            "left": 618.1562499999995,
+                            "right": 1914.1562500000002,
+                            "bottom": 1273.874948501586,
+                            "id": "Area0l0"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 1228.312448501586,
+                            "left": 602.9687499999995,
+                            "right": 1640.7812500000002,
+                            "bottom": 1329.562448501586,
+                            "id": "Area0l1"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 1314.374948501586,
+                            "left": 582.7187499999995,
+                            "right": 1726.8437500000002,
+                            "bottom": 1425.749948501586,
+                            "id": "Area0l2"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 1425.749948501586,
+                            "left": 592.8437499999995,
+                            "right": 2405.2187500000005,
+                            "bottom": 1526.999948501586,
+                            "id": "Area0l3"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 1476.374948501586,
+                            "left": 602.9687499999995,
+                            "right": 1007.9687499999997,
+                            "bottom": 1567.499948501586,
+                            "id": "Area0l4"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 1562.437448501586,
+                            "left": 592.8437499999995,
+                            "right": 1985.0312500000002,
+                            "bottom": 1658.624948501586,
+                            "id": "Area0l5"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 1633.312448501586,
+                            "left": 587.7812499999995,
+                            "right": 1002.9062499999997,
+                            "bottom": 1734.562448501586,
+                            "id": "Area0l6"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 1739.624948501586,
+                            "left": 577.6562499999995,
+                            "right": 1807.8437500000002,
+                            "bottom": 1820.624948501586,
+                            "id": "Area0l7"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 1810.499948501586,
+                            "left": 562.4687499999995,
+                            "right": 987.7187499999997,
+                            "bottom": 1886.437448501586,
+                            "id": "Area0l8"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 1886.437448501586,
+                            "left": 562.4687499999995,
+                            "right": 1018.0937499999997,
+                            "bottom": 1967.437448501586,
+                            "id": "Area0l9"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 1982.624948501586,
+                            "left": 592.8437499999995,
+                            "right": 1721.7812500000002,
+                            "bottom": 2073.749948501586,
+                            "id": "Area0l10"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 2048.437448501586,
+                            "left": 577.6562499999995,
+                            "right": 1428.1562499999995,
+                            "bottom": 2164.874948501586,
+                            "id": "Area0l11"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 2129.437448501586,
+                            "left": 577.6562499999995,
+                            "right": 1468.6562500000002,
+                            "bottom": 2220.562448501586,
+                            "id": "Area0l12"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 2220.562448501586,
+                            "left": 562.4687499999995,
+                            "right": 1412.9687499999995,
+                            "bottom": 2321.812448501586,
+                            "id": "Area0l13"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 2301.562448501586,
+                            "left": 597.9062499999995,
+                            "right": 957.3437499999997,
+                            "bottom": 2402.812448501586,
+                            "id": "Area0l14"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 2387.624948501586,
+                            "left": 602.9687499999995,
+                            "right": 1696.4687500000002,
+                            "bottom": 2453.437448501586,
+                            "id": "Area0l15"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 2448.374948501586,
+                            "left": 582.7187499999995,
+                            "right": 1574.9687500000002,
+                            "bottom": 2539.499948501586,
+                            "id": "Area0l16"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 2519.249948501586,
+                            "left": 587.7812499999995,
+                            "right": 962.4062499999997,
+                            "bottom": 2630.6249485015865,
+                            "id": "Area0l17"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 2610.3749485015865,
+                            "left": 597.9062499999995,
+                            "right": 1514.2187500000002,
+                            "bottom": 2701.4999485015865,
+                            "id": "Area0l18"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 2671.1249485015865,
+                            "left": 567.5312499999995,
+                            "right": 1007.9687499999997,
+                            "bottom": 2777.4374485015865,
+                            "id": "Area0l19"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 2747.0624485015865,
+                            "left": 562.4687499999995,
+                            "right": 982.6562499999997,
+                            "bottom": 2838.1874485015865,
+                            "id": "Area0l20"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 2838.1874485015865,
+                            "left": 562.4687499999995,
+                            "right": 1377.5312499999995,
+                            "bottom": 2954.6249485015865,
+                            "id": "Area0l21"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 2939.4374485015865,
+                            "left": 582.7187499999995,
+                            "right": 987.7187499999997,
+                            "bottom": 3010.3124485015865,
+                            "id": "Area0l22"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 3000.1874485015865,
+                            "left": 582.7187499999995,
+                            "right": 1397.7812499999995,
+                            "bottom": 3106.4999485015865,
+                            "id": "Area0l23"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 3101.4374485015865,
+                            "left": 562.4687499999995,
+                            "right": 1529.4062500000002,
+                            "bottom": 3207.7499485015865,
+                            "id": "Area0l24"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 3177.3749485015865,
+                            "left": 557.4062499999995,
+                            "right": 1018.0937499999997,
+                            "bottom": 3283.6874485015865,
+                            "id": "Area0l25"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 3258.3749485015865,
+                            "left": 587.7812499999995,
+                            "right": 1392.7187499999995,
+                            "bottom": 3349.4999485015865,
+                            "id": "Area0l26"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 3349.4999485015865,
+                            "left": 592.8437499999995,
+                            "right": 1544.5937500000002,
+                            "bottom": 3435.5624485015865,
+                            "id": "Area0l27"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 3430.4999485015865,
+                            "left": 567.5312499999995,
+                            "right": 1544.5937500000002,
+                            "bottom": 3516.5624485015865,
+                            "id": "Area0l28"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 3496.3124485015865,
+                            "left": 567.5312499999995,
+                            "right": 1023.1562499999997,
+                            "bottom": 3597.5624485015865,
+                            "id": "Area0l29"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 3582.3749485015865,
+                            "left": 562.4687499999995,
+                            "right": 1519.2812500000002,
+                            "bottom": 3683.6249485015865,
+                            "id": "Area0l30"
+                        }
+                    ],
+                    "id": "Area0"
+                }
+            ],
+            "$$hashKey": "00O"
+        },
+        {
+            "width": 0,
+            "height": 0,
+            "title": "New Page",
+            "idSurface": "surface1",
+            "url": "http://www.e-codices.unifr.ch/manuscripts/max/csg-0402/csg-0402_006.jpg",
+            "areas": [],
+            "$$hashKey": "00Q"
+        },
+        {
+            "width": 0,
+            "height": 0,
+            "title": "New Page",
+            "idSurface": "surface1",
+            "url": "http://www.e-codices.unifr.ch/manuscripts/max/csg-0402/csg-0402_007.jpg",
+            "areas": [],
+            "$$hashKey": "00S"
+        }
+    ],
+    "teiInfo": {
+        "title": "Sant Gallen, Stiftsbiliothek",
+        "publicationInformation": "Publication",
+        "sourceDesc": "Source Description"
+    }
+}

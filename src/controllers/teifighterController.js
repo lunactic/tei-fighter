@@ -522,7 +522,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 		};
 
 		console.log("Added new item "+$scope.listAreas.length);
-		area.id = "Text"+$scope.listAreas.length;
+		area.id = "Area"+$scope.listAreas.length;
 		area.addRect(rect);
 
 		// With this the list it's updated. Seems a bug of angular

@@ -9,7 +9,7 @@
 
 				<div ng-show="!havePages()">
 					<blockquote>
-						<p>There is no pages on the TEI fighter file yet! Click on 
+						<p>There are no pages on the TEI fighter file yet! Click on
 							<a href="#" ng-click="newModel()" data-toggle="modal" data-target="#newPageModal" >new page</a>
 							and add your first page.
 						</p>
@@ -90,7 +90,7 @@ Test!
 		<div class="col-md-6" id="transcription-side">
 			<div ng-show="areaSelected" class = "area-info" id="area-info">
 				<label>Area Id:</label><input type="text"  ng-model="areaSelected.id">
-				<!--<span ng-show="lineSelected"><label>Line Id:</label><input type="text"  ng-model="lineSelected.id"></span>-->
+				<span ng-show="lineSelected"><label>Line Id:</label><input type="text"  ng-model="lineSelected.id"></span>
 				<br>
 
 				ulx: {{areaSelected.left | number:0}} uly: {{areaSelected.top | number:0}} lrx: {{areaSelected.right | number:0}} lry: {{areaSelected.bottom| number:0}}

@@ -40,6 +40,8 @@ Area = function(topLeft, bottomRight) {
 
 	this.addLine = function(topLeft, bottomRight) {
 		var line  = new Line(topLeft, bottomRight);
+		var idLine = this.id+"l"+this.numLines();
+		line.id = idLine;
 		this.lines.push(line);
 	};
 

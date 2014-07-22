@@ -1,1 +1,81 @@
-{"listOfPages":[{"width":0,"height":0,"title":"New Page","idSurface":"surface1","url":"http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/006v.jpg","areas":[],"$$hashKey":"00A"},{"width":1258,"height":1903,"title":"New Page","idSurface":"surface1","url":"http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg","areas":[{"top":134,"left":45,"right":330,"bottom":1138,"rect":null,"transcription":"","lines":[{"transcription":"","rect":null,"top":149,"left":115,"right":269,"bottom":189,"$$hashKey":"00I"},{"transcription":"","rect":null,"top":190,"left":115,"right":303,"bottom":217,"$$hashKey":"00K"},{"transcription":"","rect":null,"top":222,"left":114,"right":271,"bottom":247,"$$hashKey":"00M"}],"id":"Text0","$$hashKey":"00E"},{"top":1131,"left":57,"right":713,"bottom":1737,"rect":null,"transcription":"","lines":[],"id":"Text1","$$hashKey":"00G"}],"$$hashKey":"00C"}],"teiInfo":{"title":"Title","publicationInformation":"Publication","sourceDesc":"Source Description"}}
+{
+    "listOfPages": [
+        {
+            "width": 1258,
+            "height": 1903,
+            "title": "New Page",
+            "idSurface": "surface1",
+            "url": "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/006v.jpg",
+            "areas": [],
+            "$$hashKey": "00C"
+        },
+        {
+            "width": 1258,
+            "height": 1903,
+            "title": "New Page",
+            "idSurface": "surface1",
+            "url": "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg",
+            "areas": [
+                {
+                    "top": 134,
+                    "left": 45,
+                    "right": 330,
+                    "bottom": 1138,
+                    "rect": null,
+                    "transcription": "",
+                    "lines": [
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 149,
+                            "left": 115,
+                            "right": 269,
+                            "bottom": 189,
+                            "id": "Area0l0",
+                            "$$hashKey": "00P"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 190,
+                            "left": 115,
+                            "right": 303,
+                            "bottom": 217,
+                            "id": "Area0l1",
+                            "$$hashKey": "00R"
+                        },
+                        {
+                            "transcription": "",
+                            "rect": null,
+                            "top": 222,
+                            "left": 114,
+                            "right": 271,
+                            "bottom": 247,
+                            "id": "Area0l2",
+                            "$$hashKey": "00T"
+                        }
+                    ],
+                    "id": "Area0",
+                    "$$hashKey": "00J"
+                },
+                {
+                    "top": 1131,
+                    "left": 57,
+                    "right": 713,
+                    "bottom": 1737,
+                    "rect": null,
+                    "transcription": "",
+                    "lines": [],
+                    "id": "Area1",
+                    "$$hashKey": "00L"
+                }
+            ],
+            "$$hashKey": "00E"
+        }
+    ],
+    "teiInfo": {
+        "title": "Title",
+        "publicationInformation": "Publication",
+        "sourceDesc": "Source Description"
+    }
+}

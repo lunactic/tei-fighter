@@ -68,16 +68,12 @@ mainController = function ($scope, $location,  $modal, teiService, questionServi
 
 	};
 
-
-	// exporting xml
-	$scope.generateXMLUrl = function() {
-
-		if (!teiService.teiModel) return;
-		var content = 'file content';
-		var cleanModel = jQuery.extend(cleanModel,teiService.teiModel);
+	// It clean drawing and other not useful information
+	var cleanModel = function(teiModel) {
+		var newModel = jQuery.extend(newModel, teiModel);
 
 		// Remove drawing stuff
-		cleanModel.listOfPages.forEach(function(page) {
+		newModel.listOfPages.forEach(function(page) {
 
 			page.areas.forEach(function(area) {
 				area.rect = null;
@@ -86,6 +82,16 @@ mainController = function ($scope, $location,  $modal, teiService, questionServi
 				});
 			});
 		});
+
+		return newModel;
+
+	};
+
+	// exporting xml
+	$scope.generateXMLUrl = function() {
+
+		if (!teiService.teiModel) return;
+		var content = 'file content';
 
 		var teiContent = generateTEI(teiService.teiModel);
 		teiContent = vkbeautify.xml(teiContent.outerHTML);
@@ -115,7 +121,9 @@ mainController = function ($scope, $location,  $modal, teiService, questionServi
 
 		if (!teiService.teiModel) return;
 		var content = 'file content';
-		var teiContent = JSON.stringify(teiModel);
+		var clean_model = cleanModel(teiModel)
+		var teiContent = JSON.stringify(clean_model);
+		teiContent = vkbeautify.json(teiContent);
 		var blob = new Blob([ teiContent ], { type : 'text/plain' });
 		$scope.jsonUrl = (window.URL || window.webkitURL).createObjectURL( blob );
 		$scope.jsonName = teiService.teiModel.teiInfo.title;
@@ -151,6 +159,11 @@ mainController = function ($scope, $location,  $modal, teiService, questionServi
 						var topLeft = {x:line.left, y:line.top};
 						var bottomRight = {x:line.right, y:line.bottom};
 						var modelLine = new Line(topLeft, bottomRight);
+
+						if (!line.id)
+							modelLine.id = area.id + "l"+l;
+						else
+							modelLine.id = line.id;
 						modelLine.transcription = line.transcription;
 						modelArea.lines.push(modelLine);
 					}
