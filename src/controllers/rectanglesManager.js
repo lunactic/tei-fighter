@@ -51,7 +51,9 @@ createRectanglesController = function(pTeifighterController,
 		var realTopLeft = view.getRealPoint(topLeft);
 		var realBottomright = view.getRealPoint(bottomRight);
 
-		teiFighterController.createArea(realTopLeft, realBottomright);
+		var area = teiFighterController.createArea(realTopLeft, realBottomright);
+
+
 		teiFighterController.update();
 		currentRect.remove();
 		currentRect = null;

@@ -528,6 +528,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 		// With this the list it's updated. Seems a bug of angular
 		// More info: http://jimhoskins.com/2012/12/17/angularjs-and-apply.html
 		$scope.listAreas.push(area);
+
 		return area;
 	};
 

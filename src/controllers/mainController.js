@@ -18,6 +18,11 @@ mainController = function ($scope, $location,  $modal, teiService, questionServi
         step: 0.1
     }
 
+		$scope.show_info = false;
+
+	$scope.showInfo = function(value) {
+		$scope.show_info = value;
+	}
 	// scope variables empty initialization
 	$scope.currentUrl = ""; // Current url of the page (for canvas)
 	//teiModel   = null; // reference to teiModel (service)

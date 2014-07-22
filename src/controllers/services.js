@@ -99,7 +99,6 @@ lineService = function($http,$q, $modal) {
 					"mode":"trolled"
 				};
 
-
 		var d = $q.defer();
 		var service_url = settings.server_url + ":" + settings.port +"/LineSeg/LineSeg";
 		console.log("Sending request", service_url, data_send);
