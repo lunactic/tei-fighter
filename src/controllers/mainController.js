@@ -177,7 +177,7 @@ mainController = function ($scope, $location,  $modal, teiService, questionServi
 				teiService.teiModel.listOfPages.push(modelPage);
 			}
 			$scope.data.changes = true;
-
+			$location.url($location.path());
 	};
 
 	$scope.loadJSONModel = function(model_url) {
