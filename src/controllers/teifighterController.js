@@ -55,6 +55,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 			}
 
 			if (currentPage < teiModel.listOfPages.length) {
+				$scope.listOfPages = teiModel.listOfPages;
 				console.log("Setting Page: " + currentPage);
 				$scope.setPage(currentPage);
 			}
@@ -77,7 +78,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 			//var testUrl = "http://digi.ub.uni-heidelberg.de/diglitData/image/cpg148/4/007v.jpg";
 
 		}
-		$scope.listOfPages = teiModel.listOfPages;
+
 		//$scope.setOpacity($scope.drawingOptions.opacity);
 	}
 
@@ -141,8 +142,8 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 
 		//Set the variables to the new page
 		$scope.currentUrl = cPage.url;
-		$scope.listAreas = cPage.areas;
-		$scope.pageInfo  = cPage;
+		$scope.$parent.listAreas = cPage.areas;
+		$scope.$parent.pageInfo  = cPage;
 		$scope.pageNumber = indexPage+1; // Page number starts by 1
 		$scope.data.canvasUrl = "#/?page="+indexPage;
 		//Remove the old rectangles

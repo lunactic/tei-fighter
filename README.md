@@ -1,4 +1,4 @@
-# TEI-Fighter: a TEI web application
+# <span class="brand">DivaDiaWT</span>: a TEI web application
 
 
 `TEI - Fighter` is a web framework for creating and editing `TEI` files. 

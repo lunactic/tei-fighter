@@ -20,7 +20,9 @@ body {
 	background-color: #EEF;
 }
 
-
+.brand {
+	font-variant: small-caps
+}
 #transcriptions {
 	background-color: #ABA;
 
