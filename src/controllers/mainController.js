@@ -34,14 +34,13 @@ mainController = function ($scope, $location,  $modal, teiService, questionServi
 	// Setting the current page variable for retrieve the page while editing
 	$scope.data = {};
 	$scope.data.canvasUrl = "#";
-
 	$scope.data.changes = false;
 
 	$scope.listOfPages = teiService.teiModel.listOfPages;
 
 	// Returns true if there is some model loaded
 	$scope.isModelLoaded = function() {
-		return teiService.teiModel.teiInfo != null;	
+		return teiService.teiModel.teiInfo != null;
 	};
 
 	$scope.newModel = function() {
@@ -245,7 +244,3 @@ mainController = function ($scope, $location,  $modal, teiService, questionServi
 
 	}
 };
-
-
-
-

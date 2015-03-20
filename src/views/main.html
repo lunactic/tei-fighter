@@ -13,7 +13,7 @@
 							and add your first page.
 						</p>
 					</blockquote>
-				</div>	
+				</div>
 				<div ng-show="havePages()">
 					<label for = "title">Page Title</label>
 					<input type="text" ng-model="pageInfo.title"><br>
@@ -69,7 +69,17 @@
 					<button type="button" class="btn btn-default" ng-click="selectOffsetController();">Move view</button>
 					<button type="button" class="btn btn-default" ng-click="selectRectanglesController();" >Create areas</button>
 					<button type="button" class="btn btn-default" ng-click="selectLinesController();" >Create lines</button>
-					<button type="button" class="btn btn-warning" ng-click="autoDetectLines()" ng-disabled="!areaSelected">Auto Lines</button>
+					<!--<button type="button" class="btn btn-warning" ng-click="autoDetectLines()" ng-disabled="!areaSelected">Auto Lines</button>-->
+					<div class="btn-group">
+						<button type="button" class="btn btn dropdown-toggle" data-toggle="dropdown" ng-disabled="!areaSelected">
+							Auto Lines<span class="caret"></span>
+							<span class="sr-only"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="javascript:void(0)" ng-click="autoDetectHistLines()" >Rectangular</a></li>
+							<li><a href="javascript:void(0)" ng-click="autoDetectGaborLines()" >Polygon (Slower!)</a></li>
+						</ul>
+					</div>
 					<div class="btn-group">
 						<button type="button" class="btn btn dropdown-toggle" data-toggle="dropdown">
 							Sort<span class="caret"></span>
