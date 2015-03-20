@@ -305,7 +305,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 			} else {
 				self.view.zoomOut();
 			}
-			// Then replace the correct point under the mouse 
+			// Then replace the correct point under the mouse
 			self.view.placePointAt(realP, viewP);
 			// Updates the scaling circles
 			self.resizeCircles.updateCircleSize();
@@ -702,9 +702,9 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 
 		}
 
-		var doStuff = function() {
+		var getLinesHist = function() {
 			//lineService.getAreaLines(
-			lineService.getLines(
+			lineService.getLinesHist(
 				$scope.currentUrl,
 				$scope.areaSelected.top,
 				$scope.areaSelected.left,
@@ -718,7 +718,7 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 						line.rect.remove();
 					line.rect = null;
 				});
-				$scope.areaSelected.linesFromList(result);
+				$scope.areaSelected.linesFromRectangularList(result);
 
 				var area = $scope.areaSelected;
 
@@ -732,12 +732,12 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 
 		if (hasTranscription) {
 			var conf = questionService.confirm("Please confirm recomputing autolines.", "Existing transcriptions of this text area will be removed if you recompute auto-lines.").then(function() {
-				doStuff();
+				getLinesHist();
 			});
 			return;
 		}
 
-		doStuff();
+		getLinesHist();
 
 	}
 
@@ -773,5 +773,3 @@ teifighterController = function ($scope, $location, $timeout,  teiService, lineS
 	}
 	$scope.init();
 }
-
-

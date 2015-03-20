@@ -2,61 +2,11 @@ lineService = function($http,$q, $modal) {
 
 
 	settings = {
-		server_url: "http://diufpc49",
-		port: 8088
+		server_url: "http://localhost",
+		port: 8080
 	}
 
-	var trolled = function(top, left, bottom, right) {
-		var height = bottom - top;
-		var N = 10;
-		var step = height/N;
-		var ctop = top;
-
-		var lines = [];
-
-		for (i = 0; i < N; ++i) {
-			lines.push({"top":ctop,
-									"bottom":ctop+step,
-									"left":left,
-									"right":right
-								 });
-			ctop += step;
-		}
-
-		return lines;
-	}
-
-	var getAreaLines = function(urlImage, top, left, bottom, right) {
-
-		/*	var data_send =
-					{
-						"url":urlImage,
-						"top":top,
-						"bottom": bottom,
-						"left":left,
-						"right":right,
-						"mode":"trolled"
-					}
-
-		  $http({
-				method: 'POST',
-				data: data_send,
-			}).success(data) {
-				console.log("The lines are successful", data);
-
-			}
-		*/
-		var lines = trolled(top,left,bottom, right);
-		var d = $q.defer();
-		d.resolve(lines);
-
-		return d.promise;
-
-
-
-	};
-
-	var getWords = function(urlImage, top, left, bottom, right) {
+	var getLinesHist = function(urlImage, top, left, bottom, right) {
 
 		var data_send =
 				{
@@ -65,42 +15,10 @@ lineService = function($http,$q, $modal) {
 					"bottom": bottom,
 					"left":left,
 					"right":right,
-					"mode":"trolled"
-				};
-
-
-		var d = $q.defer();
-		var service_url = settings.server_url + ":" + settings.port +"/webapi/word/segment";
-		console.log("Sending request", service_url, data_send);
-		$http({
-			method: 'POST',
-			url: service_url,
-			data: data_send,
-		}).success(function(data) {
-			console.log("The words are successful", data);
-			d.resolve(data);
-		}).error(function(data, status) {
-			console.log("Something is wrong", data, status);
-		});
-
-		return d.promise;
-
-	};
-
-	var getLines = function(urlImage, top, left, bottom, right) {
-
-		var data_send =
-				{
-					"url":urlImage,
-					"top":top,
-					"bottom": bottom,
-					"left":left,
-					"right":right,
-					"mode":"trolled"
 				};
 
 		var d = $q.defer();
-		var service_url = settings.server_url + ":" + settings.port +"/LineSeg/LineSeg";
+		var service_url = settings.server_url + ":" + settings.port +"/segmentation/textline/hist";
 		console.log("Sending request", service_url, data_send);
 		$http({
 			method: 'POST',
@@ -118,9 +36,7 @@ lineService = function($http,$q, $modal) {
 	};
 
 	return {
-		getAreaLines: getAreaLines,
-		getWords: getWords,
-		getLines: getLines
+		getLinesHist: getLinesHist
 	}
 
 
@@ -193,6 +109,3 @@ questionService = function($modal) {
 		confirm: confirm
 	}
 }
-
-
-

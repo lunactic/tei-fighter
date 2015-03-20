@@ -45,10 +45,10 @@ Area = function(topLeft, bottomRight) {
 		this.lines.push(line);
 	};
 
-	this.linesFromList = function(lines) {
+	this.linesFromRectangularList = function(lines) {
 		this.lines = [];
 		var self = this;
-		lines.forEach(function(line) {
+		lines.textlines.forEach(function(line) {
 			var topLeft = {x:line.left, y:line.top};
 			var bottomRight = {x:line.right, y:line.bottom};
 			self.addLine(topLeft, bottomRight);
@@ -85,4 +85,3 @@ Line = function(topLeft, bottomRight) {
 }
 Area.prototype = Rectangle.prototype;
 Line.prototype = Rectangle.prototype;
-
